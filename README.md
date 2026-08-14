@@ -46,10 +46,12 @@ codex plugin marketplace add https://github.com/vnzzzz/agent-skills.git --json
 codex plugin add agent-skills@vnzzzz-agent-skills --json
 ```
 
-marketplaceを更新する場合は次を実行します。
+最新Pluginへ更新する場合はmarketplaceを更新した後、installed copyを再導入します。
 
 ```bash
 codex plugin marketplace upgrade vnzzzz-agent-skills --json
+codex plugin remove agent-skills@vnzzzz-agent-skills --json
+codex plugin add agent-skills@vnzzzz-agent-skills --json
 ```
 
 ### Claude Code
@@ -73,4 +75,8 @@ claude plugin update agent-skills@vnzzzz-agent-skills --scope user
 Skill固有の追加resourceが必要な場合は、そのSkill directory内に自己完結する形で配置します。
 
 Codex / Claude Code固有のPlugin metadataへSkill本文やSkill一覧を複製しません。
+両Plugin manifestの`name`、`version`、`description`は同じ値を保ちます。
+`plugins/agent-skills/`配下のSkill本文またはPlugin metadataを変更する場合は、両manifestの`version`を同じsemverへ更新します。
+Codexのinstalled copyはversionをcachebusterとして利用するため、consumerはmarketplace更新後にPluginを再導入します。
+
 Plugin metadataの整合性と実CLIでの横断検証は`agent-skills-development`で行います。
