@@ -35,6 +35,7 @@ public repositoryのHTTPS取得にはGitHub認証情報を要求しません。
 利用環境にはGitHubへの外向きHTTPS通信と`git`が必要です。
 
 認証方式への暗黙依存を避けるため、自動化ではGitHub shorthandではなくHTTPS Git URLを使用します。
+marketplace名はthird-party用の`vnzzzz-agent-skills`、Plugin名は`agent-skills`とします。
 
 ### Codex
 
@@ -42,13 +43,13 @@ Codex CLIではmarketplaceを追加し、Pluginを導入します。
 
 ```bash
 codex plugin marketplace add https://github.com/vnzzzz/agent-skills.git --json
-codex plugin add agent-skills@agent-skills --json
+codex plugin add agent-skills@vnzzzz-agent-skills --json
 ```
 
 marketplaceを更新する場合は次を実行します。
 
 ```bash
-codex plugin marketplace upgrade agent-skills --json
+codex plugin marketplace upgrade vnzzzz-agent-skills --json
 ```
 
 ### Claude Code
@@ -57,14 +58,14 @@ Claude Codeでは同じGitHub repositoryをmarketplaceとして追加し、Plugi
 
 ```bash
 claude plugin marketplace add https://github.com/vnzzzz/agent-skills.git --scope user
-claude plugin install agent-skills@agent-skills --scope user
+claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 ```
 
 更新する場合は次を実行します。
 
 ```bash
-claude plugin marketplace update agent-skills
-claude plugin update agent-skills@agent-skills --scope user
+claude plugin marketplace update vnzzzz-agent-skills
+claude plugin update agent-skills@vnzzzz-agent-skills --scope user
 ```
 
 ## Development
