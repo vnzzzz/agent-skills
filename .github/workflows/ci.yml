@@ -29,9 +29,20 @@ jobs:
             if git cat-file -e "$BASE_SHA:plugins/agent-skills/.codex-plugin/plugin.json" 2>/dev/null; then
               base_version=$(git show "$BASE_SHA:plugins/agent-skills/.codex-plugin/plugin.json" | python3 -c 'import json,sys; print(json.load(sys.stdin)["version"])')
               head_version=$(python3 -c 'import json; print(json.load(open("plugins/agent-skills/.codex-plugin/plugin.json"))["version"])')
-              if [[ "$base_version" == "$head_version" ]]; then
-                echo "Plugin package changed without a version bump: $head_version" >&2
-                exit 1
-              fi
+              python3 - "$base_version" "$head_version" <<'PY'
+          import re
+          import sys
+
+          pattern = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
+          base_text, head_text = sys.argv[1:]
+          base_match = pattern.fullmatch(base_text)
+          head_match = pattern.fullmatch(head_text)
+          if not base_match or not head_match:
+              raise SystemExit(f"Plugin versions must be strict semver: {base_text} -> {head_text}")
+          base = tuple(map(int, base_match.groups()))
+          head = tuple(map(int, head_match.groups()))
+          if head <= base:
+              raise SystemExit(f"Plugin version must increase: {base_text} -> {head_text}")
+          PY
             fi
           fi
