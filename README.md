@@ -21,7 +21,3 @@ agent-skills/
 このrepositoryを利用するconsumerは、必要な再現性に応じて特定のGit revisionを固定して利用します。shared側の変更だけでconsumerの利用内容が意図せず変わる構成にはしません。
 
 Skill固有の追加resourceが必要な場合は、そのSkill directory内に自己完結する形で配置します。
-
-## Development policy
-
-開発時のrepository rulesは[`AGENTS.md`](./AGENTS.md)を参照してください。CI、release、contribution運用などは、実際に必要になった時点で追加します。
