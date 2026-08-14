@@ -1,0 +1,14 @@
+{
+  "name": "vnzzzz-agent-skills",
+  "description": "Reusable, vendor-neutral Agent Skills by vnzzzz.",
+  "owner": {
+    "name": "vnzzzz"
+  },
+  "plugins": [
+    {
+      "name": "agent-skills",
+      "source": "./plugins/agent-skills",
+      "description": "Reusable, vendor-neutral Agent Skills."
+    }
+  ]
+}
