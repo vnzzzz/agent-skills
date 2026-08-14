@@ -5,55 +5,58 @@
 ## Scope
 
 - 特定のproductやconsumerに依存しない、再利用可能なSkillを管理します。
-- Skill本文の正本はcollection形式の`skills/<skill-name>/SKILL.md`です。
-- Codex / Claude Code向けPlugin metadataは同じ`skills/`を配布するadapterとして管理します。
+- Skill本文の正本は`plugins/agent-skills/skills/<skill-name>/SKILL.md`です。
+- Codex / Claude Code向けPlugin metadataは同じ`plugins/agent-skills`を配布するadapterとして管理します。
 - consumer固有の設定、用語、path、運用ルール、overlayは各consumer repositoryで管理します。
 - Skillの開発環境や横断的な検証手順は`agent-skills-development`側で扱います。
 
 ```text
 agent-skills/
 ├── .agents/plugins/marketplace.json
-├── .codex-plugin/plugin.json
-├── .claude-plugin/
-│   ├── marketplace.json
-│   └── plugin.json
-└── skills/
-    └── <skill-name>/
-        └── SKILL.md
+├── .claude-plugin/marketplace.json
+└── plugins/
+    └── agent-skills/
+        ├── .codex-plugin/plugin.json
+        ├── .claude-plugin/plugin.json
+        └── skills/
+            └── <skill-name>/
+                └── SKILL.md
 ```
 
-Plugin metadataに個別Skill名を列挙しません。
-`skills/`へSkillを追加すると、同じPlugin packageからCodex / Claude Codeの双方へ配布されます。
+両marketplaceは同じ`./plugins/agent-skills`を指します。
+Plugin metadataに個別Skill名を列挙しないため、`plugins/agent-skills/skills/`へSkillを追加してもconsumer側の設定変更は不要です。
 
 ## Distribution
 
-配布元はpublic GitHub repository `vnzzzz/agent-skills`です。
+配布元はpublic GitHub repository `vnzzzz/agent-skills`だけです。
 Universal Plugin Directory、Anthropic公式marketplace、npm等の別registryへの公開は必須としません。
 
 public repositoryのHTTPS取得にはGitHub認証情報を要求しません。
-利用環境にはGitHubへの外向きHTTPS通信が必要です。
+利用環境にはGitHubへの外向きHTTPS通信と`git`が必要です。
+
+認証方式への暗黙依存を避けるため、自動化ではGitHub shorthandではなくHTTPS Git URLを使用します。
 
 ### Codex
 
 Codex CLIではmarketplaceを追加し、Pluginを導入します。
 
 ```bash
-codex plugin marketplace add vnzzzz/agent-skills
-codex plugin add agent-skills@agent-skills
+codex plugin marketplace add https://github.com/vnzzzz/agent-skills.git --json
+codex plugin add agent-skills@agent-skills --json
 ```
 
 marketplaceを更新する場合は次を実行します。
 
 ```bash
-codex plugin marketplace upgrade agent-skills
+codex plugin marketplace upgrade agent-skills --json
 ```
 
 ### Claude Code
 
-Claude Codeでは同じGitHub repositoryをmarketplaceとして追加し、Pluginを導入します。
+Claude Codeでは同じGitHub repositoryをmarketplaceとして追加し、Pluginをuser scopeへ導入します。
 
 ```bash
-claude plugin marketplace add vnzzzz/agent-skills --scope user
+claude plugin marketplace add https://github.com/vnzzzz/agent-skills.git --scope user
 claude plugin install agent-skills@agent-skills --scope user
 ```
 
