@@ -8,6 +8,7 @@
 - Skillはcollection形式で`skills/<skill-name>/SKILL.md`に配置します。
 - Claude CodeやCodexなど、複数のAgentから利用できるportableなSkillを基本とします。
 - consumer固有の設定、用語、path、運用ルール、overlayは各consumer repositoryで管理します。
+- Skillの開発環境や横断的な検証手順はこのrepositoryでは管理せず、`agent-skills-development`側で扱います。
 
 ```text
 agent-skills/
