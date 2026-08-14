@@ -2,5 +2,19 @@
   "name": "agent-skills",
   "version": "0.1.0",
   "description": "Reusable, vendor-neutral Agent Skills.",
-  "skills": "./skills/"
+  "author": {
+    "name": "vnzzzz"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "agent-skills",
+    "shortDescription": "Reusable Agent Skills",
+    "longDescription": "Reusable, vendor-neutral Agent Skills for development workflows.",
+    "developerName": "vnzzzz",
+    "category": "Developer Tools",
+    "capabilities": ["Skills"],
+    "defaultPrompt": [
+      "Use the relevant reusable Agent Skill for this task."
+    ]
+  }
 }
