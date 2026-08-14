@@ -12,7 +12,7 @@
     "longDescription": "Reusable, vendor-neutral Agent Skills for development workflows.",
     "developerName": "vnzzzz",
     "category": "Developer Tools",
-    "capabilities": ["Skills"],
+    "capabilities": [],
     "defaultPrompt": [
       "Use the relevant reusable Agent Skill for this task."
     ]
