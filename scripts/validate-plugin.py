@@ -57,11 +57,14 @@ def main() -> int:
         "longDescription",
         "developerName",
         "category",
-        "capabilities",
-        "defaultPrompt",
     ):
-        if not interface.get(field):
-            fail(f"Codex manifest interface.{field} is required")
+        if not isinstance(interface.get(field), str) or not interface[field]:
+            fail(f"Codex manifest interface.{field} must be a non-empty string")
+    if not isinstance(interface.get("capabilities"), list):
+        fail("Codex manifest interface.capabilities must be an array")
+    default_prompt = interface.get("defaultPrompt")
+    if not isinstance(default_prompt, list) or not default_prompt:
+        fail("Codex manifest interface.defaultPrompt must be a non-empty array")
 
     codex_marketplace = load(CODEX_MARKETPLACE)
     claude_marketplace = load(CLAUDE_MARKETPLACE)
