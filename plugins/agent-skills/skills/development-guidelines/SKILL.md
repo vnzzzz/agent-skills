@@ -1,6 +1,6 @@
 ---
 name: development-guidelines
-description: 新機能・バグ修正・リファクタリングの実装またはレビューで、必要十分な最小実装を選び、過剰な抽象化・将来向け機能・不要な後方互換性を避けるときに使用する。要件自体の妥当性はproduct-thinking、コードコメントの判断はreadable-codeを利用する。
+description: 新機能・バグ修正・リファクタリングの実装またはレビューで、現在の要件を満たす最も単純な設計を選び、過剰な抽象化・将来向け機能・不要な後方互換性を避けるときに使用する。
 ---
 
 # Development Guidelines
