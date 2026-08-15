@@ -1,0 +1,2411 @@
+{
+  "title": "complex-system-architecture",
+  "pages": [
+    {
+      "id": "page_1",
+      "name": "System Architecture",
+      "width": 1786.0,
+      "height": 460.0,
+      "nodes": [
+        {
+          "id": "page_1_shape_1",
+          "label": "Internet\nUsers",
+          "shape": "ellipse",
+          "x": 0.0,
+          "y": 80.0,
+          "width": 140.0,
+          "height": 70.0,
+          "rotation": 0.0,
+          "z": 0,
+          "style": {
+            "fill": "#e2e8f0",
+            "stroke": "#64748b",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "1",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 0,
+                "colOff": 0,
+                "row": 4,
+                "rowOff": 0
+              },
+              "cx": 1333500,
+              "cy": 666750
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_2",
+          "label": "DNS / CDN",
+          "shape": "cloud",
+          "x": 192.0,
+          "y": 80.0,
+          "width": 150.0,
+          "height": 80.0,
+          "rotation": 0.0,
+          "z": 1,
+          "style": {
+            "fill": "#dae8fc",
+            "stroke": "#6c8ebf",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "2",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 3,
+                "colOff": 0,
+                "row": 4,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 762000
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_3",
+          "label": "WAF",
+          "shape": "hexagon",
+          "x": 384.0,
+          "y": 80.0,
+          "width": 140.0,
+          "height": 80.0,
+          "rotation": 0.0,
+          "z": 2,
+          "style": {
+            "fill": "#f8cecc",
+            "stroke": "#b85450",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "3",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 6,
+                "colOff": 0,
+                "row": 4,
+                "rowOff": 0
+              },
+              "cx": 1333500,
+              "cy": 762000
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_4",
+          "label": "Public\nLoad Balancer",
+          "shape": "roundRect",
+          "x": 576.0,
+          "y": 80.0,
+          "width": 150.0,
+          "height": 80.0,
+          "rotation": 0.0,
+          "z": 3,
+          "style": {
+            "fill": "#fff2cc",
+            "stroke": "#d6b656",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "4",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 9,
+                "colOff": 0,
+                "row": 4,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 762000
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_5",
+          "label": "Web App A",
+          "shape": "roundRect",
+          "x": 768.0,
+          "y": 20.0,
+          "width": 150.0,
+          "height": 70.0,
+          "rotation": 0.0,
+          "z": 4,
+          "style": {
+            "fill": "#d5e8d4",
+            "stroke": "#82b366",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "5",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 12,
+                "colOff": 0,
+                "row": 1,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 666750
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_6",
+          "label": "Web App B",
+          "shape": "roundRect",
+          "x": 768.0,
+          "y": 140.0,
+          "width": 150.0,
+          "height": 70.0,
+          "rotation": 0.0,
+          "z": 5,
+          "style": {
+            "fill": "#d5e8d4",
+            "stroke": "#82b366",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "6",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 12,
+                "colOff": 0,
+                "row": 7,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 666750
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_7",
+          "label": "API Service",
+          "shape": "rect",
+          "x": 1024.0,
+          "y": 80.0,
+          "width": 160.0,
+          "height": 80.0,
+          "rotation": 0.0,
+          "z": 6,
+          "style": {
+            "fill": "#d5e8d4",
+            "stroke": "#82b366",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "7",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 16,
+                "colOff": 0,
+                "row": 4,
+                "rowOff": 0
+              },
+              "cx": 1524000,
+              "cy": 762000
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_8",
+          "label": "Redis Cache",
+          "shape": "can",
+          "x": 1280.0,
+          "y": 20.0,
+          "width": 150.0,
+          "height": 80.0,
+          "rotation": 0.0,
+          "z": 7,
+          "style": {
+            "fill": "#e1d5e7",
+            "stroke": "#9673a6",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "8",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 20,
+                "colOff": 0,
+                "row": 1,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 762000
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_9",
+          "label": "PostgreSQL\nPrimary",
+          "shape": "can",
+          "x": 1280.0,
+          "y": 120.0,
+          "width": 160.0,
+          "height": 90.0,
+          "rotation": 0.0,
+          "z": 8,
+          "style": {
+            "fill": "#e1d5e7",
+            "stroke": "#9673a6",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "9",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 20,
+                "colOff": 0,
+                "row": 6,
+                "rowOff": 0
+              },
+              "cx": 1524000,
+              "cy": 857250
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_10",
+          "label": "Message Queue",
+          "shape": "rect",
+          "x": 1024.0,
+          "y": 200.0,
+          "width": 160.0,
+          "height": 70.0,
+          "rotation": 0.0,
+          "z": 9,
+          "style": {
+            "fill": "#ffe6cc",
+            "stroke": "#d79b00",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "10",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 16,
+                "colOff": 0,
+                "row": 10,
+                "rowOff": 0
+              },
+              "cx": 1524000,
+              "cy": 666750
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_11",
+          "label": "Async Worker",
+          "shape": "rect",
+          "x": 1280.0,
+          "y": 200.0,
+          "width": 150.0,
+          "height": 80.0,
+          "rotation": 0.0,
+          "z": 10,
+          "style": {
+            "fill": "#ffe6cc",
+            "stroke": "#d79b00",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "11",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 20,
+                "colOff": 0,
+                "row": 10,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 762000
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_12",
+          "label": "Object Storage",
+          "shape": "can",
+          "x": 1280.0,
+          "y": 280.0,
+          "width": 160.0,
+          "height": 80.0,
+          "rotation": 0.0,
+          "z": 11,
+          "style": {
+            "fill": "#e1d5e7",
+            "stroke": "#9673a6",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "12",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 20,
+                "colOff": 0,
+                "row": 14,
+                "rowOff": 0
+              },
+              "cx": 1524000,
+              "cy": 762000
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_13",
+          "label": "Identity Provider",
+          "shape": "hexagon",
+          "x": 576.0,
+          "y": 200.0,
+          "width": 150.0,
+          "height": 70.0,
+          "rotation": 0.0,
+          "z": 12,
+          "style": {
+            "fill": "#f8cecc",
+            "stroke": "#b85450",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "13",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 9,
+                "colOff": 0,
+                "row": 10,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 666750
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_14",
+          "label": "Administrators",
+          "shape": "ellipse",
+          "x": 384.0,
+          "y": 280.0,
+          "width": 140.0,
+          "height": 70.0,
+          "rotation": 0.0,
+          "z": 13,
+          "style": {
+            "fill": "#e2e8f0",
+            "stroke": "#64748b",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "14",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 6,
+                "colOff": 0,
+                "row": 14,
+                "rowOff": 0
+              },
+              "cx": 1333500,
+              "cy": 666750
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_15",
+          "label": "Observability",
+          "shape": "roundRect",
+          "x": 1536.0,
+          "y": 200.0,
+          "width": 170.0,
+          "height": 70.0,
+          "rotation": 0.0,
+          "z": 14,
+          "style": {
+            "fill": "#dae8fc",
+            "stroke": "#6c8ebf",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "15",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 24,
+                "colOff": 0,
+                "row": 10,
+                "rowOff": 0
+              },
+              "cx": 1619250,
+              "cy": 666750
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_16",
+          "label": "Alerting",
+          "shape": "diamond",
+          "x": 1536.0,
+          "y": 300.0,
+          "width": 150.0,
+          "height": 80.0,
+          "rotation": 0.0,
+          "z": 15,
+          "style": {
+            "fill": "#f8cecc",
+            "stroke": "#b85450",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "16",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 24,
+                "colOff": 0,
+                "row": 15,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 762000
+            }
+          }
+        },
+        {
+          "id": "page_1_shape_17",
+          "label": "Secrets Manager",
+          "shape": "can",
+          "x": 1024.0,
+          "y": 0.0,
+          "width": 150.0,
+          "height": 65.0,
+          "rotation": 0.0,
+          "z": 16,
+          "style": {
+            "fill": "#fff2cc",
+            "stroke": "#d6b656",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "17",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 16,
+                "colOff": 0,
+                "row": 0,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 619125
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "page_1_edge_18",
+          "source": "page_1_shape_1",
+          "target": "page_1_shape_2",
+          "label": "HTTPS",
+          "points": [
+            [
+              128.0,
+              120.0
+            ],
+            [
+              192.0,
+              122.0
+            ]
+          ],
+          "z": 17,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "18",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 2,
+                "colOff": 0,
+                "row": 6,
+                "rowOff": 0
+              },
+              "cx": 609600,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_19",
+          "source": "page_1_shape_2",
+          "target": "page_1_shape_3",
+          "label": "",
+          "points": [
+            [
+              320.0,
+              120.0
+            ],
+            [
+              384.0,
+              122.0
+            ]
+          ],
+          "z": 18,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "19",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 5,
+                "colOff": 0,
+                "row": 6,
+                "rowOff": 0
+              },
+              "cx": 609600,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_20",
+          "source": "page_1_shape_3",
+          "target": "page_1_shape_4",
+          "label": "",
+          "points": [
+            [
+              512.0,
+              120.0
+            ],
+            [
+              576.0,
+              122.0
+            ]
+          ],
+          "z": 19,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "20",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 8,
+                "colOff": 0,
+                "row": 6,
+                "rowOff": 0
+              },
+              "cx": 609600,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_21",
+          "source": "page_1_shape_4",
+          "target": "page_1_shape_5",
+          "label": "route",
+          "points": [
+            [
+              704.0,
+              120.0
+            ],
+            [
+              768.0,
+              60.0
+            ]
+          ],
+          "z": 20,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "21",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 11,
+                "colOff": 0,
+                "row": 3,
+                "rowOff": 0
+              },
+              "cx": 609600,
+              "cy": 571500
+            },
+            "preset": "lineInv",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_22",
+          "source": "page_1_shape_4",
+          "target": "page_1_shape_6",
+          "label": "route",
+          "points": [
+            [
+              704.0,
+              120.0
+            ],
+            [
+              768.0,
+              180.0
+            ]
+          ],
+          "z": 21,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "22",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 11,
+                "colOff": 0,
+                "row": 6,
+                "rowOff": 0
+              },
+              "cx": 609600,
+              "cy": 571500
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_23",
+          "source": "page_1_shape_5",
+          "target": "page_1_shape_7",
+          "label": "REST",
+          "points": [
+            [
+              896.0,
+              60.0
+            ],
+            [
+              1024.0,
+              120.0
+            ]
+          ],
+          "z": 22,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "23",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 14,
+                "colOff": 0,
+                "row": 3,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 571500
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_24",
+          "source": "page_1_shape_6",
+          "target": "page_1_shape_7",
+          "label": "REST",
+          "points": [
+            [
+              896.0,
+              180.0
+            ],
+            [
+              1024.0,
+              120.0
+            ]
+          ],
+          "z": 23,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "24",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 14,
+                "colOff": 0,
+                "row": 6,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 571500
+            },
+            "preset": "lineInv",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_25",
+          "source": "page_1_shape_7",
+          "target": "page_1_shape_8",
+          "label": "cache",
+          "points": [
+            [
+              1152.0,
+              120.0
+            ],
+            [
+              1280.0,
+              60.0
+            ]
+          ],
+          "z": 24,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "25",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 18,
+                "colOff": 0,
+                "row": 3,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 571500
+            },
+            "preset": "lineInv",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_26",
+          "source": "page_1_shape_7",
+          "target": "page_1_shape_9",
+          "label": "SQL",
+          "points": [
+            [
+              1152.0,
+              120.0
+            ],
+            [
+              1280.0,
+              160.0
+            ]
+          ],
+          "z": 25,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "26",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 18,
+                "colOff": 0,
+                "row": 6,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 381000
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_27",
+          "source": "page_1_shape_7",
+          "target": "page_1_shape_10",
+          "label": "events",
+          "points": [
+            [
+              1088.0,
+              160.0
+            ],
+            [
+              1090.0,
+              220.0
+            ]
+          ],
+          "z": 26,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": true,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "27",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 17,
+                "colOff": 0,
+                "row": 8,
+                "rowOff": 0
+              },
+              "cx": 19050,
+              "cy": 571500
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_28",
+          "source": "page_1_shape_10",
+          "target": "page_1_shape_11",
+          "label": "consume",
+          "points": [
+            [
+              1152.0,
+              240.0
+            ],
+            [
+              1280.0,
+              242.0
+            ]
+          ],
+          "z": 27,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": true,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "28",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 18,
+                "colOff": 0,
+                "row": 12,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_29",
+          "source": "page_1_shape_11",
+          "target": "page_1_shape_9",
+          "label": "write",
+          "points": [
+            [
+              1344.0,
+              260.0
+            ],
+            [
+              1346.0,
+              160.0
+            ]
+          ],
+          "z": 28,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "29",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 21,
+                "colOff": 0,
+                "row": 8,
+                "rowOff": 0
+              },
+              "cx": 19050,
+              "cy": 952500
+            },
+            "preset": "lineInv",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_30",
+          "source": "page_1_shape_11",
+          "target": "page_1_shape_12",
+          "label": "objects",
+          "points": [
+            [
+              1344.0,
+              260.0
+            ],
+            [
+              1346.0,
+              300.0
+            ]
+          ],
+          "z": 29,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "30",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 21,
+                "colOff": 0,
+                "row": 13,
+                "rowOff": 0
+              },
+              "cx": 19050,
+              "cy": 381000
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_31",
+          "source": "page_1_shape_13",
+          "target": "page_1_shape_4",
+          "label": "OIDC",
+          "points": [
+            [
+              640.0,
+              260.0
+            ],
+            [
+              642.0,
+              160.0
+            ]
+          ],
+          "z": 30,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "31",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 10,
+                "colOff": 0,
+                "row": 8,
+                "rowOff": 0
+              },
+              "cx": 19050,
+              "cy": 952500
+            },
+            "preset": "lineInv",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_32",
+          "source": "page_1_shape_14",
+          "target": "page_1_shape_13",
+          "label": "SSO",
+          "points": [
+            [
+              448.0,
+              300.0
+            ],
+            [
+              576.0,
+              240.0
+            ]
+          ],
+          "z": 31,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "32",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 7,
+                "colOff": 0,
+                "row": 12,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 571500
+            },
+            "preset": "lineInv",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_33",
+          "source": "page_1_shape_7",
+          "target": "page_1_shape_17",
+          "label": "secret",
+          "points": [
+            [
+              1088.0,
+              100.0
+            ],
+            [
+              1090.0,
+              40.0
+            ]
+          ],
+          "z": 32,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": true,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "33",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 17,
+                "colOff": 0,
+                "row": 2,
+                "rowOff": 0
+              },
+              "cx": 19050,
+              "cy": 571500
+            },
+            "preset": "lineInv",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_34",
+          "source": "page_1_shape_7",
+          "target": "page_1_shape_15",
+          "label": "metrics",
+          "points": [
+            [
+              1152.0,
+              160.0
+            ],
+            [
+              1536.0,
+              240.0
+            ]
+          ],
+          "z": 33,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": true,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "34",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 18,
+                "colOff": 0,
+                "row": 8,
+                "rowOff": 0
+              },
+              "cx": 3657600,
+              "cy": 762000
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_35",
+          "source": "page_1_shape_9",
+          "target": "page_1_shape_15",
+          "label": "metrics",
+          "points": [
+            [
+              1408.0,
+              180.0
+            ],
+            [
+              1536.0,
+              260.0
+            ]
+          ],
+          "z": 34,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": true,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "35",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 22,
+                "colOff": 0,
+                "row": 9,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 762000
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_36",
+          "source": "page_1_shape_11",
+          "target": "page_1_shape_15",
+          "label": "logs",
+          "points": [
+            [
+              1408.0,
+              240.0
+            ],
+            [
+              1536.0,
+              242.0
+            ]
+          ],
+          "z": 35,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": true,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "36",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 22,
+                "colOff": 0,
+                "row": 12,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_1_edge_37",
+          "source": "page_1_shape_15",
+          "target": "page_1_shape_16",
+          "label": "notify",
+          "points": [
+            [
+              1600.0,
+              260.0
+            ],
+            [
+              1602.0,
+              320.0
+            ]
+          ],
+          "z": 36,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing1.xml",
+            "excel_shape_id": "37",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 25,
+                "colOff": 0,
+                "row": 13,
+                "rowOff": 0
+              },
+              "cx": 19050,
+              "cy": 571500
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "id": "page_2",
+      "name": "DR and Operations",
+      "width": 1446.0,
+      "height": 420.0,
+      "nodes": [
+        {
+          "id": "page_2_shape_1",
+          "label": "Operator",
+          "shape": "ellipse",
+          "x": 0.0,
+          "y": 100.0,
+          "width": 140.0,
+          "height": 70.0,
+          "rotation": 0.0,
+          "z": 0,
+          "style": {
+            "fill": "#e2e8f0",
+            "stroke": "#64748b",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "1",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 0,
+                "colOff": 0,
+                "row": 5,
+                "rowOff": 0
+              },
+              "cx": 1333500,
+              "cy": 666750
+            }
+          }
+        },
+        {
+          "id": "page_2_shape_2",
+          "label": "Recovery\nRunbook",
+          "shape": "rect",
+          "x": 192.0,
+          "y": 100.0,
+          "width": 150.0,
+          "height": 80.0,
+          "rotation": 0.0,
+          "z": 1,
+          "style": {
+            "fill": "#fff2cc",
+            "stroke": "#d6b656",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "2",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 3,
+                "colOff": 0,
+                "row": 5,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 762000
+            }
+          }
+        },
+        {
+          "id": "page_2_shape_3",
+          "label": "Primary DB",
+          "shape": "can",
+          "x": 448.0,
+          "y": 100.0,
+          "width": 160.0,
+          "height": 90.0,
+          "rotation": 0.0,
+          "z": 2,
+          "style": {
+            "fill": "#e1d5e7",
+            "stroke": "#9673a6",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "3",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 7,
+                "colOff": 0,
+                "row": 5,
+                "rowOff": 0
+              },
+              "cx": 1524000,
+              "cy": 857250
+            }
+          }
+        },
+        {
+          "id": "page_2_shape_4",
+          "label": "Read Replica",
+          "shape": "can",
+          "x": 704.0,
+          "y": 40.0,
+          "width": 160.0,
+          "height": 90.0,
+          "rotation": 0.0,
+          "z": 3,
+          "style": {
+            "fill": "#d5e8d4",
+            "stroke": "#82b366",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "4",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 11,
+                "colOff": 0,
+                "row": 2,
+                "rowOff": 0
+              },
+              "cx": 1524000,
+              "cy": 857250
+            }
+          }
+        },
+        {
+          "id": "page_2_shape_5",
+          "label": "Cross-region\nReplica",
+          "shape": "can",
+          "x": 704.0,
+          "y": 160.0,
+          "width": 170.0,
+          "height": 90.0,
+          "rotation": 0.0,
+          "z": 4,
+          "style": {
+            "fill": "#d5e8d4",
+            "stroke": "#82b366",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "5",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 11,
+                "colOff": 0,
+                "row": 8,
+                "rowOff": 0
+              },
+              "cx": 1619250,
+              "cy": 857250
+            }
+          }
+        },
+        {
+          "id": "page_2_shape_6",
+          "label": "Backup Vault",
+          "shape": "can",
+          "x": 960.0,
+          "y": 160.0,
+          "width": 160.0,
+          "height": 90.0,
+          "rotation": 0.0,
+          "z": 5,
+          "style": {
+            "fill": "#dae8fc",
+            "stroke": "#6c8ebf",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "6",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 15,
+                "colOff": 0,
+                "row": 8,
+                "rowOff": 0
+              },
+              "cx": 1524000,
+              "cy": 857250
+            }
+          }
+        },
+        {
+          "id": "page_2_shape_7",
+          "label": "Restore Test",
+          "shape": "diamond",
+          "x": 1216.0,
+          "y": 160.0,
+          "width": 150.0,
+          "height": 90.0,
+          "rotation": 0.0,
+          "z": 6,
+          "style": {
+            "fill": "#f8cecc",
+            "stroke": "#b85450",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "7",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 19,
+                "colOff": 0,
+                "row": 8,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 857250
+            }
+          }
+        },
+        {
+          "id": "page_2_shape_8",
+          "label": "Monitoring",
+          "shape": "roundRect",
+          "x": 960.0,
+          "y": 40.0,
+          "width": 170.0,
+          "height": 70.0,
+          "rotation": 0.0,
+          "z": 7,
+          "style": {
+            "fill": "#dae8fc",
+            "stroke": "#6c8ebf",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "8",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 15,
+                "colOff": 0,
+                "row": 2,
+                "rowOff": 0
+              },
+              "cx": 1619250,
+              "cy": 666750
+            }
+          }
+        },
+        {
+          "id": "page_2_shape_9",
+          "label": "Pager",
+          "shape": "hexagon",
+          "x": 1216.0,
+          "y": 40.0,
+          "width": 150.0,
+          "height": 70.0,
+          "rotation": 0.0,
+          "z": 8,
+          "style": {
+            "fill": "#f8cecc",
+            "stroke": "#b85450",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "9",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 19,
+                "colOff": 0,
+                "row": 2,
+                "rowOff": 0
+              },
+              "cx": 1428750,
+              "cy": 666750
+            }
+          }
+        },
+        {
+          "id": "page_2_shape_10",
+          "label": "Audit Archive",
+          "shape": "can",
+          "x": 960.0,
+          "y": 260.0,
+          "width": 170.0,
+          "height": 80.0,
+          "rotation": 0.0,
+          "z": 9,
+          "style": {
+            "fill": "#ffe6cc",
+            "stroke": "#d79b00",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "10",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 15,
+                "colOff": 0,
+                "row": 13,
+                "rowOff": 0
+              },
+              "cx": 1619250,
+              "cy": 762000
+            }
+          }
+        }
+      ],
+      "edges": [
+        {
+          "id": "page_2_edge_11",
+          "source": "page_2_shape_1",
+          "target": "page_2_shape_2",
+          "label": "execute",
+          "points": [
+            [
+              128.0,
+              140.0
+            ],
+            [
+              192.0,
+              142.0
+            ]
+          ],
+          "z": 10,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "11",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 2,
+                "colOff": 0,
+                "row": 7,
+                "rowOff": 0
+              },
+              "cx": 609600,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_2_edge_12",
+          "source": "page_2_shape_2",
+          "target": "page_2_shape_3",
+          "label": "controlled",
+          "points": [
+            [
+              320.0,
+              140.0
+            ],
+            [
+              448.0,
+              142.0
+            ]
+          ],
+          "z": 11,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "12",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 5,
+                "colOff": 0,
+                "row": 7,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_2_edge_13",
+          "source": "page_2_shape_3",
+          "target": "page_2_shape_4",
+          "label": "stream",
+          "points": [
+            [
+              576.0,
+              140.0
+            ],
+            [
+              704.0,
+              80.0
+            ]
+          ],
+          "z": 12,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "13",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 9,
+                "colOff": 0,
+                "row": 4,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 571500
+            },
+            "preset": "lineInv",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_2_edge_14",
+          "source": "page_2_shape_3",
+          "target": "page_2_shape_5",
+          "label": "replicate",
+          "points": [
+            [
+              576.0,
+              140.0
+            ],
+            [
+              704.0,
+              200.0
+            ]
+          ],
+          "z": 13,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "14",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 9,
+                "colOff": 0,
+                "row": 7,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 571500
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_2_edge_15",
+          "source": "page_2_shape_5",
+          "target": "page_2_shape_6",
+          "label": "snapshot",
+          "points": [
+            [
+              832.0,
+              200.0
+            ],
+            [
+              960.0,
+              202.0
+            ]
+          ],
+          "z": 14,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "15",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 13,
+                "colOff": 0,
+                "row": 10,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_2_edge_16",
+          "source": "page_2_shape_6",
+          "target": "page_2_shape_7",
+          "label": "verify",
+          "points": [
+            [
+              1088.0,
+              200.0
+            ],
+            [
+              1216.0,
+              202.0
+            ]
+          ],
+          "z": 15,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "16",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 17,
+                "colOff": 0,
+                "row": 10,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_2_edge_17",
+          "source": "page_2_shape_4",
+          "target": "page_2_shape_8",
+          "label": "health",
+          "points": [
+            [
+              832.0,
+              80.0
+            ],
+            [
+              960.0,
+              82.0
+            ]
+          ],
+          "z": 16,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": true,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "17",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 13,
+                "colOff": 0,
+                "row": 4,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_2_edge_18",
+          "source": "page_2_shape_8",
+          "target": "page_2_shape_9",
+          "label": "page",
+          "points": [
+            [
+              1088.0,
+              80.0
+            ],
+            [
+              1216.0,
+              82.0
+            ]
+          ],
+          "z": 17,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": false,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "18",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 17,
+                "colOff": 0,
+                "row": 4,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 19050
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_2_edge_19",
+          "source": "page_2_shape_5",
+          "target": "page_2_shape_8",
+          "label": "lag",
+          "points": [
+            [
+              832.0,
+              200.0
+            ],
+            [
+              960.0,
+              80.0
+            ]
+          ],
+          "z": 18,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": true,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "19",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 13,
+                "colOff": 0,
+                "row": 4,
+                "rowOff": 0
+              },
+              "cx": 1219200,
+              "cy": 1143000
+            },
+            "preset": "lineInv",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        },
+        {
+          "id": "page_2_edge_20",
+          "source": "page_2_shape_6",
+          "target": "page_2_shape_10",
+          "label": "retain",
+          "points": [
+            [
+              1024.0,
+              240.0
+            ],
+            [
+              1026.0,
+              300.0
+            ]
+          ],
+          "z": 19,
+          "style": {
+            "fill": "none",
+            "stroke": "#475569",
+            "stroke_width": 2.0,
+            "dashed": true,
+            "font_color": "#000000",
+            "font_size": 12.0,
+            "arrow_start": "none",
+            "arrow_end": "none"
+          },
+          "metadata": {
+            "source": "xlsx",
+            "drawing_part": "xl/drawings/drawing2.xml",
+            "excel_shape_id": "20",
+            "anchor": {
+              "kind": "oneCellAnchor",
+              "from": {
+                "col": 16,
+                "colOff": 0,
+                "row": 12,
+                "rowOff": 0
+              },
+              "cx": 19050,
+              "cy": 571500
+            },
+            "preset": "straightConnector1",
+            "serialized_as": "xdr:sp",
+            "endpoint_resolution": "geometry-inferred"
+          }
+        }
+      ],
+      "warnings": []
+    }
+  ],
+  "schema_version": "1.0",
+  "metadata": {
+    "source_format": "xlsx",
+    "cells_ignored": true
+  }
+}

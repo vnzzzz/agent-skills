@@ -1,0 +1,6 @@
+interface:
+  display_name: "Excel Diagram Interchange"
+  short_description: "Convert shape-only diagrams among Excel, JSON/XML, draw.io, and Mermaid."
+  default_prompt: "Convert the explicitly provided diagram using the bundled local converter and report all warnings."
+policy:
+  allow_implicit_invocation: false
