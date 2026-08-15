@@ -29,6 +29,12 @@ CONNECTOR_PRESETS = {
     "bentConnector2", "bentConnector3", "bentConnector4", "bentConnector5",
     "curvedConnector2", "curvedConnector3", "curvedConnector4", "curvedConnector5",
 }
+DRAWINGML_ARROW_TYPES = {"none", "triangle", "stealth", "diamond", "oval", "arrow"}
+DRAWINGML_ARROW_ALIASES = {
+    "classic": "triangle",
+    "block": "triangle",
+    "open": "arrow",
+}
 
 for prefix, uri in NS.items():
     if prefix not in {"s", "pr"}:
@@ -212,7 +218,7 @@ def _distance_to_node(point: list[float], node: Node) -> float:
 
 
 def _infer_endpoint(point: list[float], nodes: list[Node], *, exclude: str | None = None) -> str | None:
-    candidates = [( _distance_to_node(point, node), node.id) for node in nodes if node.id != exclude]
+    candidates = [(_distance_to_node(point, node), node.id) for node in nodes if node.id != exclude]
     if not candidates:
         return None
     distance, node_id = min(candidates)
@@ -361,6 +367,11 @@ def _append_text_body(parent, label: str, style: Style) -> None:
         WET.SubElement(p, f"{{{NS['a']}}}endParaRPr", {"lang": "ja-JP", "sz": str(int(style.font_size * 100))})
 
 
+def _drawingml_arrow(value: str) -> str:
+    mapped = DRAWINGML_ARROW_ALIASES.get(value, value)
+    return mapped if mapped in DRAWINGML_ARROW_TYPES else "none"
+
+
 def _append_sppr(parent, shape: str, style: Style, width_emu: int, height_emu: int, rotation: float = 0.0,
                   *, flip_h: bool = False, flip_v: bool = False) -> None:
     sppr = WET.SubElement(parent, f"{{{NS['xdr']}}}spPr")
@@ -386,10 +397,12 @@ def _append_sppr(parent, shape: str, style: Style, width_emu: int, height_emu: i
     WET.SubElement(line_fill, f"{{{NS['a']}}}srgbClr", {"val": style.stroke.lstrip("#")})
     if style.dashed:
         WET.SubElement(line, f"{{{NS['a']}}}prstDash", {"val": "dash"})
-    if style.arrow_start != "none":
-        WET.SubElement(line, f"{{{NS['a']}}}headEnd", {"type": style.arrow_start})
-    if style.arrow_end != "none":
-        WET.SubElement(line, f"{{{NS['a']}}}tailEnd", {"type": style.arrow_end})
+    arrow_start = _drawingml_arrow(style.arrow_start)
+    arrow_end = _drawingml_arrow(style.arrow_end)
+    if arrow_start != "none":
+        WET.SubElement(line, f"{{{NS['a']}}}headEnd", {"type": arrow_start})
+    if arrow_end != "none":
+        WET.SubElement(line, f"{{{NS['a']}}}tailEnd", {"type": arrow_end})
 
 
 def _absolute_anchor(root, x: float, y: float, width: float, height: float):
@@ -447,11 +460,11 @@ def _safe_sheet_name(name: str, used: set[str]) -> str:
     cleaned = re.sub(r"[\\/*?:\[\]]", "_", name).strip("'")[:31] or "Diagram"
     base = cleaned
     index = 2
-    while cleaned in used:
+    while cleaned.casefold() in used:
         suffix = f"_{index}"
         cleaned = base[:31 - len(suffix)] + suffix
         index += 1
-    used.add(cleaned)
+    used.add(cleaned.casefold())
     return cleaned
 
 

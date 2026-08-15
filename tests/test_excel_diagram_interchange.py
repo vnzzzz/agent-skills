@@ -85,6 +85,33 @@ class InterchangeTests(unittest.TestCase):
             self.assertEqual(by_id["web"].width, 180)
             self.assertEqual(restored.pages[0].edges[0].label, "SQL")
 
+    def test_mermaid_roundtrip_preserves_escaped_labels(self):
+        diagram = sample()
+        diagram.pages[0].nodes[0].label = 'R&D "<App>"'
+        diagram.pages[0].edges[0].label = 'A&B "<edge>"'
+        with TemporaryDirectory() as td:
+            path = Path(td) / "diagram.mmd"
+            write_mermaid(diagram, path)
+            restored = read_mermaid(path)
+            self.assertEqual(restored.pages[0].nodes[0].label, 'R&D "<App>"')
+            self.assertEqual(restored.pages[0].edges[0].label, 'A&B "<edge>"')
+
+            path.write_text('flowchart LR\nA["R#38;D"]\n', encoding="utf-8")
+            legacy = read_mermaid(path)
+            self.assertEqual(legacy.pages[0].nodes[0].label, "R&D")
+
+    def test_mermaid_rejects_invalid_geometry_metadata(self):
+        with TemporaryDirectory() as td:
+            path = Path(td) / "unsafe.mmd"
+            path.write_text(
+                'flowchart LR\n'
+                'A["a"]\n'
+                '%% diagram-interchange: {"type":"node","id":"A","x":0,"y":0,"width":-1,"height":60}\n',
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "width must be >= 1"):
+                read_mermaid(path)
+
     def test_mermaid_rejects_click_directive(self):
         with TemporaryDirectory() as td:
             path = Path(td) / "unsafe.mmd"
@@ -109,6 +136,38 @@ class InterchangeTests(unittest.TestCase):
             self.assertEqual(labels, ["Web <App>", "Database"])
             self.assertEqual(restored.pages[0].edges[0].source, "page_1_shape_2")
             self.assertEqual(restored.pages[0].edges[0].target, "page_1_shape_3")
+
+    def test_xlsx_maps_interchange_arrow_names_to_drawingml(self):
+        diagram = sample()
+        diagram.pages[0].edges[0].style.arrow_start = "open"
+        diagram.pages[0].edges[0].style.arrow_end = "classic"
+        diagram.pages[0].edges.append(Edge(
+            id="e2", source="db", target="web", z=3,
+            style=Style(fill="none", arrow_end="block"),
+        ))
+        with TemporaryDirectory() as td:
+            path = Path(td) / "diagram.xlsx"
+            write_xlsx(diagram, path)
+            with ZipFile(path) as zf:
+                drawing = zf.read("xl/drawings/drawing1.xml").decode("utf-8")
+        self.assertIn('headEnd type="arrow"', drawing)
+        self.assertGreaterEqual(drawing.count('tailEnd type="triangle"'), 2)
+        self.assertNotIn('type="classic"', drawing)
+        self.assertNotIn('type="block"', drawing)
+        self.assertNotIn('type="open"', drawing)
+
+    def test_xlsx_deduplicates_sheet_names_case_insensitively(self):
+        diagram = Diagram(title="Sheets", pages=[
+            Page(id="page_1", name="Overview"),
+            Page(id="page_2", name="overview"),
+        ])
+        with TemporaryDirectory() as td:
+            path = Path(td) / "diagram.xlsx"
+            write_xlsx(diagram, path)
+            with ZipFile(path) as zf:
+                workbook = zf.read("xl/workbook.xml").decode("utf-8")
+        self.assertIn('name="Overview"', workbook)
+        self.assertIn('name="overview_2"', workbook)
 
     def test_xlsx_rejects_macro_part(self):
         with TemporaryDirectory() as td:

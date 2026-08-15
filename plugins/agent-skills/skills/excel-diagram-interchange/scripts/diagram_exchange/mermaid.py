@@ -16,6 +16,7 @@ EDGE_RE = re.compile(
     r"^\s*([A-Za-z][\w-]*)(.*?)\s*(-->|---|-.->|==>|<-->|<--|<-.->)\s*(?:\|([^|]*)\|)?\s*([A-Za-z][\w-]*)(.*?)\s*$"
 )
 NODE_ONLY_RE = re.compile(r"^\s*([A-Za-z][\w-]*)(.+)\s*$")
+LEGACY_ENTITY_RE = re.compile(r"(?<!&)#(34|38|60|62);")
 FORBIDDEN_PREFIXES = ("click ", "classdef ", "class ", "linkstyle ", "accdescr", "acctitle", "%%{")
 
 
@@ -23,6 +24,7 @@ def _quoted_text(value: str) -> str:
     value = value.strip()
     if len(value) >= 2 and value[0] == value[-1] and value[0] in {'"', "'", "`"}:
         value = value[1:-1]
+    value = LEGACY_ENTITY_RE.sub(r"&#\1;", value)
     return unescape(value.replace("<br/>", "\n").replace("<br>", "\n"))
 
 
@@ -65,11 +67,23 @@ def _parse_style(value: str, current: Style) -> Style:
 
 def _layout(page: Page, direction: str) -> None:
     if all("mermaid_geometry" in n.metadata for n in page.nodes):
+        restored: list[Node] = []
         for n in page.nodes:
             geom = n.metadata["mermaid_geometry"]
-            n.x, n.y = float(geom["x"]), float(geom["y"])
-            n.width, n.height = float(geom["width"]), float(geom["height"])
-            n.rotation = float(geom.get("rotation", 0))
+            restored.append(Node(
+                id=n.id,
+                label=n.label,
+                shape=n.shape,
+                x=geom["x"],
+                y=geom["y"],
+                width=geom["width"],
+                height=geom["height"],
+                rotation=geom.get("rotation", 0),
+                z=n.z,
+                style=n.style,
+                metadata=n.metadata,
+            ))
+        page.nodes[:] = restored
         return
     node_ids = [n.id for n in page.nodes]
     indegree = {node_id: 0 for node_id in node_ids}
@@ -127,8 +141,10 @@ def read_mermaid(path: Path) -> Diagram:
         if meta:
             try:
                 value = json.loads(meta.group(1))
-                if value.get("type") == "node" and isinstance(value.get("id"), str):
+                if isinstance(value, dict) and value.get("type") == "node" and isinstance(value.get("id"), str):
                     geometry_meta[value["id"]] = value
+                elif not isinstance(value, dict):
+                    warnings.append("Invalid diagram-interchange metadata comment was ignored.")
             except json.JSONDecodeError:
                 warnings.append("Invalid diagram-interchange metadata comment was ignored.")
             continue
@@ -196,7 +212,7 @@ def read_mermaid(path: Path) -> Diagram:
 
 
 def _escape_label(value: str) -> str:
-    return value.replace("&", "#38;").replace('"', "#34;").replace("<", "#60;").replace(">", "#62;").replace("\n", "<br/>")
+    return value.replace("&", "&#38;").replace('"', "&#34;").replace("<", "&#60;").replace(">", "&#62;").replace("\n", "<br/>")
 
 
 def _node_syntax(node: Node) -> str:
