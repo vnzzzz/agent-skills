@@ -2,15 +2,18 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
 from tempfile import TemporaryDirectory
 import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "plugins" / "agent-skills" / "skills" / "excel-diagram-interchange" / "scripts"))
 
 from diagram_exchange.canonical import read_json
 from diagram_exchange.drawio import read_drawio
 from diagram_exchange.excel_ooxml import read_xlsx, write_xlsx
 from diagram_exchange.mermaid import read_mermaid
 
-ROOT = Path(__file__).resolve().parents[1]
 FIXTURES = ROOT / "tests" / "fixtures" / "excel-diagram-interchange"
 DEMO = FIXTURES / "complex-system-architecture.xlsx"
 EXPECTED = FIXTURES / "expected"
