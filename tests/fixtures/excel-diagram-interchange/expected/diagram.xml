@@ -1,0 +1,808 @@
+<?xml version='1.0' encoding='utf-8'?>
+<diagram schema-version="1.0" title="complex-system-architecture">
+  <metadata>
+    <item key="cells_ignored">true</item>
+    <item key="source_format">"xlsx"</item>
+  </metadata>
+  <pages>
+    <page id="page_1" name="System Architecture" width="1786.0" height="460.0">
+      <warnings />
+      <nodes>
+        <node id="page_1_shape_1" shape="ellipse" x="0.0" y="80.0" width="140.0" height="70.0" rotation="0.0" z="0">
+          <label>Internet
+Users</label>
+          <style fill="#e2e8f0" stroke="#64748b" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 0, "colOff": 0, "row": 4, "rowOff": 0}, "cx": 1333500, "cy": 666750}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"1"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_2" shape="cloud" x="192.0" y="80.0" width="150.0" height="80.0" rotation="0.0" z="1">
+          <label>DNS / CDN</label>
+          <style fill="#dae8fc" stroke="#6c8ebf" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 3, "colOff": 0, "row": 4, "rowOff": 0}, "cx": 1428750, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"2"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_3" shape="hexagon" x="384.0" y="80.0" width="140.0" height="80.0" rotation="0.0" z="2">
+          <label>WAF</label>
+          <style fill="#f8cecc" stroke="#b85450" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 6, "colOff": 0, "row": 4, "rowOff": 0}, "cx": 1333500, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"3"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_4" shape="roundRect" x="576.0" y="80.0" width="150.0" height="80.0" rotation="0.0" z="3">
+          <label>Public
+Load Balancer</label>
+          <style fill="#fff2cc" stroke="#d6b656" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 9, "colOff": 0, "row": 4, "rowOff": 0}, "cx": 1428750, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"4"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_5" shape="roundRect" x="768.0" y="20.0" width="150.0" height="70.0" rotation="0.0" z="4">
+          <label>Web App A</label>
+          <style fill="#d5e8d4" stroke="#82b366" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 12, "colOff": 0, "row": 1, "rowOff": 0}, "cx": 1428750, "cy": 666750}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"5"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_6" shape="roundRect" x="768.0" y="140.0" width="150.0" height="70.0" rotation="0.0" z="5">
+          <label>Web App B</label>
+          <style fill="#d5e8d4" stroke="#82b366" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 12, "colOff": 0, "row": 7, "rowOff": 0}, "cx": 1428750, "cy": 666750}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"6"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_7" shape="rect" x="1024.0" y="80.0" width="160.0" height="80.0" rotation="0.0" z="6">
+          <label>API Service</label>
+          <style fill="#d5e8d4" stroke="#82b366" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 16, "colOff": 0, "row": 4, "rowOff": 0}, "cx": 1524000, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"7"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_8" shape="can" x="1280.0" y="20.0" width="150.0" height="80.0" rotation="0.0" z="7">
+          <label>Redis Cache</label>
+          <style fill="#e1d5e7" stroke="#9673a6" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 20, "colOff": 0, "row": 1, "rowOff": 0}, "cx": 1428750, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"8"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_9" shape="can" x="1280.0" y="120.0" width="160.0" height="90.0" rotation="0.0" z="8">
+          <label>PostgreSQL
+Primary</label>
+          <style fill="#e1d5e7" stroke="#9673a6" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 20, "colOff": 0, "row": 6, "rowOff": 0}, "cx": 1524000, "cy": 857250}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"9"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_10" shape="rect" x="1024.0" y="200.0" width="160.0" height="70.0" rotation="0.0" z="9">
+          <label>Message Queue</label>
+          <style fill="#ffe6cc" stroke="#d79b00" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 16, "colOff": 0, "row": 10, "rowOff": 0}, "cx": 1524000, "cy": 666750}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"10"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_11" shape="rect" x="1280.0" y="200.0" width="150.0" height="80.0" rotation="0.0" z="10">
+          <label>Async Worker</label>
+          <style fill="#ffe6cc" stroke="#d79b00" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 20, "colOff": 0, "row": 10, "rowOff": 0}, "cx": 1428750, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"11"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_12" shape="can" x="1280.0" y="280.0" width="160.0" height="80.0" rotation="0.0" z="11">
+          <label>Object Storage</label>
+          <style fill="#e1d5e7" stroke="#9673a6" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 20, "colOff": 0, "row": 14, "rowOff": 0}, "cx": 1524000, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"12"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_13" shape="hexagon" x="576.0" y="200.0" width="150.0" height="70.0" rotation="0.0" z="12">
+          <label>Identity Provider</label>
+          <style fill="#f8cecc" stroke="#b85450" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 9, "colOff": 0, "row": 10, "rowOff": 0}, "cx": 1428750, "cy": 666750}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"13"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_14" shape="ellipse" x="384.0" y="280.0" width="140.0" height="70.0" rotation="0.0" z="13">
+          <label>Administrators</label>
+          <style fill="#e2e8f0" stroke="#64748b" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 6, "colOff": 0, "row": 14, "rowOff": 0}, "cx": 1333500, "cy": 666750}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"14"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_15" shape="roundRect" x="1536.0" y="200.0" width="170.0" height="70.0" rotation="0.0" z="14">
+          <label>Observability</label>
+          <style fill="#dae8fc" stroke="#6c8ebf" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 24, "colOff": 0, "row": 10, "rowOff": 0}, "cx": 1619250, "cy": 666750}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"15"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_16" shape="diamond" x="1536.0" y="300.0" width="150.0" height="80.0" rotation="0.0" z="15">
+          <label>Alerting</label>
+          <style fill="#f8cecc" stroke="#b85450" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 24, "colOff": 0, "row": 15, "rowOff": 0}, "cx": 1428750, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"16"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_1_shape_17" shape="can" x="1024.0" y="0.0" width="150.0" height="65.0" rotation="0.0" z="16">
+          <label>Secrets Manager</label>
+          <style fill="#fff2cc" stroke="#d6b656" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 16, "colOff": 0, "row": 0, "rowOff": 0}, "cx": 1428750, "cy": 619125}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="excel_shape_id">"17"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+      </nodes>
+      <edges>
+        <edge id="page_1_edge_18" z="17" source="page_1_shape_1" target="page_1_shape_2">
+          <label>HTTPS</label>
+          <points>
+            <point x="128.0" y="120.0" />
+            <point x="192.0" y="122.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 2, "colOff": 0, "row": 6, "rowOff": 0}, "cx": 609600, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"18"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_19" z="18" source="page_1_shape_2" target="page_1_shape_3">
+          <label />
+          <points>
+            <point x="320.0" y="120.0" />
+            <point x="384.0" y="122.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 5, "colOff": 0, "row": 6, "rowOff": 0}, "cx": 609600, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"19"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_20" z="19" source="page_1_shape_3" target="page_1_shape_4">
+          <label />
+          <points>
+            <point x="512.0" y="120.0" />
+            <point x="576.0" y="122.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 8, "colOff": 0, "row": 6, "rowOff": 0}, "cx": 609600, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"20"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_21" z="20" source="page_1_shape_4" target="page_1_shape_5">
+          <label>route</label>
+          <points>
+            <point x="704.0" y="120.0" />
+            <point x="768.0" y="60.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 11, "colOff": 0, "row": 3, "rowOff": 0}, "cx": 609600, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"21"</item>
+            <item key="preset">"lineInv"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_22" z="21" source="page_1_shape_4" target="page_1_shape_6">
+          <label>route</label>
+          <points>
+            <point x="704.0" y="120.0" />
+            <point x="768.0" y="180.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 11, "colOff": 0, "row": 6, "rowOff": 0}, "cx": 609600, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"22"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_23" z="22" source="page_1_shape_5" target="page_1_shape_7">
+          <label>REST</label>
+          <points>
+            <point x="896.0" y="60.0" />
+            <point x="1024.0" y="120.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 14, "colOff": 0, "row": 3, "rowOff": 0}, "cx": 1219200, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"23"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_24" z="23" source="page_1_shape_6" target="page_1_shape_7">
+          <label>REST</label>
+          <points>
+            <point x="896.0" y="180.0" />
+            <point x="1024.0" y="120.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 14, "colOff": 0, "row": 6, "rowOff": 0}, "cx": 1219200, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"24"</item>
+            <item key="preset">"lineInv"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_25" z="24" source="page_1_shape_7" target="page_1_shape_8">
+          <label>cache</label>
+          <points>
+            <point x="1152.0" y="120.0" />
+            <point x="1280.0" y="60.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 18, "colOff": 0, "row": 3, "rowOff": 0}, "cx": 1219200, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"25"</item>
+            <item key="preset">"lineInv"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_26" z="25" source="page_1_shape_7" target="page_1_shape_9">
+          <label>SQL</label>
+          <points>
+            <point x="1152.0" y="120.0" />
+            <point x="1280.0" y="160.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 18, "colOff": 0, "row": 6, "rowOff": 0}, "cx": 1219200, "cy": 381000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"26"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_27" z="26" source="page_1_shape_7" target="page_1_shape_10">
+          <label>events</label>
+          <points>
+            <point x="1088.0" y="160.0" />
+            <point x="1090.0" y="220.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="true" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 17, "colOff": 0, "row": 8, "rowOff": 0}, "cx": 19050, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"27"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_28" z="27" source="page_1_shape_10" target="page_1_shape_11">
+          <label>consume</label>
+          <points>
+            <point x="1152.0" y="240.0" />
+            <point x="1280.0" y="242.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="true" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 18, "colOff": 0, "row": 12, "rowOff": 0}, "cx": 1219200, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"28"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_29" z="28" source="page_1_shape_11" target="page_1_shape_9">
+          <label>write</label>
+          <points>
+            <point x="1344.0" y="260.0" />
+            <point x="1346.0" y="160.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 21, "colOff": 0, "row": 8, "rowOff": 0}, "cx": 19050, "cy": 952500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"29"</item>
+            <item key="preset">"lineInv"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_30" z="29" source="page_1_shape_11" target="page_1_shape_12">
+          <label>objects</label>
+          <points>
+            <point x="1344.0" y="260.0" />
+            <point x="1346.0" y="300.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 21, "colOff": 0, "row": 13, "rowOff": 0}, "cx": 19050, "cy": 381000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"30"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_31" z="30" source="page_1_shape_13" target="page_1_shape_4">
+          <label>OIDC</label>
+          <points>
+            <point x="640.0" y="260.0" />
+            <point x="642.0" y="160.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 10, "colOff": 0, "row": 8, "rowOff": 0}, "cx": 19050, "cy": 952500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"31"</item>
+            <item key="preset">"lineInv"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_32" z="31" source="page_1_shape_14" target="page_1_shape_13">
+          <label>SSO</label>
+          <points>
+            <point x="448.0" y="300.0" />
+            <point x="576.0" y="240.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 7, "colOff": 0, "row": 12, "rowOff": 0}, "cx": 1219200, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"32"</item>
+            <item key="preset">"lineInv"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_33" z="32" source="page_1_shape_7" target="page_1_shape_17">
+          <label>secret</label>
+          <points>
+            <point x="1088.0" y="100.0" />
+            <point x="1090.0" y="40.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="true" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 17, "colOff": 0, "row": 2, "rowOff": 0}, "cx": 19050, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"33"</item>
+            <item key="preset">"lineInv"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_34" z="33" source="page_1_shape_7" target="page_1_shape_15">
+          <label>metrics</label>
+          <points>
+            <point x="1152.0" y="160.0" />
+            <point x="1536.0" y="240.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="true" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 18, "colOff": 0, "row": 8, "rowOff": 0}, "cx": 3657600, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"34"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_35" z="34" source="page_1_shape_9" target="page_1_shape_15">
+          <label>metrics</label>
+          <points>
+            <point x="1408.0" y="180.0" />
+            <point x="1536.0" y="260.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="true" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 22, "colOff": 0, "row": 9, "rowOff": 0}, "cx": 1219200, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"35"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_36" z="35" source="page_1_shape_11" target="page_1_shape_15">
+          <label>logs</label>
+          <points>
+            <point x="1408.0" y="240.0" />
+            <point x="1536.0" y="242.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="true" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 22, "colOff": 0, "row": 12, "rowOff": 0}, "cx": 1219200, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"36"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_1_edge_37" z="36" source="page_1_shape_15" target="page_1_shape_16">
+          <label>notify</label>
+          <points>
+            <point x="1600.0" y="260.0" />
+            <point x="1602.0" y="320.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 25, "colOff": 0, "row": 13, "rowOff": 0}, "cx": 19050, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing1.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"37"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+      </edges>
+    </page>
+    <page id="page_2" name="DR and Operations" width="1446.0" height="420.0">
+      <warnings />
+      <nodes>
+        <node id="page_2_shape_1" shape="ellipse" x="0.0" y="100.0" width="140.0" height="70.0" rotation="0.0" z="0">
+          <label>Operator</label>
+          <style fill="#e2e8f0" stroke="#64748b" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 0, "colOff": 0, "row": 5, "rowOff": 0}, "cx": 1333500, "cy": 666750}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="excel_shape_id">"1"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_2_shape_2" shape="rect" x="192.0" y="100.0" width="150.0" height="80.0" rotation="0.0" z="1">
+          <label>Recovery
+Runbook</label>
+          <style fill="#fff2cc" stroke="#d6b656" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 3, "colOff": 0, "row": 5, "rowOff": 0}, "cx": 1428750, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="excel_shape_id">"2"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_2_shape_3" shape="can" x="448.0" y="100.0" width="160.0" height="90.0" rotation="0.0" z="2">
+          <label>Primary DB</label>
+          <style fill="#e1d5e7" stroke="#9673a6" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 7, "colOff": 0, "row": 5, "rowOff": 0}, "cx": 1524000, "cy": 857250}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="excel_shape_id">"3"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_2_shape_4" shape="can" x="704.0" y="40.0" width="160.0" height="90.0" rotation="0.0" z="3">
+          <label>Read Replica</label>
+          <style fill="#d5e8d4" stroke="#82b366" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 11, "colOff": 0, "row": 2, "rowOff": 0}, "cx": 1524000, "cy": 857250}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="excel_shape_id">"4"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_2_shape_5" shape="can" x="704.0" y="160.0" width="170.0" height="90.0" rotation="0.0" z="4">
+          <label>Cross-region
+Replica</label>
+          <style fill="#d5e8d4" stroke="#82b366" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 11, "colOff": 0, "row": 8, "rowOff": 0}, "cx": 1619250, "cy": 857250}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="excel_shape_id">"5"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_2_shape_6" shape="can" x="960.0" y="160.0" width="160.0" height="90.0" rotation="0.0" z="5">
+          <label>Backup Vault</label>
+          <style fill="#dae8fc" stroke="#6c8ebf" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 15, "colOff": 0, "row": 8, "rowOff": 0}, "cx": 1524000, "cy": 857250}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="excel_shape_id">"6"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_2_shape_7" shape="diamond" x="1216.0" y="160.0" width="150.0" height="90.0" rotation="0.0" z="6">
+          <label>Restore Test</label>
+          <style fill="#f8cecc" stroke="#b85450" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 19, "colOff": 0, "row": 8, "rowOff": 0}, "cx": 1428750, "cy": 857250}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="excel_shape_id">"7"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_2_shape_8" shape="roundRect" x="960.0" y="40.0" width="170.0" height="70.0" rotation="0.0" z="7">
+          <label>Monitoring</label>
+          <style fill="#dae8fc" stroke="#6c8ebf" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 15, "colOff": 0, "row": 2, "rowOff": 0}, "cx": 1619250, "cy": 666750}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="excel_shape_id">"8"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_2_shape_9" shape="hexagon" x="1216.0" y="40.0" width="150.0" height="70.0" rotation="0.0" z="8">
+          <label>Pager</label>
+          <style fill="#f8cecc" stroke="#b85450" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 19, "colOff": 0, "row": 2, "rowOff": 0}, "cx": 1428750, "cy": 666750}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="excel_shape_id">"9"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+        <node id="page_2_shape_10" shape="can" x="960.0" y="260.0" width="170.0" height="80.0" rotation="0.0" z="9">
+          <label>Audit Archive</label>
+          <style fill="#ffe6cc" stroke="#d79b00" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 15, "colOff": 0, "row": 13, "rowOff": 0}, "cx": 1619250, "cy": 762000}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="excel_shape_id">"10"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </node>
+      </nodes>
+      <edges>
+        <edge id="page_2_edge_11" z="10" source="page_2_shape_1" target="page_2_shape_2">
+          <label>execute</label>
+          <points>
+            <point x="128.0" y="140.0" />
+            <point x="192.0" y="142.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 2, "colOff": 0, "row": 7, "rowOff": 0}, "cx": 609600, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"11"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_2_edge_12" z="11" source="page_2_shape_2" target="page_2_shape_3">
+          <label>controlled</label>
+          <points>
+            <point x="320.0" y="140.0" />
+            <point x="448.0" y="142.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 5, "colOff": 0, "row": 7, "rowOff": 0}, "cx": 1219200, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"12"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_2_edge_13" z="12" source="page_2_shape_3" target="page_2_shape_4">
+          <label>stream</label>
+          <points>
+            <point x="576.0" y="140.0" />
+            <point x="704.0" y="80.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 9, "colOff": 0, "row": 4, "rowOff": 0}, "cx": 1219200, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"13"</item>
+            <item key="preset">"lineInv"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_2_edge_14" z="13" source="page_2_shape_3" target="page_2_shape_5">
+          <label>replicate</label>
+          <points>
+            <point x="576.0" y="140.0" />
+            <point x="704.0" y="200.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 9, "colOff": 0, "row": 7, "rowOff": 0}, "cx": 1219200, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"14"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_2_edge_15" z="14" source="page_2_shape_5" target="page_2_shape_6">
+          <label>snapshot</label>
+          <points>
+            <point x="832.0" y="200.0" />
+            <point x="960.0" y="202.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 13, "colOff": 0, "row": 10, "rowOff": 0}, "cx": 1219200, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"15"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_2_edge_16" z="15" source="page_2_shape_6" target="page_2_shape_7">
+          <label>verify</label>
+          <points>
+            <point x="1088.0" y="200.0" />
+            <point x="1216.0" y="202.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 17, "colOff": 0, "row": 10, "rowOff": 0}, "cx": 1219200, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"16"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_2_edge_17" z="16" source="page_2_shape_4" target="page_2_shape_8">
+          <label>health</label>
+          <points>
+            <point x="832.0" y="80.0" />
+            <point x="960.0" y="82.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="true" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 13, "colOff": 0, "row": 4, "rowOff": 0}, "cx": 1219200, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"17"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_2_edge_18" z="17" source="page_2_shape_8" target="page_2_shape_9">
+          <label>page</label>
+          <points>
+            <point x="1088.0" y="80.0" />
+            <point x="1216.0" y="82.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="false" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 17, "colOff": 0, "row": 4, "rowOff": 0}, "cx": 1219200, "cy": 19050}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"18"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_2_edge_19" z="18" source="page_2_shape_5" target="page_2_shape_8">
+          <label>lag</label>
+          <points>
+            <point x="832.0" y="200.0" />
+            <point x="960.0" y="80.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="true" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 13, "colOff": 0, "row": 4, "rowOff": 0}, "cx": 1219200, "cy": 1143000}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"19"</item>
+            <item key="preset">"lineInv"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+        <edge id="page_2_edge_20" z="19" source="page_2_shape_6" target="page_2_shape_10">
+          <label>retain</label>
+          <points>
+            <point x="1024.0" y="240.0" />
+            <point x="1026.0" y="300.0" />
+          </points>
+          <style fill="none" stroke="#475569" stroke-width="2.0" dashed="true" font-color="#000000" font-size="12.0" arrow-start="none" arrow-end="none" />
+          <metadata>
+            <item key="anchor">{"kind": "oneCellAnchor", "from": {"col": 16, "colOff": 0, "row": 12, "rowOff": 0}, "cx": 19050, "cy": 571500}</item>
+            <item key="drawing_part">"xl/drawings/drawing2.xml"</item>
+            <item key="endpoint_resolution">"geometry-inferred"</item>
+            <item key="excel_shape_id">"20"</item>
+            <item key="preset">"straightConnector1"</item>
+            <item key="serialized_as">"xdr:sp"</item>
+            <item key="source">"xlsx"</item>
+          </metadata>
+        </edge>
+      </edges>
+    </page>
+  </pages>
+</diagram>

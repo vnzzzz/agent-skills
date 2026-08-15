@@ -1,0 +1,72 @@
+flowchart LR
+    page_1_shape_1(("Internet<br/>Users"))
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_1","x":0.0,"y":80.0,"width":140.0,"height":70.0,"rotation":0.0,"shape":"ellipse"}
+    page_1_shape_2["DNS / CDN"]
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_2","x":192.0,"y":80.0,"width":150.0,"height":80.0,"rotation":0.0,"shape":"cloud"}
+    page_1_shape_3["WAF"]
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_3","x":384.0,"y":80.0,"width":140.0,"height":80.0,"rotation":0.0,"shape":"hexagon"}
+    page_1_shape_4("Public<br/>Load Balancer")
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_4","x":576.0,"y":80.0,"width":150.0,"height":80.0,"rotation":0.0,"shape":"roundRect"}
+    page_1_shape_5("Web App A")
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_5","x":768.0,"y":20.0,"width":150.0,"height":70.0,"rotation":0.0,"shape":"roundRect"}
+    page_1_shape_6("Web App B")
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_6","x":768.0,"y":140.0,"width":150.0,"height":70.0,"rotation":0.0,"shape":"roundRect"}
+    page_1_shape_7["API Service"]
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_7","x":1024.0,"y":80.0,"width":160.0,"height":80.0,"rotation":0.0,"shape":"rect"}
+    page_1_shape_8[("Redis Cache")]
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_8","x":1280.0,"y":20.0,"width":150.0,"height":80.0,"rotation":0.0,"shape":"can"}
+    page_1_shape_9[("PostgreSQL<br/>Primary")]
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_9","x":1280.0,"y":120.0,"width":160.0,"height":90.0,"rotation":0.0,"shape":"can"}
+    page_1_shape_10["Message Queue"]
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_10","x":1024.0,"y":200.0,"width":160.0,"height":70.0,"rotation":0.0,"shape":"rect"}
+    page_1_shape_11["Async Worker"]
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_11","x":1280.0,"y":200.0,"width":150.0,"height":80.0,"rotation":0.0,"shape":"rect"}
+    page_1_shape_12[("Object Storage")]
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_12","x":1280.0,"y":280.0,"width":160.0,"height":80.0,"rotation":0.0,"shape":"can"}
+    page_1_shape_13["Identity Provider"]
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_13","x":576.0,"y":200.0,"width":150.0,"height":70.0,"rotation":0.0,"shape":"hexagon"}
+    page_1_shape_14(("Administrators"))
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_14","x":384.0,"y":280.0,"width":140.0,"height":70.0,"rotation":0.0,"shape":"ellipse"}
+    page_1_shape_15("Observability")
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_15","x":1536.0,"y":200.0,"width":170.0,"height":70.0,"rotation":0.0,"shape":"roundRect"}
+    page_1_shape_16{"Alerting"}
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_16","x":1536.0,"y":300.0,"width":150.0,"height":80.0,"rotation":0.0,"shape":"diamond"}
+    page_1_shape_17[("Secrets Manager")]
+    %% diagram-interchange: {"type":"node","id":"page_1_shape_17","x":1024.0,"y":0.0,"width":150.0,"height":65.0,"rotation":0.0,"shape":"can"}
+    page_1_shape_1 ---|HTTPS| page_1_shape_2
+    page_1_shape_2 --- page_1_shape_3
+    page_1_shape_3 --- page_1_shape_4
+    page_1_shape_4 ---|route| page_1_shape_5
+    page_1_shape_4 ---|route| page_1_shape_6
+    page_1_shape_5 ---|REST| page_1_shape_7
+    page_1_shape_6 ---|REST| page_1_shape_7
+    page_1_shape_7 ---|cache| page_1_shape_8
+    page_1_shape_7 ---|SQL| page_1_shape_9
+    page_1_shape_7 ---|events| page_1_shape_10
+    page_1_shape_10 ---|consume| page_1_shape_11
+    page_1_shape_11 ---|write| page_1_shape_9
+    page_1_shape_11 ---|objects| page_1_shape_12
+    page_1_shape_13 ---|OIDC| page_1_shape_4
+    page_1_shape_14 ---|SSO| page_1_shape_13
+    page_1_shape_7 ---|secret| page_1_shape_17
+    page_1_shape_7 ---|metrics| page_1_shape_15
+    page_1_shape_9 ---|metrics| page_1_shape_15
+    page_1_shape_11 ---|logs| page_1_shape_15
+    page_1_shape_15 ---|notify| page_1_shape_16
+    style page_1_shape_1 fill:#e2e8f0,stroke:#64748b,stroke-width:2px,color:#000000
+    style page_1_shape_2 fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:#000000
+    style page_1_shape_3 fill:#f8cecc,stroke:#b85450,stroke-width:2px,color:#000000
+    style page_1_shape_4 fill:#fff2cc,stroke:#d6b656,stroke-width:2px,color:#000000
+    style page_1_shape_5 fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:#000000
+    style page_1_shape_6 fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:#000000
+    style page_1_shape_7 fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:#000000
+    style page_1_shape_8 fill:#e1d5e7,stroke:#9673a6,stroke-width:2px,color:#000000
+    style page_1_shape_9 fill:#e1d5e7,stroke:#9673a6,stroke-width:2px,color:#000000
+    style page_1_shape_10 fill:#ffe6cc,stroke:#d79b00,stroke-width:2px,color:#000000
+    style page_1_shape_11 fill:#ffe6cc,stroke:#d79b00,stroke-width:2px,color:#000000
+    style page_1_shape_12 fill:#e1d5e7,stroke:#9673a6,stroke-width:2px,color:#000000
+    style page_1_shape_13 fill:#f8cecc,stroke:#b85450,stroke-width:2px,color:#000000
+    style page_1_shape_14 fill:#e2e8f0,stroke:#64748b,stroke-width:2px,color:#000000
+    style page_1_shape_15 fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:#000000
+    style page_1_shape_16 fill:#f8cecc,stroke:#b85450,stroke-width:2px,color:#000000
+    style page_1_shape_17 fill:#fff2cc,stroke:#d6b656,stroke-width:2px,color:#000000

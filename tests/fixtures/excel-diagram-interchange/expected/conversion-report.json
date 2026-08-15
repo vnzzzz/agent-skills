@@ -1,0 +1,52 @@
+{
+  "status": "review_required",
+  "input": "demo/complex-system-architecture.xlsx",
+  "input_format": "xlsx",
+  "shape_only": true,
+  "cells_ignored": true,
+  "canonical_format": "json",
+  "outputs": {
+    "json": {
+      "path": "demo/expected/diagram.json",
+      "sha256": "4a9c4719e7b728f89ef639105cfb79037ad8487bfa12bd9051c50b2269bc3823"
+    },
+    "xml": {
+      "path": "demo/expected/diagram.xml",
+      "sha256": "b63dacab2d0f10e5e2925f1766463b292541a9933ef71a541b6eb003034e9f05"
+    },
+    "mmd": {
+      "path": "demo/expected/diagram.mmd",
+      "sha256": "fa18a3e5339cc96391bf87eb30313fe6cfa784845ca8cf9020b0839a92f8328a"
+    },
+    "drawio": {
+      "path": "demo/expected/diagram.drawio",
+      "sha256": "0a90fee229d4b62bf96b3d90c03ce394059ded951af7a313546c9a3c476377fa"
+    }
+  },
+  "pages": [
+    {
+      "name": "System Architecture",
+      "nodes": 17,
+      "edges": 20
+    },
+    {
+      "name": "DR and Operations",
+      "nodes": 10,
+      "edges": 10
+    }
+  ],
+  "warnings": [
+    {
+      "page": "*",
+      "warning": "Mermaid output contains only the first page."
+    }
+  ],
+  "fidelity": {
+    "json": "canonical",
+    "xml": "canonical-equivalent",
+    "drawio": "geometry-and-topology within supported shape profile",
+    "xlsx": "geometry-and-topology within supported DrawingML profile",
+    "mmd": "logical view; coordinates retained only in diagram-interchange comments"
+  },
+  "snapshot_paths": "repository-relative"
+}
