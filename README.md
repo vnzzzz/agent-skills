@@ -2,7 +2,7 @@
 
 Shared Agent Skills for Codex and Claude Code.
 
-複数のrepositoryで再利用するSkillを、1つのPluginとして配布するためのrepositoryです。
+Codex / Claude Codeで共通利用する、開発ワークフロー向けAgent Skillsを管理・配布します。
 
 ## Install
 

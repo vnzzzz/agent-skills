@@ -1,6 +1,6 @@
 ---
 name: change-planning
-description: 非自明な新機能・仕様変更・バグ修正・リファクタリングの実装前に、解決する問題、既存実装、変更範囲、影響、検証方法、リスクを整理し、必要十分な変更計画を作るときに使用する。要件自体の妥当性はproduct-thinking、実装の単純性はdevelopment-guidelines、テスト方針はtestingを利用する。
+description: 非自明な新機能・仕様変更・バグ修正・リファクタリングの実装前に、解決する問題、既存実装、変更範囲、影響、検証方法、リスクを整理し、必要十分な変更計画を作るときに使用する。
 ---
 
 # Change Planning
@@ -178,6 +178,7 @@ planは固定契約ではなく、確認済み事実に基づく実装判断の�
 ## 他Skillとの関係
 
 - 問題、user need、solutionの妥当性は `product-thinking` を利用する。
+- 外部仕様、version、support範囲等の確認が実装判断へ影響する場合は `technical-research` を利用する。
 - 最小実装、abstraction、backward compatibilityの判断は `development-guidelines` を利用する。
 - 既存commentから制約や不変条件を読み、実装時に残す情報を判断する場合は `readable-code` を利用する。
 - 必要十分なtest strategyは `testing` を利用する。

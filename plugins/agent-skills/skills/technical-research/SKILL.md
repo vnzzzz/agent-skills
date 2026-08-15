@@ -187,7 +187,7 @@ API名、option、limit、support範囲等が確認できない場合、もっ�
 - 実装上は動くがsupport contract外なので採用しない
 - 仕様では決まらず、project側のtrade-off判断が必要
 
-実装変更へ進む場合は `change-planning` でscopeとvalidationを整理し、`development-guidelines` で必要十分なsolutionを選ぶ。
+調査結果は、後続の変更判断で使えるように前提・制約・不確実性を明確にして渡す。
 
 ## 調査を止める条件
 
@@ -228,11 +228,10 @@ sourceの羅列ではなく、sourceと判断の対応が分かるようにす�
 - recommendationを「公式best practice」と誤表示する
 - 不確実性を埋めるために存在しない名前や値を作る
 
-## 他Skillとの関係
+## 責務境界
 
-- 調査が必要か、変更のどこへ影響するかは `change-planning` で整理する。
-- problem / user outcome自体の妥当性は `product-thinking` の責務とする。
-- 調査結果を文書へ残す場合は `technical-writing` を利用する。
-- 調査結果を受けた実装は `development-guidelines` に従う。
+このSkillは、技術仕様・version・support範囲・実装挙動に関する外部事実を調べ、意思決定に使える根拠として整理するところまでを扱う。
 
-このSkillは、project management、学術的systematic review、特定vendor固有の調査手順、障害の仮説検証processそのものを定義しない。
+変更の必要性やuser valueの判断、codebase上の変更範囲設計、実装そのもの、testing methodology、documentation style、障害の仮説検証processはそれぞれ別の責務として扱い、この調査の中で混同しない。
+
+このSkillは、project management、学術的systematic review、特定vendor固有の調査手順を定義しない。
