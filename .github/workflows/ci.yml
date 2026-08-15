@@ -18,6 +18,8 @@ jobs:
           fetch-depth: 0
       - name: Validate dual Plugin metadata
         run: python3 scripts/validate-plugin.py
+      - name: Check README Skill list
+        run: python3 scripts/update-readme-skills.py --check
       - name: Require Plugin version bump
         if: github.event_name == 'pull_request'
         shell: bash

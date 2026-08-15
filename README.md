@@ -20,6 +20,15 @@ claude plugin marketplace add https://github.com/vnzzzz/agent-skills.git --scope
 claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 ```
 
+## Skills
+
+<!-- BEGIN GENERATED SKILLS -->
+- [development-guidelines](plugins/agent-skills/skills/development-guidelines/SKILL.md)
+- [japanese-technical-writing](plugins/agent-skills/skills/japanese-technical-writing/SKILL.md)
+- [product-thinking](plugins/agent-skills/skills/product-thinking/SKILL.md)
+- [readable-code](plugins/agent-skills/skills/readable-code/SKILL.md)
+<!-- END GENERATED SKILLS -->
+
 ## Layout
 
 ```text
