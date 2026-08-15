@@ -27,6 +27,7 @@ claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 - [development-guidelines](plugins/agent-skills/skills/development-guidelines/SKILL.md)
 - [product-thinking](plugins/agent-skills/skills/product-thinking/SKILL.md)
 - [readable-code](plugins/agent-skills/skills/readable-code/SKILL.md)
+- [technical-research](plugins/agent-skills/skills/technical-research/SKILL.md)
 - [technical-writing](plugins/agent-skills/skills/technical-writing/SKILL.md)
 - [testing](plugins/agent-skills/skills/testing/SKILL.md)
 <!-- END GENERATED SKILLS -->
