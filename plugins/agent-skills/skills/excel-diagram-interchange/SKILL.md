@@ -59,7 +59,7 @@ Picture、SmartArt、WordArt、custom/freeform geometry、grouped shapeはv1で�
 
 3. 最初に`conversion-report.json`を読む。
 4. input format、output path、page/node/edge count、すべてのwarningを報告する。
-5. `diagram.json`が正規表現であることを明記する。
+5. `diagram.json`が正規モデルであることを明記する。
 6. Mermaidは論理ビューであることを明記する。厳密なgeometryを復元できるのは、生成された`%% diagram-interchange:` commentが保持されている場合だけである。
 7. DrawingMLまたはdraw.ioの完全互換を主張しない。対応プロファイル内での互換として説明する。
 
