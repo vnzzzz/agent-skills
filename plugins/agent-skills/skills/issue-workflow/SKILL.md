@@ -1,13 +1,13 @@
 ---
 name: issue-workflow
-description: Issue、ticket、local task recordを作業の正本として、scope確認から実装、検証、review、human handoffまで一貫して進めるときに使用する。GitHub等のprovider固有操作はadapter skillへ委ねる。
+description: Issue、ticket、local task recordを作業の正本として、scope確認から実装、検証、review、human handoffまで一貫して進めるときに使用する。GitHub Issue / Pull Requestで進める場合もこのSkillを使用し、GitHub固有手順はreferences/github.mdを参照する。
 ---
 
 # Issue Workflow
 
 Issue-drivenな変更では、task recordを **問題・scope・acceptance criteria・判断経緯のSSOT** として扱う。
 
-このSkillはprovider非依存の進め方だけを定義する。Repository-local rules、task-specific instruction、user instructionを優先する。
+このSkillはprovider非依存のlifecycleを正本とする。Repository-local rules、task-specific instruction、user instructionを優先する。
 
 ## Workflow
 
@@ -44,9 +44,15 @@ Issue-drivenな変更では、task recordを **問題・scope・acceptance crite
 8. **Human handoffで止める**
    明示委任がない限り、merge / task close / production deploy / destructive managed change / irreversible migrationは行わない。Humanが変更、validation、未確認事項、review結果、残存riskを判断できる状態で停止する。
 
-## Provider boundary
+## Provider固有workflow
 
-Branch naming、PR/MR、closing keyword、status transition、reviewer API等は `github-issue-workflow` などのadapterで具体化する。Local issue / task fileはこのSkill単独で扱える。
+Branch naming、PR / MR、closing keyword、status transition、reviewer API等のprovider固有mechanicsは、core workflowへ混ぜず必要なreferenceから読む。
+
+- **GitHub Issue / Pull Requestを使う場合:** provider固有操作へ入る前に [references/github.md](references/github.md) を読む。
+- GitHubを使わないtaskではGitHub referenceを読み込まない。
+- 将来別providerを追加する場合も、独立したjobでなければ `references/<provider>.md` を基本とし、top-level Skillを増やさない。
+
+Provider referenceはこのSkillのlifecycleを上書きせず、そのproviderで必要なdelivery mechanicsだけを具体化する。
 
 ## Related skills
 

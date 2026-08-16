@@ -17,6 +17,10 @@ EXPECTED_PLUGIN = "agent-skills"
 EXPECTED_SOURCE = "./plugins/agent-skills"
 EXPECTED_SKILL_FRONTMATTER = {"name", "description"}
 SEMVER = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
+SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+MAX_SKILL_NAME_LENGTH = 64
+MAX_SKILL_DESCRIPTION_LENGTH = 1024
+MAX_SKILL_LINES = 500
 
 
 def load(path: Path) -> dict:
@@ -38,6 +42,8 @@ def load_skill_frontmatter(path: Path) -> dict[str, str]:
     lines = path.read_text(encoding="utf-8").splitlines()
     if not lines or lines[0] != "---":
         fail(f"{path}: SKILL.md must start with YAML frontmatter")
+    if len(lines) > MAX_SKILL_LINES:
+        fail(f"{path}: SKILL.md must be at most {MAX_SKILL_LINES} lines")
 
     try:
         end = lines.index("---", 1)
@@ -60,6 +66,15 @@ def load_skill_frontmatter(path: Path) -> dict[str, str]:
         )
     if not metadata["name"] or not metadata["description"]:
         fail(f"{path}: SKILL.md name and description must be non-empty")
+    if len(metadata["name"]) > MAX_SKILL_NAME_LENGTH:
+        fail(f"{path}: SKILL.md name must be at most {MAX_SKILL_NAME_LENGTH} characters")
+    if not SKILL_NAME.fullmatch(metadata["name"]):
+        fail(f"{path}: SKILL.md name must use lowercase letters, digits, and single hyphens")
+    if len(metadata["description"]) > MAX_SKILL_DESCRIPTION_LENGTH:
+        fail(
+            f"{path}: SKILL.md description must be at most "
+            f"{MAX_SKILL_DESCRIPTION_LENGTH} characters"
+        )
     return metadata
 
 

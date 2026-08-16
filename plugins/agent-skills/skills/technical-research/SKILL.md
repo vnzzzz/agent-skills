@@ -1,6 +1,6 @@
 ---
 name: technical-research
-description: 技術仕様・挙動・制約・support範囲を調査するときに、対象versionと時点を固定し、一次資料を中心に確認済み事実・推論・提案・未確認事項を分離して実装判断に使える根拠を得るために使用する。
+description: 技術仕様・挙動・制約・support範囲を調査するときに、対象versionと時点を固定し、一次資料を中心に確認済み事実・推論・提案・未確認事項を分離して実装判断に使える根拠を得るために使用する。Repository内の実装を読むだけで答えられる事実確認には使用しない。
 ---
 
 # Technical Research

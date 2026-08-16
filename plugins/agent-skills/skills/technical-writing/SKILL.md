@@ -70,7 +70,7 @@ codeが正本である実装詳細を文書へ独立して複製しない。
 
 - codeだけで明確な処理をcommentや文書で言い換えない。
 - codeだけでは失われる「なぜ」、制約、不変条件、resource lifecycle、ownership等は実装近傍へ残す。
-- comment / docstringの具体的な判断基準は `readable-code` Skillを利用する。
+- comment / docstringの具体的な判断基準は `code-comments` Skillを利用する。
 - 実装そのものを不要に複雑化しない判断は `development-guidelines` Skillの責務とする。
 - public contractや利用手順が変わる場合は、code変更と同じ変更単位で対応する文書を更新する。
 - 古くなった文書を互換性や履歴のためだけに残さない。履歴はversion controlへ委ねる。

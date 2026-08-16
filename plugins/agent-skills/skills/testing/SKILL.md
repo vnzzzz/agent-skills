@@ -127,5 +127,5 @@ coverageは未検証領域を見つける補助情報として使えるが、数
 ## 他Skillとの関係
 
 - 実装そのものを必要十分に保つ判断は `development-guidelines` を利用する。
-- test codeを含むコードの可読性やcomment判断は `readable-code` を利用する。
+- test codeを含むコードの可読性やcomment判断は `code-comments` を利用する。
 - 要件や変更範囲そのものの妥当性判断は、このSkillの責務外とする。
