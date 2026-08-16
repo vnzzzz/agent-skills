@@ -20,7 +20,7 @@ description: 明確なgoal、baseline、success criteria、最大cycle数を持�
 - **Forbidden scope**: 今回触らないもの
 - **Max cycles**: 最大反復回数
 
-Userやowning Issueがmax cyclesを定義していない場合、無制限に反復しない。小さな改善taskでは原則3 cycle程度を上限候補とし、複雑さに応じて必要最小限に設定する。
+Userやowning Issueがmax cyclesを定義していない場合でも、無制限に反復しない。taskのcost、risk、validation時間に応じて、必要十分な小さい上限を明示する。
 
 Success criteriaを定義できない場合は、まずtask scopeやobservable outcomeを整理する。要求自体の妥当性を見直す必要がある場合は `product-thinking`、変更計画が必要なら `change-planning` を使う。
 
@@ -40,7 +40,7 @@ Success criteriaを定義できない場合は、まずtask scopeやobservable o
 
 複数の独立したblockerを一度に直し、どの変更が効いたか分からなくしない。
 
-## Cycle completion
+## Cycleの完了条件
 
 Fileを編集しただけではcycle完了としない。
 
@@ -51,7 +51,7 @@ Fileを編集しただけではcycle完了としない。
 
 No-op cycleは、調査によって安全な変更が存在しないことを示す場合だけ許容する。連続してno-opになる場合は、同じlayerで反復せずpivotまたはstopする。
 
-## Stop conditions
+## 停止条件
 
 次のいずれかで停止する。
 
@@ -69,9 +69,9 @@ No-op cycleは、調査によって安全な変更が存在しないことを示
 
 Target metricだけでなく、変更によって壊れ得る重要なbehavior / guardrailも確認する。
 
-改善値が上がっていても、比較条件が変わった場合や別のcritical behaviorがregressした場合はsuccessと断定しない。Validationとevidenceの扱いは `validation-reporting` を使う。
+改善値が上がっていても、比較条件が変わった場合や別のcritical behaviorがregressした場合はsuccessと断定しない。必要なtest strategyは `testing`、実施した検証結果の報告は `validation-reporting` を使う。
 
-## Report
+## 報告
 
 反復を行った場合は簡潔に次を残す。
 
@@ -89,5 +89,5 @@ Cycle数そのものを成果にしない。Success criteriaを早く満たし�
 - 最小実装とabstraction判断は `development-guidelines`。
 - test strategyは `testing`。
 - command executionは `command-execution`。
-- validationと最終evidence reportは `validation-reporting`。
+- 実施したvalidationと最終evidenceの報告は `validation-reporting`。
 - failureのroot causeが不明なら `debugging`。
