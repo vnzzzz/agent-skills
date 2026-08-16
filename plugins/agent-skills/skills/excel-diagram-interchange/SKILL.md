@@ -1,11 +1,6 @@
 ---
 name: excel-diagram-interchange
 description: 明示的に指定された図形中心のダイアグラムを、Excelセル内容を読み取らずに.xlsx、正規JSON/XML、Mermaid、draw.io間で変換する。入力パスを指定して手動実行する場合にのみ使用する。
-license: MIT
-compatibility: Python 3.11以上かつExpat 2.7.2以上が必要。サードパーティ製Pythonパッケージやネットワークアクセスを使わずローカルで動作する。Claude CodeとCodexに対応する。
-argument-hint: "<input.{xlsx,json,xml,mmd,drawio}> [output-directory]"
-disable-model-invocation: true
-disallowed-tools: WebFetch WebSearch
 ---
 
 # Excel図形ダイアグラム変換
