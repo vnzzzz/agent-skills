@@ -180,7 +180,7 @@ planは固定契約ではなく、確認済み事実に基づく実装判断の�
 - 問題、user need、solutionの妥当性は `product-thinking` を利用する。
 - 外部仕様、version、support範囲等の確認が実装判断へ影響する場合は `technical-research` を利用する。
 - 最小実装、abstraction、backward compatibilityの判断は `development-guidelines` を利用する。
-- 既存commentから制約や不変条件を読み、実装時に残す情報を判断する場合は `readable-code` を利用する。
+- 既存commentから制約や不変条件を読み、実装時に残す情報を判断する場合は `code-comments` を利用する。
 - 必要十分なtest strategyは `testing` を利用する。
 - public contract、利用方法、architecture上の重要事項が変わる場合のdocsは `technical-writing` を利用する。
 
