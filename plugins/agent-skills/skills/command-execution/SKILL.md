@@ -14,7 +14,9 @@ description: 長時間・破壊的・状態変更を伴うコマンドを安全�
 1. 実行するcommandの正本を確認する。記憶だけでflagやsubcommandを補わない。
 2. working tree、target environment、必要なcredentialやdependencyを確認する。
 3. 同じ処理がすでに進行中でないか確認できる場合は確認する。
-4. production、managed service、database、external APIなど不可逆性や外部影響がある場合は、対象environmentを明示してから実行する。
+4. production、managed service、database、external APIなど不可逆性や外部影響がある操作では、対象environmentと実行権限を確認する。
+
+production等へ変更を加える操作は、userの明示的な依頼、または事前に委任されたscopeであることを確認してから実行する。確認できない場合は、preflight、影響確認、実行手順の提示までに留める。
 
 同一目的のjob/processがすでに進行中なら、原則として重複起動しない。既存processやartifactを観測し、継続・停止・再実行のどれが妥当か判断する。
 
@@ -22,7 +24,7 @@ description: 長時間・破壊的・状態変更を伴うコマンドを安全�
 
 Agentが完了状態を回収できる作業はforegroundで実行する。
 
-理由なく次のようなdetached executionへ逃がさない。
+理由なく次のような回収不能なdetached executionへ逃がさない。
 
 ```bash
 nohup ... &
@@ -31,7 +33,11 @@ disown
 setsid ...
 ```
 
-長時間かかること自体はbackground化の理由にならない。利用可能なtoolが明示的なscheduled/background task機能を提供し、userがそれを要求した場合だけ、その仕組みを使う。
+長時間かかること自体はbackground化の理由にならない。
+
+一方、dev serverを起動したまま別commandを実行するなど、task上concurrent executionが必要な場合はbackground実行を禁止しない。その場合は、processやjobを継続して観測でき、終了時に確実に停止・回収できるmanagedなsession、job handle、task機能等を使用する。
+
+scheduled/background taskを将来継続させる場合は、利用可能な明示的なtask機能を使い、unmanaged processを残さない。
 
 ## 状態判定
 
@@ -58,7 +64,7 @@ Userが停止を求めた場合や、継続が安全でないと判断した場�
 
 広いprocess patternで無関係なprocessまで終了させない。
 
-## Failure時
+## 失敗時
 
 失敗した場合は、同じcommandを機械的に繰り返す前に実際のerrorを読む。
 
@@ -71,7 +77,7 @@ Userが停止を求めた場合や、継続が安全でないと判断した場�
 
 を区別し、再実行で改善する根拠がある場合だけretryする。原因特定が必要な場合は `debugging` を使う。
 
-## Report
+## 報告
 
 最終報告では必要に応じて次を区別する。
 
@@ -85,9 +91,11 @@ Userが停止を求めた場合や、継続が安全でないと判断した場�
 
 実行していないcommandやexternal validationを実行済みとして扱わない。長時間commandでは、foreground/backgroundの別、重複実行確認、結果判断に使ったartifactやstatusも必要に応じて示す。
 
+報告の構造やevidenceの表現は `validation-reporting` を利用する。
+
 ## 他Skillとの関係
 
 - 実装前の変更計画は `change-planning`。
 - 原因不明の失敗解析は `debugging`。
 - test strategyは `testing`。
-- 変更後に何を検証し、どう報告するかは `validation-reporting`。
+- 実行・検証結果の報告スタイルは `validation-reporting`。
