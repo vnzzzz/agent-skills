@@ -42,6 +42,8 @@ Excel、正規JSON/XML、draw.ioは明示的な座標とsizeを保持できる�
 |---|---:|---:|---:|---:|
 | Node/edge topology | 完全 | 対応プロファイル内で完全 | 対応プロファイル内で完全 | 対応syntax内で完全 |
 | 絶対geometry | 完全 | 完全 | 完全 / cell anchorは近似 | metadata commentのみ |
+| Rotation | 完全 | 完全 | 完全 | metadata commentのみ |
+| z-order | 完全 | node/edgeをまたいで保持 | node内・connector内で保持 / cross-typeはnode→connectorへ正規化 | metadata commentのみ |
 | Shape text | 完全 | 完全 | 完全 | 完全 |
 | 基本fill/stroke/font | 完全 | おおむね対応 | おおむね対応 | 基本的なnode style |
 | Connector label/arrow | 完全 | おおむね対応 | おおむね対応 | 基本対応 |
@@ -87,8 +89,8 @@ Excel、正規JSON/XML、draw.ioは明示的な座標とsizeを保持できる�
 ## Round-tripの期待値
 
 - JSON ↔ 正規XML: 構造的に等価であることを意図する。
-- JSON ↔ draw.io: 対応プロファイル内でgeometryとtopologyを保持する。
-- JSON ↔ Excel: 対応するDrawingML profile内でgeometryとtopologyを保持する。cell-based anchorはoutput時にabsolute anchorへ正規化される場合がある。
+- JSON ↔ draw.io: 対応プロファイル内でgeometry、topology、node/edgeをまたぐstacking順序を保持する。
+- JSON ↔ Excel: 対応するDrawingML profile内でgeometryとtopologyを保持する。cell-based anchorはoutput時にabsolute anchorへ正規化される場合があり、nodeとconnectorをまたぐstacking順序はnode→connectorへ正規化する。
 - JSON ↔ 生成Mermaid: topologyとprofile geometry commentを保持する。
 - 任意のMermaid ↔ その他format: topologyを保持し、layoutは生成する。
 
