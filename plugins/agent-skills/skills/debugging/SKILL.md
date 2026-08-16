@@ -258,14 +258,14 @@ mitigationとして意図的に症状を隠す場合は、それをtemporary mit
 
 非自明なdebuggingでは、必要に応じて次を簡潔に残す。
 
-1. Symptom
-2. Reproduction / trigger conditions
-3. Confirmed facts
-4. Rejected hypotheses
-5. Root cause
-6. Fix and causal link
-7. Validation
-8. Residual risks / unknowns
+1. 症状
+2. 再現条件 / 発生条件
+3. 確認済み事実
+4. 棄却した仮説
+5. root cause
+6. fixと因果関係
+7. 検証
+8. 残存リスク / 未確認事項
 
 長い時系列logや調査日誌そのものを成果にしない。
 
@@ -273,9 +273,9 @@ mitigationとして意図的に症状を隠す場合は、それをtemporary mit
 
 user-facing docs、runbook、運用手順、public contractを更新する必要がある場合は `technical-writing` を利用する。
 
-## Avoid these failure modes
+## アンチパターン
 
-Do not:
+次を避ける。
 
 - stack traceの最後の行だけ見てpatchする
 - 原因不明のままtry/catchでerrorを握り潰す
@@ -291,15 +291,13 @@ Do not:
 - mitigationをpermanent fixと呼ぶ
 - source code上の偶然の挙動を外部仕様とみなす
 
-## Working with other skills
+## 他Skillとの関係
 
-Use:
+- external specification、version、support contract、dependency behaviorが調査へ大きく影響する場合は `technical-research` を利用する。
+- system変更前に既存code path、責務境界、変更範囲の把握が必要な場合は `change-planning` を利用する。
+- fixを最小に保ち、推測に基づくretry、fallback、abstraction、compatibility workを避ける場合は `development-guidelines` を利用する。
+- regression testの価値と検証levelを判断する場合は `testing` を利用する。
+- root causeから得た非自明なconstraintやinvariantを実装近傍へ残す場合は `readable-code` を利用する。
+- fixがuser-facing documentation、運用手順、architecture-level behavior、public contractを変更する場合は `technical-writing` を利用する。
 
-- `technical-research` when external specifications, versions, support contracts, or dependency behavior materially affect the investigation.
-- `change-planning` when understanding the existing code path, responsibility boundary, or change scope is necessary before modifying the system.
-- `development-guidelines` to keep the fix minimal and avoid speculative retry, fallback, abstraction, or compatibility work.
-- `testing` to decide whether a regression test is valuable and at what level it should verify behavior.
-- `readable-code` when preserving non-obvious root-cause-derived constraints or invariants near the implementation.
-- `technical-writing` when the fix changes user-facing documentation, operational procedures, architecture-level behavior, or public contracts.
-
-Debugging determines **what actually failed and why**. The implementation skills determine **how to correct it without introducing unnecessary complexity**.
+Debuggingは**実際に何が壊れ、なぜ壊れたか**を特定する。実装系Skillは、**不要な複雑さを増やさずどう修正するか**を決める。
