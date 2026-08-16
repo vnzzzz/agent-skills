@@ -152,22 +152,22 @@ production dataの変更、破壊的operation、security boundaryを越える検
 
 調査結果では、少なくとも次を混同しない。
 
-### Confirmed fact
+### 確認済み事実
 
 公式資料や直接観測で確認できた内容。
 対象versionや条件も必要に応じて添える。
 
-### Inference
+### 推論
 
 複数の確認済み事実から導いた判断。
 公式仕様そのものではないことが分かるようにする。
 
-### Recommendation
+### 提案
 
 制約、trade-off、project contextを踏まえた実装・運用上の提案。
 「vendor推奨」と書くのは、vendorが実際にそう明示している場合だけにする。
 
-### Unknown
+### 未確認事項
 
 確認できなかった点、資料が矛盾している点、追加検証が必要な点。
 
@@ -205,12 +205,12 @@ API名、option、limit、support範囲等が確認できない場合、もっ�
 
 必要に応じて次を簡潔に示す。
 
-1. **Conclusion** — 問いへの回答
-2. **Target** — version / 時点 / environment / 前提
-3. **Verified facts** — 判断を支える確認済み事実
-4. **Implications** — 実装・運用上の意味
-5. **Uncertainties** — 未確認事項や残る不確実性
-6. **Primary sources** — 主要な根拠と、それが何を支えるか
+1. **結論** — 問いへの回答
+2. **対象** — version / 時点 / environment / 前提
+3. **確認済み事実** — 判断を支える確認済み事実
+4. **意味** — 実装・運用上の意味
+5. **不確実性** — 未確認事項や残る不確実性
+6. **一次資料** — 主要な根拠と、それが何を支えるか
 
 sourceの羅列ではなく、sourceと判断の対応が分かるようにする。
 

@@ -1,10 +1,8 @@
 # agent-skills
 
-Shared Agent Skills for Codex and Claude Code.
-
 Codex / Claude Codeで共通利用する、開発ワークフロー向けAgent Skillsを管理・配布します。
 
-## Install
+## インストール
 
 ### Codex
 
@@ -34,7 +32,7 @@ claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 - [testing](plugins/agent-skills/skills/testing/SKILL.md)
 <!-- END GENERATED SKILLS -->
 
-## Layout
+## ディレクトリ構成
 
 ```text
 plugins/agent-skills/
@@ -45,4 +43,4 @@ plugins/agent-skills/
         └── SKILL.md
 ```
 
-`plugins/agent-skills/skills/` がSkillの正本です。Codex / Claude Codeは同じPluginを参照します。
+`plugins/agent-skills/skills/`がSkillの正本です。Codex / Claude Codeは同じPluginを参照します。
