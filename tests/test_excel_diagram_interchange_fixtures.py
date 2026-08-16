@@ -49,29 +49,53 @@ def _node_signature(node) -> tuple:
     )
 
 
-def _supported_contract(diagram) -> list[dict[str, object]]:
+def _edge_signature(edge, nodes_by_id: dict[str, object]) -> tuple:
+    def endpoint_signature(node_id: str | None):
+        node = nodes_by_id.get(node_id) if node_id else None
+        return _node_signature(node) if node is not None else None
+
+    return (
+        endpoint_signature(edge.source),
+        endpoint_signature(edge.target),
+        edge.label,
+        _style_signature(edge.style),
+    )
+
+
+def _supported_contract(diagram, *, include_cross_type_z: bool = False) -> list[dict[str, object]]:
     pages: list[dict[str, object]] = []
     for page in diagram.pages:
         nodes_by_id = {node.id: node for node in page.nodes}
-
-        def endpoint_signature(node_id: str | None):
-            node = nodes_by_id.get(node_id) if node_id else None
-            return _node_signature(node) if node is not None else None
-
-        pages.append({
+        page_contract: dict[str, object] = {
             "name": page.name,
             "nodes": [_node_signature(node) for node in sorted(page.nodes, key=lambda item: item.z)],
             "edges": [
-                (
-                    endpoint_signature(edge.source),
-                    endpoint_signature(edge.target),
-                    edge.label,
-                    _style_signature(edge.style),
-                )
+                _edge_signature(edge, nodes_by_id)
                 for edge in sorted(page.edges, key=lambda item: item.z)
             ],
-        })
+        }
+        if include_cross_type_z:
+            stack = [
+                *((node.z, 0, ("node", _node_signature(node))) for node in page.nodes),
+                *((edge.z, 1, ("edge", _edge_signature(edge, nodes_by_id))) for edge in page.edges),
+            ]
+            page_contract["stack"] = [entry[2] for entry in sorted(stack, key=lambda entry: (entry[0], entry[1]))]
+        pages.append(page_contract)
     return pages
+
+
+def _exercise_supported_edge_cases(diagram) -> None:
+    page = diagram.pages[0]
+    nodes = sorted(page.nodes, key=lambda item: item.z)
+    edges = sorted(page.edges, key=lambda item: item.z)
+
+    for index, node in enumerate(nodes):
+        node.z = index * 2
+    for index, edge in enumerate(edges):
+        edge.z = 100 + index
+
+    nodes[0].rotation = 17.5
+    edges[0].z = 1
 
 
 class DemoRepositoryTests(unittest.TestCase):
@@ -97,6 +121,7 @@ class DemoRepositoryTests(unittest.TestCase):
 
     def test_complex_json_xlsx_roundtrip_preserves_supported_contract(self) -> None:
         source = read_json(EXPECTED / "diagram.json")
+        _exercise_supported_edge_cases(source)
         with TemporaryDirectory() as temp_dir:
             path = Path(temp_dir) / "roundtrip.xlsx"
             write_xlsx(source, path)
@@ -105,14 +130,19 @@ class DemoRepositoryTests(unittest.TestCase):
 
     def test_complex_json_drawio_roundtrip_preserves_supported_contract(self) -> None:
         source = read_json(EXPECTED / "diagram.json")
+        _exercise_supported_edge_cases(source)
         with TemporaryDirectory() as temp_dir:
             path = Path(temp_dir) / "roundtrip.drawio"
             write_drawio(source, path)
             restored = read_drawio(path)
-        self.assertEqual(_supported_contract(restored), _supported_contract(source))
+        self.assertEqual(
+            _supported_contract(restored, include_cross_type_z=True),
+            _supported_contract(source, include_cross_type_z=True),
+        )
 
     def test_complex_json_xml_roundtrip_is_canonical_equivalent(self) -> None:
         source = read_json(EXPECTED / "diagram.json")
+        _exercise_supported_edge_cases(source)
         with TemporaryDirectory() as temp_dir:
             path = Path(temp_dir) / "roundtrip.xml"
             write_xml(source, path)
