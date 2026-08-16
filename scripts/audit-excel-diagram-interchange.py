@@ -6,6 +6,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "plugins" / "agent-skills" / "skills" / "excel-diagram-interchange"
+RUNTIME_ROOT = SKILL / "scripts"
 
 FORBIDDEN_IMPORTS = {
     "aiohttp",
@@ -18,6 +19,11 @@ FORBIDDEN_IMPORTS = {
 }
 FORBIDDEN_CALLS = {"eval", "exec", "compile", "__import__"}
 STDLIB_MODULES = set(sys.stdlib_module_names) | {"__future__"}
+LOCAL_MODULES = {
+    path.name if path.is_dir() else path.stem
+    for path in RUNTIME_ROOT.iterdir()
+    if path.is_dir() or path.suffix == ".py"
+}
 
 
 def dotted_name(node: ast.AST) -> str:
@@ -35,7 +41,7 @@ def check_import(findings: list[str], path: Path, module: str, line: int) -> Non
     top = module.split(".", 1)[0]
     if top in FORBIDDEN_IMPORTS or module == "urllib.request":
         findings.append(f"{path}:{line}: forbidden import {module}")
-    elif top not in STDLIB_MODULES:
+    elif top not in STDLIB_MODULES and top not in LOCAL_MODULES:
         findings.append(f"{path}:{line}: third-party import is not allowed: {module}")
 
 
@@ -61,7 +67,7 @@ def main() -> int:
         print("Security audit failed:")
         print("\n".join(f"- {item}" for item in findings))
         return 1
-    print("Security audit passed: stdlib-only runtime with no network/subprocess/dynamic-execution APIs detected.")
+    print("Security audit passed: stdlib/local-only runtime with no network/subprocess/dynamic-execution APIs detected.")
     return 0
 
 
