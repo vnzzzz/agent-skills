@@ -91,11 +91,11 @@ Userが停止を求めた場合や、継続が安全でないと判断した場�
 
 実行していないcommandやexternal validationを実行済みとして扱わない。長時間commandでは、foreground/backgroundの別、重複実行確認、結果判断に使ったartifactやstatusも必要に応じて示す。
 
-報告の構造やevidenceの表現は `validation-reporting` を利用する。
+報告の構造やevidenceの表現は `evidence-reporting` を利用する。
 
 ## 他Skillとの関係
 
 - 実装前の変更計画は `change-planning`。
 - 原因不明の失敗解析は `debugging`。
 - test strategyは `testing`。
-- 実行・検証結果の報告スタイルは `validation-reporting`。
+- 実行・検証結果の報告スタイルは `evidence-reporting`。
