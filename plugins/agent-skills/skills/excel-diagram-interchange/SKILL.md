@@ -35,6 +35,8 @@ Python 3.11以上かつExpat 2.7.2以上が必要。converterはXMLをparseす�
 - Basic style: fill、stroke、line width/dash、font color/size。
 - Excelのcell value、formula、comment、table、chart、conditional formattingは無視する。
 
+`draw.io`出力ではnodeとedgeをまたぐstacking順序を保持する。Excel出力ではnode同士、connector同士の順序は保持するが、nodeとconnectorをまたぐstacking順序はnode→connectorへ正規化する。
+
 Picture、SmartArt、WordArt、custom/freeform geometry、grouped shapeはv1では非対応。これらは警告として報告し、代替表現を黙って捏造しない。
 
 ## ワークフロー
