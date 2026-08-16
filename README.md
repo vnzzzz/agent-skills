@@ -25,6 +25,7 @@ claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 - [command-execution](plugins/agent-skills/skills/command-execution/SKILL.md)
 - [debugging](plugins/agent-skills/skills/debugging/SKILL.md)
 - [development-guidelines](plugins/agent-skills/skills/development-guidelines/SKILL.md)
+- [evidence-reporting](plugins/agent-skills/skills/evidence-reporting/SKILL.md)
 - [excel-diagram-interchange](plugins/agent-skills/skills/excel-diagram-interchange/SKILL.md)
 - [iterative-improvement](plugins/agent-skills/skills/iterative-improvement/SKILL.md)
 - [product-thinking](plugins/agent-skills/skills/product-thinking/SKILL.md)
@@ -32,7 +33,6 @@ claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 - [technical-research](plugins/agent-skills/skills/technical-research/SKILL.md)
 - [technical-writing](plugins/agent-skills/skills/technical-writing/SKILL.md)
 - [testing](plugins/agent-skills/skills/testing/SKILL.md)
-- [validation-reporting](plugins/agent-skills/skills/validation-reporting/SKILL.md)
 <!-- END GENERATED SKILLS -->
 
 ## ディレクトリ構成
