@@ -4,6 +4,9 @@
   "features": {
     "ghcr.io/vnzzzz/agentic-development-toolkit/agent-dev:1": {}
   },
+  "containerEnv": {
+    "AGENT_SKILLS_MARKETPLACE_SOURCE": "${containerWorkspaceFolder}"
+  },
   "remoteUser": "vscode",
   "updateContentCommand": "sudo python -m pip install --require-hashes -r requirements.lock"
 }
