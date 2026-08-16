@@ -1,6 +1,6 @@
-# Canonical diagram model
+# 正規ダイアグラムモデル
 
-`diagram.json` is the canonical representation.
+`diagram.json`を正規の内部表現として使用する。
 
 ```text
 Diagram
@@ -23,9 +23,9 @@ Diagram
       metadata
 ```
 
-IDs must match `^[A-Za-z][A-Za-z0-9_-]{0,119}$` and be unique within their scope.
+IDは`^[A-Za-z][A-Za-z0-9_-]{0,119}$`に一致し、各scope内で一意でなければならない。
 
-The supported style fields are:
+対応するstyle fieldは次のとおり。
 
 - `fill`
 - `stroke`
@@ -36,4 +36,4 @@ The supported style fields are:
 - `arrow_start`
 - `arrow_end`
 
-Colors are six-digit `#rrggbb` strings. `fill` may also be `none`.
+色は6桁の`#rrggbb`形式で表す。`fill`には`none`も指定できる。

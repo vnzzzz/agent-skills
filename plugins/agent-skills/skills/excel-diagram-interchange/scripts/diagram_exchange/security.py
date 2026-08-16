@@ -4,12 +4,24 @@ from pathlib import Path, PurePosixPath
 import stat
 from zipfile import BadZipFile, ZipFile
 
-from defusedxml import ElementTree as DET
+from .safe_xml import parse_xml_bytes, validate_xml_bytes
 
 BLOCKED_PART_FRAGMENTS = (
     "vbaproject", "activex", "embeddings/", "oleobject", "externallinks/",
 )
 REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
+BLOCKED_CONTENT_TYPE_MARKERS = ("macroenabled", "vbaproject", "oleobject", "activex")
+
+
+def _validate_package_xml(zf: ZipFile, infos) -> None:
+    for info in infos:
+        lowered = info.filename.lower()
+        if not lowered.endswith((".xml", ".rels")):
+            continue
+        try:
+            validate_xml_bytes(zf.read(info))
+        except ValueError as exc:
+            raise ValueError(f"Unsafe XML in OOXML part: {info.filename}: {exc}") from exc
 
 
 def preflight_xlsx(
@@ -60,16 +72,21 @@ def preflight_xlsx(
                     raise ValueError(f"Suspicious compression ratio: {name}")
             if "[Content_Types].xml" not in seen:
                 raise ValueError("OOXML content types are missing")
-            content_types = zf.read("[Content_Types].xml").lower()
-            blocked_types = (b"macroenabled", b"vbaproject", b"oleobject", b"activex")
-            if any(marker in content_types for marker in blocked_types):
-                raise ValueError("Blocked OOXML content type")
+
+            _validate_package_xml(zf, infos)
+
+            content_types = parse_xml_bytes(zf.read("[Content_Types].xml"))
+            for element in content_types.iter():
+                content_type = element.get("ContentType", "").lower()
+                if any(marker in content_type for marker in BLOCKED_CONTENT_TYPE_MARKERS):
+                    raise ValueError("Blocked OOXML content type")
+
             for info in infos:
                 if not info.filename.endswith(".rels"):
                     continue
                 try:
-                    root = DET.fromstring(zf.read(info))
-                except Exception as exc:
+                    root = parse_xml_bytes(zf.read(info))
+                except ValueError as exc:
                     raise ValueError(f"Invalid relationship XML: {info.filename}") from exc
                 for rel in root.findall(f"{{{REL_NS}}}Relationship"):
                     if rel.get("TargetMode", "").lower() == "external":

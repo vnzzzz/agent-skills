@@ -4,9 +4,8 @@ from pathlib import Path
 import json
 import xml.etree.ElementTree as WET
 
-from defusedxml import ElementTree as DET
-
 from .model import Diagram, Edge, Node, Page, Style, diagram_from_dict
+from .safe_xml import parse_xml_file
 
 
 def read_json(path: Path) -> Diagram:
@@ -110,7 +109,7 @@ def _read_metadata(parent) -> dict:
 
 
 def read_xml(path: Path) -> Diagram:
-    root = DET.parse(path).getroot()
+    root = parse_xml_file(path)
     if root.tag != "diagram":
         raise ValueError("Canonical XML root must be <diagram>")
     pages: list[Page] = []

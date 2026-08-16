@@ -15,6 +15,7 @@ CLAUDE_MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 EXPECTED_MARKETPLACE = "vnzzzz-agent-skills"
 EXPECTED_PLUGIN = "agent-skills"
 EXPECTED_SOURCE = "./plugins/agent-skills"
+EXPECTED_SKILL_FRONTMATTER = {"name", "description"}
 SEMVER = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 
 
@@ -31,6 +32,35 @@ def find_plugin(marketplace: dict) -> dict:
     if len(matches) != 1:
         fail(f"marketplace must contain exactly one {EXPECTED_PLUGIN!r} entry")
     return matches[0]
+
+
+def load_skill_frontmatter(path: Path) -> dict[str, str]:
+    lines = path.read_text(encoding="utf-8").splitlines()
+    if not lines or lines[0] != "---":
+        fail(f"{path}: SKILL.md must start with YAML frontmatter")
+
+    try:
+        end = lines.index("---", 1)
+    except ValueError:
+        fail(f"{path}: SKILL.md frontmatter is not closed")
+
+    metadata: dict[str, str] = {}
+    for line in lines[1:end]:
+        key, separator, value = line.partition(":")
+        if not separator or not key or key != key.strip():
+            fail(f"{path}: SKILL.md frontmatter must use simple key: value entries")
+        if key in metadata:
+            fail(f"{path}: duplicate SKILL.md frontmatter field {key!r}")
+        metadata[key] = value.strip()
+
+    if set(metadata) != EXPECTED_SKILL_FRONTMATTER:
+        fail(
+            f"{path}: SKILL.md frontmatter must contain only "
+            f"{sorted(EXPECTED_SKILL_FRONTMATTER)}"
+        )
+    if not metadata["name"] or not metadata["description"]:
+        fail(f"{path}: SKILL.md name and description must be non-empty")
+    return metadata
 
 
 def main() -> int:
@@ -84,8 +114,12 @@ def main() -> int:
     if not skill_roots:
         fail("Plugin must contain at least one Skill")
     for skill_root in skill_roots:
-        if not (skill_root / "SKILL.md").is_file():
+        skill_md = skill_root / "SKILL.md"
+        if not skill_md.is_file():
             fail(f"{skill_root}: missing SKILL.md")
+        metadata = load_skill_frontmatter(skill_md)
+        if metadata["name"] != skill_root.name:
+            fail(f"{skill_md}: SKILL.md name must match its directory name")
 
     print(f"Validated {len(skill_roots)} shared Skill(s) in {EXPECTED_PLUGIN} {codex['version']}.")
     return 0

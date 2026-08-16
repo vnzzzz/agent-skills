@@ -10,6 +10,7 @@ from .canonical import read_json, read_xml, write_json, write_xml
 from .drawio import read_drawio, write_drawio
 from .excel_ooxml import read_xlsx, write_xlsx
 from .mermaid import read_mermaid, write_mermaid
+from .safe_xml import parse_xml_file
 
 FORMATS = {"json", "xml", "mmd", "drawio", "xlsx"}
 
@@ -25,8 +26,9 @@ def detect_format(path: Path) -> str:
     if suffix == ".drawio":
         return "drawio"
     if suffix == ".xml":
-        head = path.read_text(encoding="utf-8", errors="strict")[:2048]
-        if "<mxfile" in head or "<mxGraphModel" in head:
+        root = parse_xml_file(path)
+        local_name = root.tag.rsplit("}", 1)[-1]
+        if local_name in {"mxfile", "mxGraphModel"}:
             return "drawio"
         return "xml"
     raise ValueError(f"Unsupported input extension: {suffix}")
@@ -69,8 +71,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args(argv)
     try:
-        input_path = args.input.resolve(strict=True)
-        if input_path.is_symlink() or not input_path.is_file():
+        input_arg = args.input.expanduser()
+        if input_arg.is_symlink():
+            raise ValueError("Symbolic-link input is not allowed")
+        input_path = input_arg.resolve(strict=True)
+        if not input_path.is_file():
             raise ValueError("Input must be a regular file")
         if input_path.stat().st_size > 50 * 1024 * 1024:
             raise ValueError("Input exceeds 50 MiB limit")
