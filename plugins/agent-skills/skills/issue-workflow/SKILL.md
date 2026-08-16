@@ -1,13 +1,13 @@
 ---
 name: issue-workflow
-description: Issue、ticket、task recordを作業の正本として、scope確認、実装、検証、review、human handoffまでを一貫して進めるときに使用する。GitHub、GitLab、JIRA等のtracker固有操作はadapter skillへ委ねる。
+description: Issue、ticket、local task recordを作業の正本として、scope確認、実装、検証、review、human handoffまでを一貫して進めるときに使用する。GitHub、GitLab、JIRA等のprovider固有操作はadapter skillへ委ねる。
 ---
 
 # Issue Workflow
 
 Issue-drivenな変更では、task recordを単なる作業メモではなく、**解決する問題、scope、acceptance criteria、判断経緯を共有する正本**として扱う。
 
-このSkillはtracker / forge非依存のworkflowだけを扱う。GitHub Pull Request、GitLab Merge Request、JIRA transition、Redmine status等のprovider固有操作は対応するadapter skillへ委ねる。
+このSkillはtracker / forge非依存のworkflowだけを扱う。GitHub Pull Request、GitLab Merge Request、JIRA transition、Redmine status等のprovider固有操作は対応するadapter skillへ委ねる。Provider固有操作を必要としないlocal issue / task fileでは、このSkillを単独で利用できる。
 
 Repository-localの `AGENTS.md`、contributing guide、branch policy、security rule、task-specific instruction等がある場合は、それらをこのSkillより優先する。
 
@@ -164,7 +164,7 @@ Humanへhandoffするときは、最低限以下が分かればよい。
 - comment / thread resolution API
 - provider固有permission model
 
-これらは `github-issue-workflow` 等のadapter skillとrepository-local rulesで具体化する。
+これらは `github-issue-workflow` 等のadapter skillとrepository-local rulesで具体化する。Provider固有操作が存在しない場合はadapter自体を必要としない。
 
 将来別providerへ対応するときも、このcore workflowをcopyせず、provider固有部分だけをadapterへ追加する。
 
