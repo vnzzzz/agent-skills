@@ -150,7 +150,7 @@ def read_drawio(path: Path) -> Diagram:
     return Diagram(title=path.stem, pages=pages, metadata={"source_format": "drawio"})
 
 
-def _drawio_style(style: Style, shape: str, *, edge: bool = False) -> str:
+def _drawio_style(style: Style, shape: str, *, edge: bool = False, rotation: float = 0.0) -> str:
     parts = ["html=0", "whiteSpace=wrap"]
     if edge:
         parts.extend(["edgeStyle=orthogonalEdgeStyle", "rounded=0", "orthogonalLoop=1", "jettySize=auto"])
@@ -168,6 +168,8 @@ def _drawio_style(style: Style, shape: str, *, edge: bool = False) -> str:
         elif shape not in {"rect", ""}:
             parts.append(f"shape={shape}")
         parts.append(f"fillColor={style.fill if style.fill != 'none' else 'none'}")
+        if rotation:
+            parts.append(f"rotation={rotation:g}")
     parts.extend([
         f"strokeColor={style.stroke}", f"strokeWidth={style.stroke_width:g}",
         f"fontColor={style.font_color}", f"fontSize={style.font_size:g}",
@@ -190,20 +192,28 @@ def write_drawio(diagram: Diagram, path: Path) -> None:
         root = WET.SubElement(model, "root")
         WET.SubElement(root, "mxCell", {"id": "0"})
         WET.SubElement(root, "mxCell", {"id": "1", "parent": "0"})
-        node_ids: dict[str, str] = {}
-        next_id = 2
-        for node in sorted(page.nodes, key=lambda n: n.z):
-            cell_id = str(next_id); next_id += 1
-            node_ids[node.id] = cell_id
-            cell = WET.SubElement(root, "mxCell", {
-                "id": cell_id, "value": node.label, "style": _drawio_style(node.style, node.shape),
-                "vertex": "1", "parent": "1",
-            })
-            WET.SubElement(cell, "mxGeometry", {
-                "x": f"{node.x:g}", "y": f"{node.y:g}", "width": f"{node.width:g}",
-                "height": f"{node.height:g}", "as": "geometry",
-            })
-        for edge in sorted(page.edges, key=lambda e: e.z):
+
+        sorted_nodes = sorted(page.nodes, key=lambda node: node.z)
+        node_ids = {node.id: str(index) for index, node in enumerate(sorted_nodes, start=2)}
+        next_id = 2 + len(sorted_nodes)
+        items = [
+            *((node.z, 0, node) for node in page.nodes),
+            *((edge.z, 1, edge) for edge in page.edges),
+        ]
+        for _, _, item in sorted(items, key=lambda entry: (entry[0], entry[1])):
+            if isinstance(item, Node):
+                cell = WET.SubElement(root, "mxCell", {
+                    "id": node_ids[item.id], "value": item.label,
+                    "style": _drawio_style(item.style, item.shape, rotation=item.rotation),
+                    "vertex": "1", "parent": "1",
+                })
+                WET.SubElement(cell, "mxGeometry", {
+                    "x": f"{item.x:g}", "y": f"{item.y:g}", "width": f"{item.width:g}",
+                    "height": f"{item.height:g}", "as": "geometry",
+                })
+                continue
+
+            edge = item
             attrs = {
                 "id": str(next_id), "value": edge.label, "style": _drawio_style(edge.style, "line", edge=True),
                 "edge": "1", "parent": "1",
