@@ -111,6 +111,6 @@ description: 新機能・バグ修正・リファクタリングの実装また�
 ## 他Skillとの関係
 
 - そもそも何を解決すべきか、solutionがuser needに合うかは `product-thinking` を利用する。
-- 命名や関数分割でも残らない判断理由・制約・不変条件をcommentへ残す場合は `readable-code` を利用する。
+- 命名や関数分割でも残らない判断理由・制約・不変条件をcommentへ残す場合は `code-comments` を利用する。
 
 このSkillは、product requirement、testing methodology、documentation styleそのものを定義しない。
