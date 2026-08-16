@@ -12,7 +12,6 @@ class RepositoryBoundaryTests(unittest.TestCase):
     def test_skill_contains_only_runtime_categories(self) -> None:
         required = {
             "SKILL.md",
-            "LICENSE",
             "agents/openai.yaml",
             "references/capabilities.md",
             "references/model-schema.md",
