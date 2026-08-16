@@ -269,7 +269,7 @@ mitigationとして意図的に症状を隠す場合は、それをtemporary mit
 
 長い時系列logや調査日誌そのものを成果にしない。
 
-原因の理解や将来の保守に必要なconstraint / invariantをcode commentへ残す場合は `readable-code` を利用する。
+原因の理解や将来の保守に必要なconstraint / invariantをcode commentへ残す場合は `code-comments` を利用する。
 
 user-facing docs、runbook、運用手順、public contractを更新する必要がある場合は `technical-writing` を利用する。
 
@@ -297,7 +297,7 @@ user-facing docs、runbook、運用手順、public contractを更新する必要
 - system変更前に既存code path、責務境界、変更範囲の把握が必要な場合は `change-planning` を利用する。
 - fixを最小に保ち、推測に基づくretry、fallback、abstraction、compatibility workを避ける場合は `development-guidelines` を利用する。
 - regression testの価値と検証levelを判断する場合は `testing` を利用する。
-- root causeから得た非自明なconstraintやinvariantを実装近傍へ残す場合は `readable-code` を利用する。
+- root causeから得た非自明なconstraintやinvariantを実装近傍へ残す場合は `code-comments` を利用する。
 - fixがuser-facing documentation、運用手順、architecture-level behavior、public contractを変更する場合は `technical-writing` を利用する。
 
 Debuggingは**実際に何が壊れ、なぜ壊れたか**を特定する。実装系Skillは、**不要な複雑さを増やさずどう修正するか**を決める。
