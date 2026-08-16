@@ -1,0 +1,9 @@
+{
+  "name": "agent-skills",
+  "image": "mcr.microsoft.com/devcontainers/python:3.14-bookworm",
+  "features": {
+    "ghcr.io/vnzzzz/agentic-development-toolkit/agent-dev:1": {}
+  },
+  "remoteUser": "vscode",
+  "updateContentCommand": "sudo python -m pip install --require-hashes -r requirements.lock"
+}
