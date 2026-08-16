@@ -27,6 +27,8 @@ claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 - [development-guidelines](plugins/agent-skills/skills/development-guidelines/SKILL.md)
 - [evidence-reporting](plugins/agent-skills/skills/evidence-reporting/SKILL.md)
 - [excel-diagram-interchange](plugins/agent-skills/skills/excel-diagram-interchange/SKILL.md)
+- [github-issue-workflow](plugins/agent-skills/skills/github-issue-workflow/SKILL.md)
+- [issue-workflow](plugins/agent-skills/skills/issue-workflow/SKILL.md)
 - [iterative-improvement](plugins/agent-skills/skills/iterative-improvement/SKILL.md)
 - [product-thinking](plugins/agent-skills/skills/product-thinking/SKILL.md)
 - [readable-code](plugins/agent-skills/skills/readable-code/SKILL.md)
