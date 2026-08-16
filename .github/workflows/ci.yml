@@ -63,10 +63,6 @@ jobs:
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
-          cache-dependency-path: requirements.lock
-      - name: Install Skill dependency
-        run: python -m pip install --require-hashes -r requirements.lock
       - name: Compile Skill Python
         run: >-
           python -m compileall -q
@@ -75,6 +71,7 @@ jobs:
           tests/test_excel_diagram_interchange.py
           tests/test_excel_diagram_interchange_boundary.py
           tests/test_excel_diagram_interchange_fixtures.py
+          tests/test_excel_diagram_interchange_security.py
       - name: Test excel-diagram-interchange
         run: python -m unittest discover -s tests -p 'test_excel_diagram_interchange*.py' -v
       - name: Test fixture module in isolation

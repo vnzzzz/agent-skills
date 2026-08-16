@@ -39,8 +39,13 @@ class RepositoryBoundaryTests(unittest.TestCase):
             if path.suffix == ".py":
                 self.assertEqual("scripts", path.parts[0])
 
-    def test_repository_owns_development_files(self) -> None:
-        for relative in ("requirements.lock", "tests/test_excel_diagram_interchange.py", "scripts/audit-excel-diagram-interchange.py"):
+    def test_repository_owns_development_files_without_runtime_dependencies(self) -> None:
+        self.assertFalse((ROOT / "requirements.lock").exists())
+        for relative in (
+            "tests/test_excel_diagram_interchange.py",
+            "tests/test_excel_diagram_interchange_security.py",
+            "scripts/audit-excel-diagram-interchange.py",
+        ):
             self.assertTrue((ROOT / relative).is_file(), relative)
 
 

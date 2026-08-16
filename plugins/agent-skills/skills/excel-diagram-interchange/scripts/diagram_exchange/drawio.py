@@ -8,9 +8,8 @@ from urllib.parse import unquote
 import xml.etree.ElementTree as WET
 import zlib
 
-from defusedxml import ElementTree as DET
-
 from .model import Diagram, Edge, Node, Page, Style
+from .safe_xml import parse_xml_bytes, parse_xml_file
 from .util import normalize_color, safe_id
 
 
@@ -91,7 +90,7 @@ def _model_root(root):
             model = children[0]
         elif diagram.text and diagram.text.strip():
             data = _decode_diagram_text(diagram.text) if compressed else diagram.text.encode("utf-8")
-            model = DET.fromstring(data)
+            model = parse_xml_bytes(data)
         else:
             continue
         models.append((diagram.get("name", f"Page {index}"), model))
@@ -99,7 +98,7 @@ def _model_root(root):
 
 
 def read_drawio(path: Path) -> Diagram:
-    root = DET.parse(path).getroot()
+    root = parse_xml_file(path)
     pages: list[Page] = []
     for page_index, (name, model) in enumerate(_model_root(root), 1):
         page = Page(id=f"page_{page_index}", name=name,

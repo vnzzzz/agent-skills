@@ -8,9 +8,8 @@ from math import hypot
 from zipfile import ZIP_DEFLATED, ZipFile
 import xml.etree.ElementTree as WET
 
-from defusedxml import ElementTree as DET
-
 from .model import Diagram, Edge, Node, Page, Style
+from .safe_xml import parse_xml_bytes
 from .security import preflight_xlsx
 from .util import normalize_color, resolve_part, safe_id
 
@@ -42,7 +41,7 @@ for prefix, uri in NS.items():
 
 
 def _parse(data: bytes):
-    return DET.fromstring(data)
+    return parse_xml_bytes(data)
 
 
 def _rels(zf: ZipFile, rels_path: str) -> dict[str, tuple[str, str, str]]:
