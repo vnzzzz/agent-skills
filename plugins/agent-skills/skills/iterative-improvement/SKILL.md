@@ -69,7 +69,7 @@ No-op cycleは、調査によって安全な変更が存在しないことを示
 
 Target metricだけでなく、変更によって壊れ得る重要なbehavior / guardrailも確認する。
 
-改善値が上がっていても、比較条件が変わった場合や別のcritical behaviorがregressした場合はsuccessと断定しない。必要なtest strategyは `testing`、実施した検証結果の報告は `validation-reporting` を使う。
+改善値が上がっていても、比較条件が変わった場合や別のcritical behaviorがregressした場合はsuccessと断定しない。必要なtest strategyは `testing`、実施した検証結果の報告は `evidence-reporting` を使う。
 
 ## 報告
 
@@ -89,5 +89,5 @@ Cycle数そのものを成果にしない。Success criteriaを早く満たし�
 - 最小実装とabstraction判断は `development-guidelines`。
 - test strategyは `testing`。
 - command executionは `command-execution`。
-- 実施したvalidationと最終evidenceの報告は `validation-reporting`。
+- 実施したvalidationと最終evidenceの報告は `evidence-reporting`。
 - failureのroot causeが不明なら `debugging`。
