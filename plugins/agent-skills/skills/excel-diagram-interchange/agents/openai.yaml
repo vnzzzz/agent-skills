@@ -1,6 +1,6 @@
 interface:
-  display_name: "Excel Diagram Interchange"
-  short_description: "Convert shape-only diagrams among Excel, JSON/XML, draw.io, and Mermaid."
-  default_prompt: "Convert the explicitly provided diagram using the bundled local converter and report all warnings."
+  display_name: "Excel図形ダイアグラム変換"
+  short_description: "Excel、JSON/XML、draw.io、Mermaid間で図形ダイアグラムを変換する。"
+  default_prompt: "明示的に指定されたダイアグラムを同梱のローカルconverterで変換し、すべての警告を報告する。"
 policy:
   allow_implicit_invocation: false
