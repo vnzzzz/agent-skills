@@ -16,7 +16,7 @@ GitHubで `issue-workflow` を具体化するadapter。GitHub固有のdelivery m
    同じIssueを扱うopen PR / remote branch / current workがあれば理由なく重複させない。Branch namingはlocal ruleを使い、確認済みbaseから作る。
 
 3. **実装してPRへ届ける**
-   実装・validationは `issue-workflow` に従う。Commit / push前にunrelated changesやsecretがないことを確認する。PRは正しいbaseへ作り、repository policyが要求する場合は `Closes #NN` 等のclosing referenceを付ける。Draft / readyの扱いもlocal ruleに従う。
+   実装・validationは `issue-workflow` に従う。Commit / push前にunrelated changesやsecretがないことを確認する。PRは正しいbaseへ作る。GitHubのclosing keywordはPRがdefault branchをtargetするときだけ解釈されるため、非default baseでは自動link / closeを仮定せずrepository固有のtrace / close運用に従う。Draft / readyの扱いもlocal ruleに従う。
 
 4. **GitHubへ必要な経緯を残す**
    Issue commentには重要なscope / approach変更、blocker、operator action、follow-upだけを残す。PRには変更概要、key decisions、validation、skipped / unavailable checks、remaining risk、Issue traceabilityを必要十分に書く。同じ説明を重複させない。
