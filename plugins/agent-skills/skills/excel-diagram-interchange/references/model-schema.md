@@ -1,6 +1,6 @@
 # 正規ダイアグラムモデル
 
-`diagram.json`を正規表現として使用する。
+`diagram.json`を正規の内部表現として使用する。
 
 ```text
 Diagram
