@@ -13,7 +13,7 @@ Incident commandでは次を維持する。
 - **Communicate** — responders / stakeholdersへtimelyにstateを共有する
 - **Control** — production changeや調査の重複・競合を抑える
 
-## Role structure
+## 役割
 
 規模に応じて必要なroleだけ使う。
 
@@ -44,7 +44,7 @@ Primary incident channel / bridge等、coordinationの正本を一つ決める�
 
 Security incidentではsingle source of truthと全情報公開を同一視しない。Forensic evidence、credential、indicator、具体的containment plan等はneed-to-knowのrestricted workstream / boardへ分離し、general channelにはsanitized stateだけを載せる。
 
-## Decision cycle
+## 判断サイクル
 
 1. **Size-up** — impact、scope、critical unknownを把握する
 2. **Stabilize** — containment / mitigation候補とriskを比較する
@@ -55,7 +55,7 @@ Security incidentではsingle source of truthと全情報公開を同一視し�
 
 Root cause確定を待たずcycleを回す。
 
-## Task assignment
+## Taskの割当
 
 「誰か確認して」ではなく、次を明確にする。
 
@@ -74,7 +74,7 @@ healthy pathとの差分を返してください。
 
 Time-boxは強制deadlineではなく、incidentを停滞させないcheck-in pointとして使う。
 
-## Decision making
+## 判断
 
 Expert inputを集めるが、全員一致を待って停止しない。重要decisionでは必要に応じて次を確認する。
 
@@ -101,7 +101,7 @@ Regular updateは必要な範囲で次を含める。
 
 Security / privacy上sensitiveな内容はgeneral / external updateへそのまま載せない。
 
-## Span of control
+## 管理範囲（span of control）
 
 ICがindividual responderや並行taskを追えなくなったらworkstream / sub-teamへ分ける。
 
@@ -114,7 +114,7 @@ ICがindividual responderや並行taskを追えなくなったらworkstream / su
 
 Team内の詳細はleaderが集約する。
 
-## External / cross-company incident
+## 外部組織との連携
 
 Vendorや他社が関係しても「回答待ち」で停止しない。
 
@@ -126,7 +126,7 @@ Vendorや他社が関係しても「回答待ち」で停止しない。
 
 自社ICがvendorや他組織へのcommand authorityを持つとは扱わない。複数組織に権限が分かれる場合は、各組織のauthority boundaryを保ったままdecision pointとliaisonを明確にする。
 
-## Transfer of command
+## Commandの引継ぎ
 
 Fatigue、長時間化、timezone change、complexity変化等ではhandoffする。
 
@@ -142,7 +142,7 @@ Fatigue、長時間化、timezone change、complexity変化等ではhandoffす�
 
 Outgoing / incoming双方がtransferを明示し、incident channelでも新しいcommand ownerを共有する。Seniorityだけで自動的にcommandを移さない。
 
-## End of active command
+## Active commandの終了
 
 次を確認してからactive commandを終了する。
 
