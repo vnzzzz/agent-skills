@@ -10,8 +10,8 @@ Active incidentでは、root causeの完全解明より先に利用者影響と�
 
 ## 原則
 
-1. **Service recoveryを最優先する。**
-   Root cause investigationとmitigationを並行できる場合でも、継続中の重大impactを放置して原因解明だけを優先しない。
+1. **Harm containmentとservice recoveryを最優先する。**
+   Root cause investigationより、継続中の重大impactを止めることを優先する。Security compromise、data loss / corruption、safety impact等のharmが確認された場合は、そのcontainmentをavailability回復より優先し、trafficやwriteの再開によって被害を拡大させない。
 2. **不足情報を推測で埋めない。**
    Operator、system owner、monitoring、vendor等から得られる情報は、取得可能なら提示・確認を求める。
 3. **情報の種類を分ける。**
@@ -81,9 +81,23 @@ Agentがcoordinationを支援する場合も、組織上のauthorityやproductio
 
 ## 5. Mitigation / containmentを検討する
 
-原因確定前でも、impactを安全に抑えられる場合はmitigationを検討する。
+原因確定前でも、impactやharmを安全に抑えられる場合はmitigation / containmentを検討する。
+Security、data integrity、safetyへのharmが確認されている場合は、その拡大を止めるactionをavailability回復より優先する。
 
-例:
+Restart、rollback、failover、queue reset、instance replacement等でvolatile evidenceが失われる可能性がある場合は、harm containmentやrecoveryを実質的に遅らせない範囲で、変更前に必要なevidenceを保全する。
+
+必要に応じて保全する例:
+
+- error / log / trace / metric
+- process / memory / resource state
+- deployment / version / configuration state
+- queue / backlog / replication state
+- request / correlation ID
+- security / audit evidence
+
+重大な被害が継続している場合、証拠保全のために緊急containmentを不必要に遅らせない。保全できなかったevidenceはその事実を記録する。
+
+Mitigation / containmentの例:
 
 - rollback / failover
 - traffic shift / isolation
@@ -95,7 +109,7 @@ Agentがcoordinationを支援する場合も、組織上のauthorityやproductio
 
 候補ごとに、期待効果、risk、reversibility、必要authority、観測すべき成功条件を確認する。
 
-複数の大きな変更を同時に行い、何が効いたか分からない状態を避ける。ただし、重大impactが継続し逐次実験の余裕がない場合は、recovery優先で必要なmitigationを組み合わせ、その事実を記録する。
+複数の大きな変更を同時に行い、何が効いたか分からない状態を避ける。ただし、重大impactやharmが継続し逐次実験の余裕がない場合は、containment / recovery優先で必要なmitigationを組み合わせ、その事実を記録する。
 
 ## 6. 責任境界をまたいで調査する
 
@@ -177,6 +191,7 @@ Mitigationや修正後は、少なくとも必要に応じて次を確認する�
 - workaround依存のtemporary recoveryか、normal operationへ戻ったか
 - observation window中に再発していないか
 
+Security、data integrity、safetyに関するcontainment条件がある場合は、それを満たしたことを確認してからnormal traffic / write等を再開する。
 Vendorが `resolved` と発表したことだけで自serviceのrecovery確認を代替しない。
 
 ## 11. Active responseを終了する
