@@ -1,7 +1,7 @@
 # Incident Command
 
 このreferenceは、ユーザーがIncident Commander、incident command、指揮、進行管理、IC補佐等を**明示的に依頼した場合だけ**使用する。
-Incidentが重大、長時間、multi-teamという理由だけではCommand modeへ切り替えない。
+Incidentが重大、長時間、multi-teamという理由だけでは指揮モードへ切り替えない。
 
 目的は、ICがresolverになることではなく、response全体をrecoveryへ進めることである。
 
@@ -37,7 +37,7 @@ Primary incident channel / bridge等、coordinationの正本を一つ決める�
 
 - impact / severity
 - active mitigation
-- critical facts / unknowns
+- 重要な確認済み事実 / 未確認事項
 - workstreams / owners
 - pending decisions / timers
 - next update
@@ -46,7 +46,7 @@ Security incidentではsingle source of truthと全情報公開を同一視し�
 
 ## 判断サイクル
 
-1. **Size-up** — impact、scope、critical unknownを把握する
+1. **Size-up** — impact、scope、重要な未確認事項を把握する
 2. **Stabilize** — containment / mitigation候補とriskを比較する
 3. **Assign** — specific ownerへtaskを割り当てる
 4. **Update** — current stateを共有する
@@ -88,14 +88,14 @@ Expert inputを集めるが、全員一致を待って停止しない。重要de
 
 ## Communication
 
-Timelinessとclarityを両立する。Confirmed impactや利用者が取るべきactionが分かったら、root causeやscopeの完全確定を待たずinitial updateを出す。未確定事項は`Unknown` / `Investigating`と明示する。
+Timelinessとclarityを両立する。Confirmed impactや利用者が取るべきactionが分かったら、root causeやscopeの完全確定を待たずinitial updateを出す。未確定事項は`不明` / `調査中`と明示する。
 
 Regular updateは必要な範囲で次を含める。
 
 - impact / severity
 - what changed
 - current mitigation
-- critical unknown
+- 重要な未確認事項
 - outstanding action / owner
 - next update
 
@@ -121,7 +121,7 @@ Vendorや他社が関係しても「回答待ち」で停止しない。
 - escalation ownerを決める
 - investigation packageを送る
 - workaround / containmentを並行検討する
-- vendor statementはreported factとして扱う
+- vendor statementは報告情報として扱う
 - 自serviceのimpact / recoveryを独立に観測する
 
 自社ICがvendorや他組織へのcommand authorityを持つとは扱わない。複数組織に権限が分かれる場合は、各組織のauthority boundaryを保ったままdecision pointとliaisonを明確にする。
@@ -134,7 +134,7 @@ Fatigue、長時間化、timezone change、complexity変化等ではhandoffす�
 
 - current impact / severity
 - active mitigation
-- critical facts / unknowns
+- 重要な確認済み事実 / 未確認事項
 - active workstreams / owners
 - pending decisions / timers
 - external escalations
