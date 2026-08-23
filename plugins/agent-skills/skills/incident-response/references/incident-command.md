@@ -3,6 +3,16 @@
 `incident-response` でmajor / multi-team / complex incidentを扱うときのcommand practiceを定義する。
 目的は、Incident Commanderが個別調査のresolverになることではなく、incidentを安全かつ継続的にrecoveryへ進めることにある。
 
+## 3Csを守る
+
+Google SREのIncident Command System系practiceでは、incident managementの中心を次の3点に置く。
+
+- **Coordinate** — response effortを整理し、ownerと優先順位を明確にする
+- **Communicate** — responders、stakeholders、外部へ必要な情報を流す
+- **Control** — 誰が何をしているかを把握し、無秩序なproduction changeや調査を防ぐ
+
+ICはtechnical resolverではなく、この3Csを維持する役割とする。
+
 ## Incident Commanderの責務
 
 Incident Commanderは全体stateと優先順位を把握し、次を行う。
@@ -27,6 +37,31 @@ ICは原則として次を自分で抱え込まない。
 Technical investigationとcommandを同じ人が兼任すると全体stateを失いやすい。小規模incidentでは役割を兼務してよいが、coordination costが上がった時点で分離する。
 
 AgentがIC相当の支援を行う場合も、組織上のcommand authorityを自動的に持つわけではない。実環境変更の承認や実行権限はoperator / local ruleへ従う。
+
+## Incident structureは早めに起動する
+
+Customer-visible impact、複数team involvement、急速なscope拡大等で通常の個別troubleshootingを超え始めたら、完全なcause確定を待たずincident structureを起動する。
+
+小さく済んだ場合は後で縮小すればよい。Impactが広がってからcommand structureを作るより、早めにcentral coordinationを持つことを優先する。
+
+Repository / organizationにincident declaration基準がある場合はそれを正本とする。
+
+## Command postとlive stateを一つにする
+
+Respondersが「どこを見ればよいか」を迷わないよう、primary incident channel / bridge / war room等のrecognized command postを一つ決める。
+
+Current stateは [status-board.md](status-board.md) の形式等で一箇所に維持する。
+少なくとも次が上部から追える状態にする。
+
+- current impact / severity
+- command roles
+- mitigation
+- confirmed facts / critical unknowns
+- active workstreams + owners
+- pending decisions / timers
+- next update
+
+Chatやcallだけをstateの正本にしない。
 
 ## 初動: Size-up
 
@@ -74,6 +109,18 @@ Worst-caseを想定することと、worst-caseを事実認定することは異
 - next actionを決める
 - resolverにならない
 
+### Operations Lead / Resolver Lead
+
+- technical mitigation / investigationをまとめる
+- ICから委譲されたoperational workを進める
+- system modificationが複数人で無秩序に並行しないよう整理する
+
+### Communications Lead / Liaison
+
+- responders / stakeholders / customers向けupdateを担当する
+- responderへの割込みを減らす
+- customer report等、新しいimpact evidenceをincidentへ戻す
+
 ### Deputy
 
 - timer / pending task / missed itemを追う
@@ -84,25 +131,19 @@ Worst-caseを想定することと、worst-caseを事実認定することは異
 
 - key fact、decision、action、timestampを記録する
 - raw conversation全量ではなく、後からstateとtimelineを復元できる情報を残す
-- status boardの更新を補助する
+- live statusの更新を補助する
 
-### Subject Matter Expert / Resolver
+### Subject Matter Expert
 
 - assigned domainを調査する
-- finding、proposed action、risk、needをICへ返す
-- ICの承認や既存authorityなしに独断で大きなproduction changeを広げない
+- finding、proposed action、risk、needをIC / Ops Leadへ返す
+- authorityなしに独断で大きなproduction changeを広げない
 
 PagerDutyのCAN形式を参考に、報告は必要に応じて次でまとめる。
 
 - **Condition:** 現在どうなっているか
 - **Actions:** 何をしている / 何を提案するか
 - **Needs:** 何が必要か
-
-### Customer / Stakeholder Liaison
-
-- external / internal stakeholderへのupdateを担当する
-- resolverへの割込みを減らす
-- customer report等、新しいimpact evidenceをincidentへ戻す
 
 すべてのroleを別人へ割り当てる必要はない。Incidentの規模に合わせて統合する。
 
@@ -191,8 +232,6 @@ Sub-teamを作る場合:
 - sub-team内の詳細はleaderが集約する
 - ICへのprimary contactをleaderに限定する
 
-これによりICはworkstream単位でspan of controlを維持する。
-
 ## External / cross-company incident
 
 Vendorや他社が関係する場合も、ICは「相手の回答待ち」でincidentを止めない。
@@ -221,7 +260,8 @@ Handoffでは最低限次を渡す。
 - external escalations
 - next communication timing
 
-Transferはincident channelで明示し、新ICがcommandを引き受けたことを明確にする。
+Outgoing ICはhandoffを明示し、incoming ICが理解・受領したことを確認する。
+Incident channelでもcommand transferを周知する。
 よりseniorな人物が参加しただけで自動的にcommandを移さない。
 
 ## End of active command
@@ -240,6 +280,8 @@ Postmortem / long-term corrective actionはactive commandから切り離す。
 ## Anti-patterns
 
 - IC自身が一つのlog investigationへ没頭する
+- recognized command postがなく、複数channelで別々の判断をする
+- live incident stateがなく、参加者が毎回口頭で状況確認する
 - `Can someone ...` のようにowner不明のtaskを投げる
 - 全員の合意を待ってdecisionを止める
 - seniorityだけでcommandを奪う
@@ -252,9 +294,10 @@ Postmortem / long-term corrective actionはactive commandから切り離す。
 
 ## 参考資料
 
+- Google SRE, *Managing Incidents*: https://sre.google/sre-book/managing-incidents/
+- Google SRE Workbook, *Incident Response*: https://sre.google/workbook/incident-response/
 - PagerDuty, *Incident Commander Training*: https://response.pagerduty.com/training/incident_commander/
 - PagerDuty, *Different Roles*: https://response.pagerduty.com/before/different_roles/
 - PagerDuty, *During an Incident*: https://response.pagerduty.com/during/during_an_incident/
 - PagerDuty, *Complex Incidents*: https://response.pagerduty.com/before/complex_incidents/
-- Google SRE, *Managing Incidents*: https://sre.google/sre-book/managing-incidents/
-- Google SRE Workbook, *Incident Response*: https://sre.google/workbook/incident-response/
+- AWS Well-Architected, *Responding to events*: https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/responding-to-events.html
