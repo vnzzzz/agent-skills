@@ -6,23 +6,23 @@
 
 調査中は次を分ける。
 
-| Type | Meaning |
+| 種別 | 意味 |
 |---|---|
-| Confirmed fact | artifact / metric / log等で確認した事実 |
-| Reported fact | operator / owner / vendor等からの報告 |
-| Hypothesis | factsを説明する反証可能な推定 |
-| Unknown | 現時点で不明な事項 |
-| Critical unknown | 成立するとcontainment / severity / security / data integrity等の判断が変わるunknown |
+| 確認済み事実 | artifact / metric / log等で確認した事実 |
+| 報告情報 | operator / owner / vendor等からの報告 |
+| 仮説 | 事実を説明する反証可能な推定 |
+| 不明 | 現時点で不明な事項 |
+| 重要な未確認事項 | 成立するとcontainment / severity / security / data integrity等の判断が変わる事項 |
 
-情報不足を事実として補完しない。一方、原因推定を求められた場合は、現在のevidenceからhypothesisを作り、確度と確認方法を示す。
+情報不足を事実として補完しない。一方、原因推定を求められた場合は、現在のevidenceから仮説を作り、確度と確認方法を示す。
 
 ## 1. Looseな事象をtimelineへ正規化する
 
 ユーザーから断片的に共有された事象を、原因判断に効く順序へ整理する。
 
-| Time | Event | Type | Relevance |
+| 時刻 | 事象 | 種別 | 原因候補との関係 |
 |---|---|---|---|
-| ... | ... | Confirmed / Reported / Unknown | 原因候補との関係 |
+| ... | ... | 確認済み / 報告情報 / 不明 | ... |
 
 - timezoneを明示する
 - 時刻不明を推測で補わない
@@ -33,7 +33,7 @@
 
 User request / business transactionが通る主要boundaryを実際の構成に基づいて並べる。
 
-| Boundary | Input observed | Output observed | Affected / healthy difference | Owner |
+| 境界 | 入力側の観測 | 出力側の観測 | 障害系 / 正常系の差分 | Owner |
 |---|---|---|---|---|
 | Client → DNS | ... | ... | ... | ... |
 | Application → External API | ... | ... | ... | ... |
@@ -61,13 +61,13 @@ Bad caseだけでなくgood caseとの差分を探す。
 仮説は`component名`ではなく、観測可能なfailure mechanismとして書く。
 
 ```text
-Hypothesis: Tokyo regionからVendor APIへのTLS handshakeだけが失敗している。
-Supporting: 同regionのhandshake failureが増加。
-Contradicting / unknown: 別pathの結果は未確認。
-Check: healthy regionと同一requestを比較する。
+仮説: Tokyo regionからVendor APIへのTLS handshakeだけが失敗している。
+根拠: 同regionのhandshake failureが増加。
+反証・未確認: 別pathの結果は未確認。
+確認方法: healthy regionと同一requestを比較する。
 ```
 
-複数候補がある場合は、根拠、反証、不足情報、confidenceを並べる。数値確率は根拠がある場合だけ使う。
+複数候補がある場合は、根拠、反証、不足情報、確度を並べる。数値確率は根拠がある場合だけ使う。
 
 ## 5. Evidenceの直接性を優先する
 
@@ -116,7 +116,7 @@ Secret、credential、不要なcustomer sensitive dataは共有しない。
 
 他teamへ依頼した後も、回答待ちだけにせず自team側で確認可能なboundaryを並行して進める。
 
-## 8. Critical unknownを優先する
+## 8. 重要な未確認事項を優先する
 
 Root cause候補を広げる前に、対応方針を変える可能性を確認する。
 
@@ -128,7 +128,7 @@ Root cause候補を広げる前に、対応方針を変える可能性を確認�
 - failover先も同じfailure modeを持つか
 - irreversible operationが途中か
 
-Worst-caseを事実認定せず、critical unknownとして扱う。
+Worst-caseを事実認定せず、重要な未確認事項として扱う。
 
 ## 9. Local debuggingへ切り替える
 
