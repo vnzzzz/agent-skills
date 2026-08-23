@@ -13,6 +13,32 @@
 - 各status boardの表示・更新には `Last updated` または `As of` を必ず含め、その時点のfreshnessを明示する。
 - Local severity定義がなければSEV番号を作らない。
 - Status boardはcurrent stateの正本として扱い、同じ情報を複数の表へ重複させない。
+- Suspected / confirmed security compromiseでは、sensitive evidenceやcontainment detailをgeneral boardへ載せず、need-to-knowのrestricted board / workstreamへ分離する。
+
+## Security incidentのaccess boundary
+
+Security incidentでは「single source of truth」と「全員が全情報を読めること」を同一視しない。
+Organization-localのsecurity incident process、access control、legal / privacy ruleを優先する。
+
+Restricted boardへ置く例:
+
+- forensic evidence / indicator
+- credential / secret関連情報
+- attackerに知られるとcontainmentを妨げるdetail
+- exploit / persistence information
+- sensitive customer / personal data
+- detailed containment plan
+
+General command post / boardには、必要に応じて次のsanitized stateだけを載せる。
+
+- current user / business impact
+- incident state
+- high-level containment status
+- owner / liaison
+- responderが取るべきaction
+- next update
+
+Restricted informationの存在自体を隠す必要はないが、必要以上にdetailを複製しない。
 
 ## Default view
 
@@ -37,6 +63,7 @@ Non-trivial incidentでは、まず次の形を使う。
 ```
 
 `Last updated` / `As of` は省略しない。その他の項目は不要なら削ってよい。固定templateを埋めること自体を目的にしない。
+Security incidentのgeneral boardでは、sensitiveな `Critical unknown` や `Leading hypothesis` のdetailをsanitizedな表現へ置き換えるか、restricted boardへの参照だけを示す。
 
 ## Evidence view
 
@@ -55,6 +82,7 @@ Factsとhypothesesの混同が起きやすい場合は追加する。
 ```
 
 Evidenceがないhypothesisをconfirmed factのように表示しない。
+Sensitive evidenceをgeneral boardへ複製しない。
 
 ## Workstream view
 
@@ -86,6 +114,7 @@ Mitigationや重要decisionを追う必要がある場合に使う。
 ```
 
 Timeline全量ではなく、incidentの進行や因果判断に必要なactionだけを載せる。
+Security incidentでは、攻撃者に察知されると不利なcontainment actionをgeneral boardへ事前掲載しない。
 
 ## Missing information
 
