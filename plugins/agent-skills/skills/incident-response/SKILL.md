@@ -68,6 +68,9 @@ Non-trivial incidentでは、現在のstateを一箇所に集約する。
 - external dependencies / escalations
 - next decision / next update
 
+Suspected / confirmed security compromiseでは、通常のgeneral command postへforensic evidence、indicator、credential情報、具体的なcontainment plan等を無条件に集約しない。
+Organization-localのsecurity incident processを優先し、sensitive stateはneed-to-knowのrestricted workstream / boardへ置く。General command postには、対応に必要なsanitized impact、current state、owner、次回update等だけを共有する。
+
 一覧表示が有用な場合は [references/status-board.md](references/status-board.md) を読む。
 
 ## 4. Command structureを必要十分に作る
