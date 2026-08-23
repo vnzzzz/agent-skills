@@ -7,11 +7,11 @@ Markdownの見出し、表、箇条書きを使い、Mermaidは使用しない�
 
 - 一画面でcurrent stateと次の判断が分かる程度に絞る。
 - Raw logや会話履歴を転載しない。
-- Fact、reported fact、hypothesis、unknown、decisionを混同しない。
+- 確認済み事実、報告情報、仮説、不明事項、判断を混同しない。
 - Timelineは原因判断や対応判断に効くeventだけを残す。
-- Hypothesisは有力候補を優先し、弱い候補を増やし続けない。
+- 仮説は有力候補を優先し、弱い候補を増やし続けない。
 - Timestampはtimezoneを含める。
-- Active incidentのboardには`Last updated`または`As of`を含める。
+- Active incidentのboardには`最終更新`を含める。
 - Local severity定義がなければSEV番号を作らない。
 
 固定templateを全項目埋めることを目的にしない。不要なsectionは省略する。
@@ -19,32 +19,32 @@ Markdownの見出し、表、箇条書きを使い、Mermaidは使用しない�
 ## 基本表示
 
 ```markdown
-## Incident Status
+## 障害ステータス
 
-| Item | Current state |
+| 項目 | 現在の状態 |
 |---|---|
-| Last updated | 2026-08-24 07:30 JST |
-| Impact | ... |
-| State | Investigating / Mitigating / Recovering / Monitoring / Resolved |
-| Most likely cause | ... / Unknown |
-| Critical unknown | ... / None known |
-| Next check | ... |
+| 最終更新 | 2026-08-24 07:30 JST |
+| 影響 | ... |
+| 状態 | 調査中 / 影響緩和中 / 復旧中 / 監視中 / 収束 |
+| 最有力原因 | ... / 不明 |
+| 重要な未確認事項 | ... / 現時点なし |
+| 次の確認 | ... |
 ```
 
-原因推定が主目的なら`Impact`より`Most likely cause`、`Critical unknown`、`Next check`を重視する。
-Command modeでなければroleやowner欄を無理に追加しない。
+原因推定が主目的なら`影響`より`最有力原因`、`重要な未確認事項`、`次の確認`を重視する。
+指揮モードでなければroleやowner欄を無理に追加しない。
 
 ## タイムライン
 
 事象の因果関係を判断するために使う。
 
 ```markdown
-### Timeline
+### タイムライン
 
-| Time | Event | Type | Significance |
+| 時刻 | 事象 | 種別 | 意味 |
 |---|---|---|---|
-| 07:10 JST | ... | Confirmed | first known bad |
-| 07:14 JST | ... | Reported | vendor eventと時間的に近い |
+| 07:10 JST | ... | 確認済み | first known bad |
+| 07:14 JST | ... | 報告情報 | vendor eventと時間的に近い |
 ```
 
 - 時刻不明を推測で補わない。
@@ -54,26 +54,26 @@ Command modeでなければroleやowner欄を無理に追加しない。
 ## 原因仮説
 
 ```markdown
-### Cause hypotheses
+### 原因仮説
 
-| Rank | Hypothesis | Supporting | Contradicting / unknown | Confidence |
+| 順位 | 仮説 | 根拠 | 反証・未確認事項 | 確度 |
 |---:|---|---|---|---|
-| 1 | ... | ... | ... | High |
-| 2 | ... | ... | ... | Medium |
+| 1 | ... | ... | ... | 高 |
+| 2 | ... | ... | ... | 中 |
 ```
 
-Confidenceはevidenceの強さを表す。根拠のない数値確率は使わない。
+確度はevidenceの強さを表す。根拠のない数値確率は使わない。
 
 ## 不足情報
 
 追加情報が原因判断を大きく変える場合だけ載せる。
 
 ```markdown
-### Needed information
+### 不足情報
 
-| Information | Why needed | Best source |
+| 情報 | 必要な理由 | 最適な確認先 |
 |---|---|---|
-| ... | H1 / H2を切り分けるため | monitoring / operator / vendor |
+| ... | 仮説1 / 仮説2を切り分けるため | monitoring / operator / vendor |
 ```
 
 質問だけでboardを埋めず、現時点の見立ても併記する。
@@ -83,19 +83,19 @@ Confidenceはevidenceの強さを表す。根拠のない数値確率は使わ�
 Mitigationや調査actionを追う必要がある場合に使う。
 
 ```markdown
-### Current actions
+### 現在の対応
 
-- Confirm vendor-side request arrival for trace `...`.
-- Compare affected and healthy region.
-- Preserve process state before restart if recoveryを遅らせない。
+- Vendor側へ対象traceのrequest到達有無を確認する。
+- 障害regionと正常regionを比較する。
+- 復旧を遅らせない範囲でrestart前にprocess stateを保全する。
 ```
 
-Command modeでowner / check-in管理が必要なら表へ拡張する。
+指揮モードでowner / check-in管理が必要なら表へ拡張する。
 
 ```markdown
-| Action | Owner | State | Next check-in |
+| 対応 | 担当 | 状態 | 次回確認 |
 |---|---|---|---|
-| ... | ... | Investigating | ... |
+| ... | ... | 調査中 | ... |
 ```
 
 ## Security incident時の扱い
@@ -109,26 +109,26 @@ Need-to-knowのrestricted board / workstreamへ分離し、general boardにはsa
 
 - impact / state変化
 - new confirmed fact
-- critical unknown解消
+- 重要な未確認事項の解消
 - leading hypothesis変化
 - mitigation開始 / 結果
 - external status変化
 - recovery state変化
 
-Major incidentでは新情報がなくても必要なcadenceで再提示し、`No material change`とfreshness timestampを更新する。
-Investigationだけを依頼されている場合、定期update cadenceを勝手に開始しない。
+Major incidentでは新情報がなくても必要なcadenceで再提示し、`重要な変更なし`と最終更新時刻を更新する。
+調査だけを依頼されている場合、定期update cadenceを勝手に開始しない。
 
 ## 復旧状態の表示
 
 必要に応じて次を区別する。
 
-- **Investigating** — scope / causeを調査中
-- **Mitigating** — impact reduction中
-- **Recovering** — service signalが改善中
-- **Monitoring** — symptom解消後の再発 / backlog確認中
-- **Resolved** — active response終了可能
+- **調査中** — scope / causeを調査中
+- **影響緩和中** — impact reduction中
+- **復旧中** — service signalが改善中
+- **監視中** — symptom解消後の再発 / backlog確認中
+- **収束** — active response終了可能
 
-Temporary workaroundの場合は`Mitigated` / `Degraded`等、残存状態を明示する。
+Temporary workaroundやdegraded modeが残る場合は、`影響緩和済み`、`縮退中`、`機能制限中`など実態が分かる日本語で明示する。
 
 ## 参考資料
 
