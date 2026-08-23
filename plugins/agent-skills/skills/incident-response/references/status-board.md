@@ -34,7 +34,7 @@ Markdownの見出し、表、箇条書きを使い、Mermaidは使用しない�
 原因推定が主目的なら`Impact`より`Most likely cause`、`Critical unknown`、`Next check`を重視する。
 Command modeでなければroleやowner欄を無理に追加しない。
 
-## Timeline
+## タイムライン
 
 事象の因果関係を判断するために使う。
 
@@ -51,7 +51,7 @@ Command modeでなければroleやowner欄を無理に追加しない。
 - 単なるlog entryは載せない。
 - 同時刻であることをcauseと断定しない。
 
-## Cause hypotheses
+## 原因仮説
 
 ```markdown
 ### Cause hypotheses
@@ -64,7 +64,7 @@ Command modeでなければroleやowner欄を無理に追加しない。
 
 Confidenceはevidenceの強さを表す。根拠のない数値確率は使わない。
 
-## Needed information
+## 不足情報
 
 追加情報が原因判断を大きく変える場合だけ載せる。
 
@@ -78,7 +78,7 @@ Confidenceはevidenceの強さを表す。根拠のない数値確率は使わ�
 
 質問だけでboardを埋めず、現時点の見立ても併記する。
 
-## Current actions
+## 現在の対応
 
 Mitigationや調査actionを追う必要がある場合に使う。
 
@@ -98,12 +98,12 @@ Command modeでowner / check-in管理が必要なら表へ拡張する。
 | ... | ... | Investigating | ... |
 ```
 
-## Security incident
+## Security incident時の扱い
 
 Suspected / confirmed compromiseでは、general boardへforensic evidence、credential、indicator、exploit detail、具体的containment plan等を載せない。
 Need-to-knowのrestricted board / workstreamへ分離し、general boardにはsanitizedなimpact、state、high-level containment status、liaison、next updateだけを載せる。
 
-## Update rule
+## 更新条件
 
 次のようなmaterial changeで更新する。
 
@@ -118,7 +118,7 @@ Need-to-knowのrestricted board / workstreamへ分離し、general boardにはsa
 Major incidentでは新情報がなくても必要なcadenceで再提示し、`No material change`とfreshness timestampを更新する。
 Investigationだけを依頼されている場合、定期update cadenceを勝手に開始しない。
 
-## Recovery表示
+## 復旧状態の表示
 
 必要に応じて次を区別する。
 
