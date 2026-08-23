@@ -10,6 +10,7 @@
 - Unknownを空欄や推測で埋めない。`Unknown` / `未確認` と明示する。
 - Fact、reported fact、hypothesis、decisionを混同しない。
 - Timestampはtimezoneを含める。
+- 各status boardの表示・更新には `Last updated` または `As of` を必ず含め、その時点のfreshnessを明示する。
 - Local severity定義がなければSEV番号を作らない。
 - Status boardはcurrent stateの正本として扱い、同じ情報を複数の表へ重複させない。
 
@@ -22,6 +23,7 @@ Non-trivial incidentでは、まず次の形を使う。
 
 | Item | Current state |
 |---|---|
+| Last updated | 2026-08-23 23:35 JST |
 | Impact | ... |
 | Severity | ... / 未判定 |
 | Started | ... |
@@ -34,7 +36,7 @@ Non-trivial incidentでは、まず次の形を使う。
 | Next update | ... |
 ```
 
-項目が不要なら削る。固定templateを埋めること自体を目的にしない。
+`Last updated` / `As of` は省略しない。その他の項目は不要なら削ってよい。固定templateを埋めること自体を目的にしない。
 
 ## Evidence view
 
@@ -131,7 +133,7 @@ Status boardは次のeventで更新する。
 細かなlog entryごとには更新しない。
 
 Major incidentでは新情報がなくてもregular cadenceでcurrent stateを再提示する。
-その場合は `No material change` と明示し、古いtimestampのboardを放置しない。
+その場合は `No material change` と明示し、`Last updated` / `As of` を現在の更新時刻へ進める。古いtimestampのboardをcurrent stateとして再利用しない。
 
 ## Recovery表示
 
