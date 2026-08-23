@@ -9,7 +9,7 @@ Active incidentを、自teamのcodeだけに限定せず、SaaS、cloud、networ
 
 ## 動作モード
 
-### Investigation mode — 既定
+### Investigation mode（既定）
 
 「事象を整理して原因を推定して」「この障害の原因候補は」「ログと発生事象をつなげて」のような依頼では、原因推定と切り分けを行う。
 
@@ -24,7 +24,7 @@ Active incidentを、自teamのcodeだけに限定せず、SaaS、cloud、networ
 
 このmodeでは、重大incidentであっても自動的にIncident Commanderを名乗らない。Role assignment、command post、定期update cadence、task ownerの指揮管理も、依頼されていなければ開始しない。
 
-### Command mode — 明示依頼時のみ
+### Command mode（明示依頼時のみ）
 
 ユーザーが「ICして」「Incident Commanderとして進めて」「障害対応を指揮して」「ICを補佐して」「進行管理して」等、command / coordinationを明示的に依頼した場合だけ [references/incident-command.md](references/incident-command.md) を読む。
 
@@ -39,9 +39,7 @@ Active incidentを、自teamのcodeだけに限定せず、SaaS、cloud、networ
 5. **不足情報を推測で事実化しない。** 必要なら「何の判断に必要か」と合わせてoperator / ownerへ確認する。
 6. **Recoveryはend-to-endで確認する。** 一componentの回復ではなく、user-facing symptom、service-level signal、backlog、data integrityまで見る。
 
-## 調査の進め方
-
-### 1. Impactとcritical unknownを確認する
+## 1. Impactとcritical unknownを確認する
 
 まず分かる範囲で整理する。
 
@@ -54,7 +52,7 @@ Active incidentを、自teamのcodeだけに限定せず、SaaS、cloud、networ
 
 Local severity定義がなければ独自のSEV番号を作らない。
 
-### 2. 事象をtimelineへ並べる
+## 2. 事象をtimelineへ並べる
 
 Looseな情報でも、時刻と順序が分かる範囲で整理する。
 
@@ -64,7 +62,7 @@ Looseな情報でも、時刻と順序が分かる範囲で整理する。
 
 Timestampはtimezoneを含める。時刻不明の事象を推測で並べず、順序だけ判明している場合はその旨を示す。
 
-### 3. 原因仮説を作る
+## 3. 原因仮説を作る
 
 単なるcomponent名ではなく、`事象 → failure mechanism → symptom` がつながる形で仮説を書く。
 
@@ -74,7 +72,7 @@ Timestampはtimezoneを含める。時刻不明の事象を推測で並べず、
 
 数値確率は根拠がある場合だけ使う。新しいfactが入ったら順位と確度を更新する。
 
-### 4. Failure boundaryを狭める
+## 4. Failure boundaryを狭める
 
 SaaS、vendor、network、他team等を含むcross-boundary調査では [references/investigation.md](references/investigation.md) を読む。
 
@@ -88,7 +86,7 @@ SaaS、vendor、network、他team等を含むcross-boundary調査では [referen
 
 Status pageや直前deploymentとの時間的一致だけでcauseを確定しない。
 
-### 5. 不足情報を絞って確認する
+## 5. 不足情報を絞って確認する
 
 追加情報が必要なら、判断への寄与が高いものだけを聞く。
 
@@ -98,7 +96,7 @@ Status pageや直前deploymentとの時間的一致だけでcauseを確定しな
 
 既に十分な仮説が立つ場合、質問だけして原因推定を先送りしない。
 
-### 6. Mitigationとevidence preservationを考える
+## 6. Mitigationとevidence preservationを考える
 
 Impactやharmが継続している場合は、原因確定前でも安全なcontainment / mitigationを検討する。
 
@@ -106,7 +104,7 @@ Restart、rollback、failover、queue reset、instance replacement等でvolatile
 
 重大な被害が継続している場合、証拠保全のために緊急containmentを不必要に遅らせない。
 
-### 7. Recoveryを確認する
+## 7. Recoveryを確認する
 
 Mitigation / fix後は必要に応じて確認する。
 
@@ -124,7 +122,7 @@ Vendorの`resolved`通知だけで自serviceのrecovery確認を代替しない�
 原因推定では、必要なsectionだけを使い、長い調査日誌にしない。基本は次の順でまとめる。
 
 1. **現時点の見立て** — 最有力原因と確度
-2. **Timeline** — 原因判断に効く事象だけ
+2. **タイムライン** — 原因判断に効く事象だけ
 3. **原因仮説** — 根拠、反証、不足情報
 4. **次に確認すること** — 情報利得が高い順
 5. **Mitigation / recovery** — 必要な場合だけ
