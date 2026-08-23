@@ -1,238 +1,152 @@
 ---
 name: incident-response
-description: 本番障害、service degradation、SaaS / cloud / external API障害、network / platform障害、他team・他社をまたぐincidentを、impact把握、mitigation、情報整理、切り分け、coordination、recovery確認まで一貫して進めるときに使用する。原因が明らかなisolated local bugやtest failureだけを扱う場合はdebuggingを優先する。
+description: 本番障害、service degradation、SaaS / cloud / external API障害、network / platform障害、他team・他社をまたぐincidentについて、事象整理、原因仮説、cross-boundary切り分け、mitigation、recovery確認を行うときに使用する。既定は原因推定・調査支援であり、Incident Commanderやcommand補佐は明示的に依頼された場合だけ行う。isolated local bugやtest failureだけならdebuggingを優先する。
 ---
 
 # Incident Response
 
-Active incidentでは、root causeの完全解明より先に利用者影響と被害拡大を抑え、system全体を安全にrecoveryへ進める。
-原因が自teamのcodebaseにあることを前提にしない。SaaS、cloud、network、shared platform、他team、vendor等の責任境界をまたぐfailureも同じincidentとして扱う。
+Active incidentを、自teamのcodeだけに限定せず、SaaS、cloud、network、shared platform、他team、vendorを含むsystem全体の問題として扱う。
+
+## 動作モード
+
+### Investigation mode — 既定
+
+「事象を整理して原因を推定して」「この障害の原因候補は」「ログと発生事象をつなげて」のような依頼では、原因推定と切り分けを行う。
+
+- 事象を時系列へ整理する
+- confirmed / reported factとhypothesisを分ける
+- 原因候補を根拠付きで順位付けする
+- 反証材料と不足情報を示す
+- 次に情報利得の高い確認を提案する
+- 必要ならmitigation / recovery確認を提案する
+
+情報が不足していても推定依頼そのものを止めない。不足部分を事実として補完せず、`Hypothesis` として推定し、確度と確認方法を示す。
+
+このmodeでは、重大incidentであっても自動的にIncident Commanderを名乗らない。Role assignment、command post、定期update cadence、task ownerの指揮管理も、依頼されていなければ開始しない。
+
+### Command mode — 明示依頼時のみ
+
+ユーザーが「ICして」「Incident Commanderとして進めて」「障害対応を指揮して」「ICを補佐して」「進行管理して」等、command / coordinationを明示的に依頼した場合だけ [references/incident-command.md](references/incident-command.md) を読む。
+
+依頼が曖昧ならInvestigation modeを維持する。Incidentの重大度や関係team数だけを理由にCommand modeへ切り替えない。
 
 ## 原則
 
-1. **Harm containmentとservice recoveryを最優先する。**
-   Root cause investigationより、継続中の重大impactを止めることを優先する。Security compromise、data loss / corruption、safety impact等のharmが確認された場合は、そのcontainmentをavailability回復より優先し、trafficやwriteの再開によって被害を拡大させない。
-2. **不足情報を推測で埋めない。**
-   Operator、system owner、monitoring、vendor等から得られる情報は、取得可能なら提示・確認を求める。
-3. **情報の種類を分ける。**
-   Confirmed fact、reported fact、hypothesis、unknown、decision / actionを混同しない。
-4. **重大なunknownを先に潰す。**
-   Security compromise、data loss / corruption、safety impact、irreversible side effect、広範囲outage等、成立した場合に対応優先度が変わる可能性は `critical unknown` として早期に確認する。可能性を事実として扱わない。
-5. **原因候補と責任主体を混同しない。**
-   他teamやvendorが原因候補でも、責任の押し付けよりservice recoveryに必要な情報・owner・next actionを明確にする。
-6. **Incident commandとtechnical investigationを分離する。**
-   Major / multi-team incidentでは、全体をcoordinationする役割が個別調査へ没頭しない。
-7. **Recoveryはend-to-endで確認する。**
-   一componentのmetric回復だけでなく、user-facing symptom、service-level signal、queue / backlog、data integrity等から実際の復旧を確認する。
+1. **Harm containmentとservice recoveryをroot cause解明より優先する。** Security compromise、data loss / corruption、safety impactが確認された場合はcontainmentをavailability回復より優先する。
+2. **Factと推定を混同しない。** Confirmed fact、reported fact、hypothesis、unknown、decision / actionを区別する。
+3. **Critical unknownを先に確認する。** 成立すると対応方針が変わるsecurity、data integrity、irreversible side effect等を優先する。
+4. **原因を自teamのcodeへ限定しない。** External dependencyや他team管理componentも同じfailure domain候補として扱う。
+5. **不足情報を推測で事実化しない。** 必要なら「何の判断に必要か」と合わせてoperator / ownerへ確認する。
+6. **Recoveryはend-to-endで確認する。** 一componentの回復ではなく、user-facing symptom、service-level signal、backlog、data integrityまで見る。
 
-## 1. Size-upする
+## 調査の進め方
 
-最初に、分かる範囲で次を整理する。
+### 1. Impactとcritical unknownを確認する
+
+まず分かる範囲で整理する。
 
 - user / business impact
-- affected / unaffected users、regions、tenants、functions
-- start time、first known bad、last known good
+- affected / unaffected scope
+- start time / first known bad / last known good
+- exact symptom / error / latency / availability / data issue
 - ongoing / intermittent / recovering / resolved
-- exact symptom、error、latency、availability、data issue
-- recent deployment / configuration / dependency / traffic change
-- security、data integrity、safety等のcritical unknown
-- repository-localのseverity基準がある場合はseverity
+- security / data integrity / safety上のcritical unknown
 
-Severity定義がない場合、独自のSEV番号を作らない。Impactを事実として示し、severityは未判定とする。
+Local severity定義がなければ独自のSEV番号を作らない。
 
-## 2. 不足情報を明示して取得する
+### 2. 事象をtimelineへ並べる
 
-判断に必要な情報が不足している場合、埋め合わせて進めない。
-可能ならoperator / userへ次の形式で提示を求める。
+Looseな情報でも、時刻と順序が分かる範囲で整理する。
 
-| 不足情報 | 何の判断に必要か | 想定source | 優先度 |
+| Time | Event | State | Significance |
 |---|---|---|---|
-| 例: 正確な発生時刻 | deployment / vendor eventとの時系列比較 | monitoring / operator | High |
+| ... | ... | Confirmed / Reported / Unknown | 原因推定との関係 |
 
-特に、利用者やsystem ownerが最も正確に把握している環境固有情報は、推測せず確認を求める。
+Timestampはtimezoneを含める。時刻不明の事象を推測で並べず、順序だけ判明している場合はその旨を示す。
 
-情報不足でもincident response全体を停止しない。確認待ちの事項は `unknown` のまま保持し、観測済み事実だけから安全なmitigationや追加確認を進める。
+### 3. 原因仮説を作る
 
-## 3. Incident stateを共有する
+単なるcomponent名ではなく、`事象 → failure mechanism → symptom` がつながる形で仮説を書く。
 
-Non-trivial incidentでは、現在のstateを一箇所に集約する。
-少なくとも次を追えるようにする。
+| Rank | Hypothesis | Supporting evidence | Contradicting / unknown | Confidence |
+|---|---|---|---|---|
+| 1 | ... | ... | ... | High / Medium / Low |
 
-- impact / severity
-- current state
-- confirmed / reported facts
-- hypotheses
-- critical unknowns / other unknowns
-- mitigation / recovery actions
-- owners / workstreams
-- external dependencies / escalations
-- next decision / next update
+数値確率は根拠がある場合だけ使う。新しいfactが入ったら順位と確度を更新する。
 
-Suspected / confirmed security compromiseでは、通常のgeneral command postへforensic evidence、indicator、credential情報、具体的なcontainment plan等を無条件に集約しない。
-Organization-localのsecurity incident processを優先し、sensitive stateはneed-to-knowのrestricted workstream / boardへ置く。General command postには、対応に必要なsanitized impact、current state、owner、次回update等だけを共有する。
+### 4. Failure boundaryを狭める
 
-一覧表示が有用な場合は [references/status-board.md](references/status-board.md) を読む。
+SaaS、vendor、network、他team等を含むcross-boundary調査では [references/investigation.md](references/investigation.md) を読む。
 
-## 4. Command structureを必要十分に作る
+有効な確認を優先する。
 
-複数team、複数workstream、重大impact、長時間化等でcoordination costが高い場合は、Incident Commander相当の役割を明示する。
-Incident Commanderのbest practiceは [references/incident-command.md](references/incident-command.md) を読む。
+- affected / unaffected比較
+- same requestのboundary間trace
+- known-good / known-bad比較
+- version / configuration差分
+- external statusと自incidentの時刻・scope・symptom比較
 
-小規模incidentへ不要なrole ceremonyを持ち込まない。一人で十分なincidentでは役割を統合してよい。
+Status pageや直前deploymentとの時間的一致だけでcauseを確定しない。
 
-Agentがcoordinationを支援する場合も、組織上のauthorityやproduction change権限を勝手に持つとみなさない。実環境変更はuser instruction、repository-local rule、既存authority boundaryに従う。
+### 5. 不足情報を絞って確認する
 
-## 5. Mitigation / containmentを検討する
+追加情報が必要なら、判断への寄与が高いものだけを聞く。
 
-原因確定前でも、impactやharmを安全に抑えられる場合はmitigation / containmentを検討する。
-Security、data integrity、safetyへのharmが確認されている場合は、その拡大を止めるactionをavailability回復より優先する。
+| Needed information | Why needed | Best source |
+|---|---|---|
+| ... | ... | operator / monitoring / vendor |
 
-Restart、rollback、failover、queue reset、instance replacement等でvolatile evidenceが失われる可能性がある場合は、harm containmentやrecoveryを実質的に遅らせない範囲で、変更前に必要なevidenceを保全する。
+既に十分な仮説が立つ場合、質問だけして原因推定を先送りしない。
 
-必要に応じて保全する例:
+### 6. Mitigationとevidence preservationを考える
 
-- error / log / trace / metric
-- process / memory / resource state
-- deployment / version / configuration state
-- queue / backlog / replication state
-- request / correlation ID
-- security / audit evidence
+Impactやharmが継続している場合は、原因確定前でも安全なcontainment / mitigationを検討する。
 
-重大な被害が継続している場合、証拠保全のために緊急containmentを不必要に遅らせない。保全できなかったevidenceはその事実を記録する。
+Restart、rollback、failover、queue reset、instance replacement等でvolatile evidenceを失う場合は、containmentやrecoveryを実質的に遅らせない範囲で必要なlog、trace、process state、configuration、audit evidence等を先に保全する。
 
-Mitigation / containmentの例:
+重大な被害が継続している場合、証拠保全のために緊急containmentを不必要に遅らせない。
 
-- rollback / failover
-- traffic shift / isolation
-- feature disable
-- rate limiting / load shedding
-- dependency bypass
-- queue intake停止
-- capacity adjustment
+### 7. Recoveryを確認する
 
-候補ごとに、期待効果、risk、reversibility、必要authority、観測すべき成功条件を確認する。
+Mitigation / fix後は必要に応じて確認する。
 
-複数の大きな変更を同時に行い、何が効いたか分からない状態を避ける。ただし、重大impactやharmが継続し逐次実験の余裕がない場合は、containment / recovery優先で必要なmitigationを組み合わせ、その事実を記録する。
+- original symptom
+- error rate / latency / availability
+- backlog / queue / replication lag
+- data integrity
+- secondary impact / recovery load
+- observation window中の再発
 
-## 6. 責任境界をまたいで調査する
+Vendorの`resolved`通知だけで自serviceのrecovery確認を代替しない。
 
-原因調査を自teamのcodeへ限定しない。
+## 出力
 
-- application / service
-- database / cache / queue
-- network / DNS / proxy / load balancer
-- cloud / managed service
-- SaaS / external API
-- shared platform
-- identity / certificate / secret
-- downstream / upstream system
-- 他team / vendor管理component
+原因推定では、必要なsectionだけを使い、長い調査日誌にしない。基本は次の順でまとめる。
 
-複数boundaryをまたぐ、external dependencyが疑わしい、またはownerが分散している場合は [references/investigation.md](references/investigation.md) を読む。
+1. **現時点の見立て** — 最有力原因と確度
+2. **Timeline** — 原因判断に効く事象だけ
+3. **原因仮説** — 根拠、反証、不足情報
+4. **次に確認すること** — 情報利得が高い順
+5. **Mitigation / recovery** — 必要な場合だけ
 
-Local implementationのbug、resource lifecycle、concurrency、regression等のroot causeを掘る必要がある場合は `debugging` を利用する。`debugging` はincident investigationの一手段であり、incident全体のorchestrationはこのSkillを正本とする。
+一覧性が必要なら [references/status-board.md](references/status-board.md) を使う。
+Markdownの見出し、表、箇条書きを優先し、Mermaidは使用しない。装飾より、情報の選別、関係、時系列が一読で分かることを優先する。
 
-外部serviceのcurrent status、仕様、support範囲等を確認する場合は `technical-research` を利用する。
-
-## 7. 仮説を更新する
-
-Hypothesisは不足情報の代替ではない。
-各hypothesisについて必要に応じて次を持つ。
-
-- supporting facts
-- contradicting facts
-- まだ必要なevidence
-- 最小で安全な確認方法
-- owner
-
-新しいconfirmed factが入るたびに、仮説の優先順位と次の確認を更新する。
-過去の類似障害、直前のdeployment、vendor status等へanchoringしない。
-
-## 8. External escalationを早めに準備する
-
-Vendor / SaaS / 他teamへの調査依頼が必要なら、原因確定を待たず、相手が調査開始できる情報を揃える。
-
-必要に応じて次を含める。
-
-- exact timestamp + timezone
-- affected region / tenant / account / endpoint
-- request / trace / correlation ID
-- exact error / status code
-- affected / unaffected comparison
-- impact and frequency
-- recent relevant changes
-- already attempted mitigation
-- sanitized logs / metrics
-- desired response: investigation、status、workaround、ETA等
-
-Status pageに障害情報があるだけで、自incidentのcauseと断定しない。時間、scope、症状等が一致するかを確認する。
-
-## 9. 定期的にstateを更新する
-
-Updateは新情報があるときだけではなく、major incidentでは一定cadenceで行う。
-
-短く次を更新する。
-
-- current impact
-- what changed since last update
-- current mitigation / investigation
-- critical unknown
-- next action / owner
-- next update timing
-
-同じraw logを繰り返さず、判断に必要なstateを更新する。
-
-## 10. Recoveryを検証する
-
-Mitigationや修正後は、少なくとも必要に応じて次を確認する。
-
-- original user-facing symptomが消えたか
-- error rate / latency / availabilityが期待範囲へ戻ったか
-- backlog / queue / replication lag等が解消方向か
-- data integrityに追加問題がないか
-- affected scopeが本当に縮小したか
-- workaround依存のtemporary recoveryか、normal operationへ戻ったか
-- observation window中に再発していないか
-
-Security、data integrity、safetyに関するcontainment条件がある場合は、それを満たしたことを確認してからnormal traffic / write等を再開する。
-Vendorが `resolved` と発表したことだけで自serviceのrecovery確認を代替しない。
-
-## 11. Active responseを終了する
-
-Incidentを閉じる前に、少なくとも次を明示する。
-
-- current impact: resolved / mitigated / remaining
-- recovery evidence
-- temporary mitigation / degraded modeの有無
-- unresolved unknowns
-- external case / follow-up owner
-- cleanup / rollback-back / monitoring action
-- post-incident reviewが必要か
-
-Postmortem、再発防止策の優先順位付け、long-term problem managementはactive incident responseと分離する。
-
-## Reference routing
-
-- **Major / multi-team / complex incident:** [references/incident-command.md](references/incident-command.md)
-- **SaaS / vendor / network / 他teamを含むcross-boundary investigation:** [references/investigation.md](references/investigation.md)
-- **一覧でcurrent stateを維持・提示する:** [references/status-board.md](references/status-board.md)
-
-必要なreferenceだけ読む。
+Suspected / confirmed security compromiseでは、sensitive evidenceやcontainment detailをgeneralな出力へ無条件に載せず、organization-localのsecurity processとneed-to-know境界を優先する。
 
 ## 他Skillとの関係
 
-- `debugging`: local code / implementationのroot cause investigation
+- `debugging`: local implementationへfailure domainが絞れた後のroot cause investigation
 - `technical-research`: external specification、vendor status、support policy等の確認
 - `command-execution`: commandやmutating operationの安全な実行
-- `evidence-reporting`: incident対応後の実施内容・検証・未確認事項の報告
-- `technical-writing`: runbook、incident procedure等のdurable documentation
+- `evidence-reporting`: 実施内容・検証・未確認事項の報告
+- `technical-writing`: durableなrunbookやincident procedureの執筆
 
 ## 参考資料
 
-- PagerDuty, *During an Incident*: https://response.pagerduty.com/during/during_an_incident/
-- PagerDuty, *Different Roles*: https://response.pagerduty.com/before/different_roles/
-- PagerDuty, *Incident Commander Training*: https://response.pagerduty.com/training/incident_commander/
-- PagerDuty, *Complex Incidents*: https://response.pagerduty.com/before/complex_incidents/
 - Google SRE, *Managing Incidents*: https://sre.google/sre-book/managing-incidents/
 - Google SRE Workbook, *Incident Response*: https://sre.google/workbook/incident-response/
+- Google SRE, *Effective Troubleshooting*: https://sre.google/sre-book/effective-troubleshooting/
+- PagerDuty, *Incident Commander Training*: https://response.pagerduty.com/training/incident_commander/
+- PagerDuty, *During an Incident*: https://response.pagerduty.com/during/during_an_incident/
 - AWS Well-Architected, *Responding to events*: https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/responding-to-events.html
