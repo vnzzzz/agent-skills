@@ -63,6 +63,9 @@ Current stateは [status-board.md](status-board.md) の形式等で一箇所に�
 
 Chatやcallだけをstateの正本にしない。
 
+Suspected / confirmed security compromiseでは、recognized command postが「全情報を全参加者へ公開する場所」を意味しない。
+Sensitive forensic evidence、indicator、credential情報、具体的containment planはorganization-localのsecurity incident processに従い、need-to-knowのrestricted workstream / boardで管理する。General command postにはsanitizedなimpact、current state、owner、coordination情報を共有する。
+
 ## 初動: Size-up
 
 最初に「何が起きているか」と「どこまで悪化し得るか」を短時間で把握する。
@@ -198,8 +201,10 @@ Decision前に必要に応じて次を確認する。
 
 ## Communication
 
-Incident communicationではspeedよりambiguity reductionを優先する。
-短くするためにsubject、owner、action、timeを省略しない。
+Incident communicationではtimelinessとclarityの両方を守る。
+Confirmed impactや利用者が取るべきactionが分かった時点で、原因やscopeの完全確定を待たず必要なinitial updateを出す。未確定事項は推測で埋めず、`Unknown` / `Investigating` と明示する。
+
+短くするためにsubject、owner、action、timeを省略しない。Security / privacy上sensitiveな内容はneed-to-know境界を守り、general / external updateへそのまま載せない。
 
 Regular updateでは次を含める。
 
@@ -282,6 +287,8 @@ Postmortem / long-term corrective actionはactive commandから切り離す。
 - IC自身が一つのlog investigationへ没頭する
 - recognized command postがなく、複数channelで別々の判断をする
 - live incident stateがなく、参加者が毎回口頭で状況確認する
+- sensitive security stateをgeneral channelへ無条件に公開する
+- initial updateをroot cause確定まで遅らせる
 - `Can someone ...` のようにowner不明のtaskを投げる
 - 全員の合意を待ってdecisionを止める
 - seniorityだけでcommandを奪う
