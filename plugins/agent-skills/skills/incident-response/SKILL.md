@@ -9,37 +9,37 @@ Active incidentを、自teamのcodeだけに限定せず、SaaS、cloud、networ
 
 ## 動作モード
 
-### Investigation mode（既定）
+### 調査モード（既定）
 
 「事象を整理して原因を推定して」「この障害の原因候補は」「ログと発生事象をつなげて」のような依頼では、原因推定と切り分けを行う。
 
 - 事象を時系列へ整理する
-- confirmed / reported factとhypothesisを分ける
+- 確認済み事実 / 報告情報と仮説を分ける
 - 原因候補を根拠付きで順位付けする
 - 反証材料と不足情報を示す
 - 次に情報利得の高い確認を提案する
-- 必要ならmitigation / recovery確認を提案する
+- 必要なら影響緩和 / 復旧確認を提案する
 
-情報が不足していても推定依頼そのものを止めない。不足部分を事実として補完せず、`Hypothesis` として推定し、確度と確認方法を示す。
+情報が不足していても推定依頼そのものを止めない。不足部分を事実として補完せず、仮説として推定し、確度と確認方法を示す。
 
 このmodeでは、重大incidentであっても自動的にIncident Commanderを名乗らない。Role assignment、command post、定期update cadence、task ownerの指揮管理も、依頼されていなければ開始しない。
 
-### Command mode（明示依頼時のみ）
+### 指揮モード（明示依頼時のみ）
 
 ユーザーが「ICして」「Incident Commanderとして進めて」「障害対応を指揮して」「ICを補佐して」「進行管理して」等、command / coordinationを明示的に依頼した場合だけ [references/incident-command.md](references/incident-command.md) を読む。
 
-依頼が曖昧ならInvestigation modeを維持する。Incidentの重大度や関係team数だけを理由にCommand modeへ切り替えない。
+依頼が曖昧なら調査モードを維持する。Incidentの重大度や関係team数だけを理由に指揮モードへ切り替えない。
 
 ## 原則
 
 1. **Harm containmentとservice recoveryをroot cause解明より優先する。** Security compromise、data loss / corruption、safety impactが確認された場合はcontainmentをavailability回復より優先する。
-2. **Factと推定を混同しない。** Confirmed fact、reported fact、hypothesis、unknown、decision / actionを区別する。
-3. **Critical unknownを先に確認する。** 成立すると対応方針が変わるsecurity、data integrity、irreversible side effect等を優先する。
+2. **事実と推定を混同しない。** 確認済み事実、報告情報、仮説、不明事項、判断 / 対応を区別する。
+3. **重要な未確認事項を先に確認する。** 成立すると対応方針が変わるsecurity、data integrity、irreversible side effect等を優先する。
 4. **原因を自teamのcodeへ限定しない。** External dependencyや他team管理componentも同じfailure domain候補として扱う。
 5. **不足情報を推測で事実化しない。** 必要なら「何の判断に必要か」と合わせてoperator / ownerへ確認する。
 6. **Recoveryはend-to-endで確認する。** 一componentの回復ではなく、user-facing symptom、service-level signal、backlog、data integrityまで見る。
 
-## 1. Impactとcritical unknownを確認する
+## 1. 影響と重要な未確認事項を確認する
 
 まず分かる範囲で整理する。
 
@@ -47,8 +47,8 @@ Active incidentを、自teamのcodeだけに限定せず、SaaS、cloud、networ
 - affected / unaffected scope
 - start time / first known bad / last known good
 - exact symptom / error / latency / availability / data issue
-- ongoing / intermittent / recovering / resolved
-- security / data integrity / safety上のcritical unknown
+- 継続中 / 断続的 / 復旧中 / 収束
+- security / data integrity / safety上の重要な未確認事項
 
 Local severity定義がなければ独自のSEV番号を作らない。
 
@@ -56,9 +56,9 @@ Local severity定義がなければ独自のSEV番号を作らない。
 
 Looseな情報でも、時刻と順序が分かる範囲で整理する。
 
-| Time | Event | State | Significance |
+| 時刻 | 事象 | 種別 | 原因推定との関係 |
 |---|---|---|---|
-| ... | ... | Confirmed / Reported / Unknown | 原因推定との関係 |
+| ... | ... | 確認済み / 報告情報 / 不明 | ... |
 
 Timestampはtimezoneを含める。時刻不明の事象を推測で並べず、順序だけ判明している場合はその旨を示す。
 
@@ -66,11 +66,11 @@ Timestampはtimezoneを含める。時刻不明の事象を推測で並べず、
 
 単なるcomponent名ではなく、`事象 → failure mechanism → symptom` がつながる形で仮説を書く。
 
-| Rank | Hypothesis | Supporting evidence | Contradicting / unknown | Confidence |
-|---|---|---|---|---|
-| 1 | ... | ... | ... | High / Medium / Low |
+| 順位 | 仮説 | 根拠 | 反証・未確認事項 | 確度 |
+|---:|---|---|---|---|
+| 1 | ... | ... | ... | 高 / 中 / 低 |
 
-数値確率は根拠がある場合だけ使う。新しいfactが入ったら順位と確度を更新する。
+数値確率は根拠がある場合だけ使う。新しい事実が入ったら順位と確度を更新する。
 
 ## 4. Failure boundaryを狭める
 
@@ -90,7 +90,7 @@ Status pageや直前deploymentとの時間的一致だけでcauseを確定しな
 
 追加情報が必要なら、判断への寄与が高いものだけを聞く。
 
-| Needed information | Why needed | Best source |
+| 必要な情報 | 必要な理由 | 最適な確認先 |
 |---|---|---|
 | ... | ... | operator / monitoring / vendor |
 
@@ -125,7 +125,7 @@ Vendorの`resolved`通知だけで自serviceのrecovery確認を代替しない�
 2. **タイムライン** — 原因判断に効く事象だけ
 3. **原因仮説** — 根拠、反証、不足情報
 4. **次に確認すること** — 情報利得が高い順
-5. **Mitigation / recovery** — 必要な場合だけ
+5. **影響緩和 / 復旧** — 必要な場合だけ
 
 一覧性が必要なら [references/status-board.md](references/status-board.md) を使う。
 Markdownの見出し、表、箇条書きを優先し、Mermaidは使用しない。装飾より、情報の選別、関係、時系列が一読で分かることを優先する。
