@@ -38,16 +38,16 @@ Before / afterを比較する場合は、input data、dataset、seed、model、c
 
 作業やcheckの状態は必要に応じて次を区別する。
 
-- 完了 / 成功
-- 失敗
-- スキップ
+- completed / passed
+- failed
+- skipped
 - blocked
-- 中断 / キャンセル
-- 実行中
-- 未実行
-- 利用不可
+- interrupted / cancelled
+- still running
+- not run
+- unavailable
 
-`スキップ`と`成功`、`blocked`と`失敗`を同一視しない。
+`skipped`と`passed`、`blocked`と`failed`を同一視しない。
 
 実施できなかった重要なcheckは隠さず、理由と結果へ与える影響を必要に応じて短く示す。
 
