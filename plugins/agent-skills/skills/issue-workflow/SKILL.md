@@ -54,7 +54,7 @@ Reviewerが設定されている場合はreviewを依頼する。Actionable feed
 
 明示委任がない限り、merge / task close / production deploy / destructive managed change / irreversible migrationは行わない。Humanが変更、validation、未確認事項、review結果、残存riskを判断できる状態で停止する。
 
-## Provider固有のワークフロー
+## プロバイダー固有のワークフロー
 
 Branch naming、PR / MR、closing keyword、status transition、reviewer API等のprovider固有mechanicsは、core workflowへ混ぜず必要なreferenceから読む。
 
