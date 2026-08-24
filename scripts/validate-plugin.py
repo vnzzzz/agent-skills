@@ -103,7 +103,12 @@ def validate_english_h1(path: Path, lines: list[str]) -> None:
 
         parts = re.split(r"[-/]", word)
         for part_index, part in enumerate(parts):
-            allow_connector = word_index > 0 or part_index > 0
+            has_following_title_content = (
+                part_index < len(parts) - 1 or word_index < len(words) - 1
+            )
+            allow_connector = (
+                (word_index > 0 or part_index > 0) and has_following_title_content
+            )
             valid, is_content_word = title_part_is_valid(part, allow_connector=allow_connector)
             if not valid:
                 fail(f"{path}: H1 must use English Title Case: {body[0]!r}")
