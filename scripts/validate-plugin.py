@@ -18,6 +18,7 @@ EXPECTED_SOURCE = "./plugins/agent-skills"
 EXPECTED_SKILL_FRONTMATTER = {"name", "description"}
 SEMVER = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+TITLE_ALLOWED_CHARS = re.compile(r"^[A-Za-z0-9 &+./()\[\]{}:,\'\"#-]+$")
 TITLE_CONNECTORS = {
     "a",
     "an",
@@ -93,6 +94,8 @@ def validate_english_h1(path: Path, lines: list[str]) -> None:
     words = title.split()
     if not words:
         fail(f"{path}: H1 title must not be empty")
+    if not TITLE_ALLOWED_CHARS.fullmatch(title):
+        fail(f"{path}: H1 contains unsupported or non-English characters: {body[0]!r}")
 
     has_content_word = False
     for word_index, word in enumerate(words):
