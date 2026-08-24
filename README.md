@@ -37,6 +37,8 @@ claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 - [testing](plugins/agent-skills/skills/testing/SKILL.md)
 <!-- END GENERATED SKILLS -->
 
+Skillの追加・更新時は [Skill Authoring Guide](docs/skill-authoring.md) に従います。
+
 ## ディレクトリ構成
 
 ```text
