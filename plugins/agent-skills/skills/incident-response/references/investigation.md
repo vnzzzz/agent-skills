@@ -130,7 +130,7 @@ Root cause候補を広げる前に、対応方針を変える可能性を確認�
 
 Worst-caseを事実認定せず、重要な未確認事項として扱う。
 
-## 9. ローカルdebuggingへ切り替える
+## 9. ローカル実装の調査へ切り替える
 
 Failure domainがlocal implementationへ十分に絞れたら`debugging`を使う。
 
