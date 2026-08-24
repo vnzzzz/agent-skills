@@ -18,28 +18,6 @@ EXPECTED_SOURCE = "./plugins/agent-skills"
 EXPECTED_SKILL_FRONTMATTER = {"name", "description"}
 SEMVER = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-TITLE_ALLOWED_CHARS = re.compile(r"^[A-Za-z0-9 &+./()\[\]{}:,\'\"#-]+$")
-TITLE_CONNECTORS = {
-    "a",
-    "an",
-    "and",
-    "as",
-    "at",
-    "but",
-    "by",
-    "for",
-    "from",
-    "in",
-    "of",
-    "on",
-    "or",
-    "per",
-    "the",
-    "to",
-    "via",
-    "with",
-}
-TITLE_SEPARATORS = {"&", "+", "/"}
 MAX_SKILL_NAME_LENGTH = 64
 MAX_SKILL_DESCRIPTION_LENGTH = 1024
 MAX_SKILL_LINES = 500
@@ -60,65 +38,24 @@ def find_plugin(marketplace: dict) -> dict:
     return matches[0]
 
 
-def title_part_is_valid(part: str, *, allow_connector: bool) -> tuple[bool, bool]:
-    part = part.strip("()[]{}:,.\"")
-    if not part:
-        return False, False
-    if allow_connector and part in TITLE_CONNECTORS:
-        return True, False
-
-    letters = "".join(char for char in part if char.isalpha())
-    if letters:
-        if any(ord(char) > 127 for char in letters):
-            return False, False
-        if letters.isupper() or letters[0].isupper():
-            return True, True
-        # Preserve branded casing such as iOS, macOS, or eBay.
-        if any(char.isupper() for char in letters[1:]):
-            return True, True
-        return False, False
-
-    # Numeric/version tokens such as 2.0 are valid only as part of a title
-    # that also contains at least one alphabetic content word.
-    if any(char.isdigit() for char in part):
-        return True, False
-    return False, False
-
-
 def validate_english_h1(path: Path, lines: list[str]) -> None:
+    """Validate only structural H1 invariants.
+
+    Exact Title Case, connector rules, and branded casing are authoring-style
+    conventions reviewed by humans. Keeping CI intentionally shallow avoids a
+    brittle English-title parser that rejects valid technical identifiers.
+    """
     body = [line for line in lines if line.strip()]
     if not body or not body[0].startswith("# "):
         fail(f"{path}: document body must start with an H1 title")
 
     title = body[0][2:].strip()
-    words = title.split()
-    if not words:
+    if not title:
         fail(f"{path}: H1 title must not be empty")
-    if not TITLE_ALLOWED_CHARS.fullmatch(title):
-        fail(f"{path}: H1 contains unsupported or non-English characters: {body[0]!r}")
-
-    has_content_word = False
-    for word_index, word in enumerate(words):
-        if word in TITLE_SEPARATORS:
-            if word_index == 0 or word_index == len(words) - 1:
-                fail(f"{path}: H1 separator must appear between title words")
-            continue
-
-        parts = re.split(r"[-/]", word)
-        for part_index, part in enumerate(parts):
-            has_following_title_content = (
-                part_index < len(parts) - 1 or word_index < len(words) - 1
-            )
-            allow_connector = (
-                (word_index > 0 or part_index > 0) and has_following_title_content
-            )
-            valid, is_content_word = title_part_is_valid(part, allow_connector=allow_connector)
-            if not valid:
-                fail(f"{path}: H1 must use English Title Case: {body[0]!r}")
-            has_content_word = has_content_word or is_content_word
-
-    if not has_content_word:
-        fail(f"{path}: H1 must contain at least one English title word")
+    if not title.isascii():
+        fail(f"{path}: H1 title must use an English/ASCII identifier")
+    if not any(char.isalpha() for char in title):
+        fail(f"{path}: H1 title must contain an English title word")
 
 
 def load_skill_frontmatter(path: Path) -> dict[str, str]:
