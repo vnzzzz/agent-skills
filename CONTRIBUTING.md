@@ -4,11 +4,11 @@ Skillの作成・改善方法そのものは公式のSkill Creatorを利用し�
 
 ## Skill構成
 
-- 1つのSkillは1つの明確なjob-to-be-doneを扱う。
+- 1つのSkillは、独立して発火する1つのcoherentなcapability / workflowを扱う。同じworkflowのvariantは必要に応じて`references/`へ分離する。
 - `SKILL.md`には常に必要な判断と手順を置き、条件付き詳細は`references/`へ分離する。
 - 同じ規則を複数箇所へ重複させない。
-- `SKILL.md`のfrontmatterは`name`と`description`だけとし、`name`はdirectory名と一致させる。
-- `description`には「何をするか」「いつ使うか」を簡潔に含める。
+- `SKILL.md`のfrontmatterでは`name`と`description`を必須とし、`name`はdirectory名と一致させる。その他の標準fieldは、Codex / Claude Code双方で必要性と互換性を確認した場合だけ使用する。
+- `description`には「何をするか」と発火に必要なtrigger / contextを必要十分に含める。短さのためにtrigger情報を削らない。
 
 ## 記法
 
