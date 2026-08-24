@@ -63,9 +63,10 @@ API、CLI、TDD、GitHub、Incident Commander、foreground、background、retry�
 - API名、command名、file path、設定key、schema field、status code、product名等の**正確な識別子**は原語を維持する。
 - 分野で日本語より英語が一般的な技術用語は、無理に不自然な訳語へ置き換えない。
 - `foreground`、`background`、`retry`、`rollback`、`root cause`、`regression`など、開発・運用で一般的な語は英語のまま使ってよい。
+- `completed` / `failed` / `blocked`等の共有status、`Node` / `Edge`等のmodel用語、GitHubの`Repository` / `Issue` / `Pull Request`等、英語が一般的またはSkill間のcontractになる固定語は原語を優先する。
+- 説明用の一般語や日本語の方が明確なラベルまで英語へ寄せる必要はない。
 - 通常の文章では、日本語と英語を装飾目的で混在させない。
 - 同じ概念の日本語 / 英語表記を不用意に揺らさない。
-- status、分類、表headerなど、実行時に繰り返し比較する**固定ラベル**は日本語を優先する。ただしliteralなstatus値や正式名称は原語を維持する。
 
 特に緊急時や手順実行中に直接読む固定ラベルは、認知負荷を下げることを優先する。
 
@@ -156,7 +157,7 @@ Skillの中心となる逐次手順は、H2の連番で表す。
 
 - H1は英語Title Caseか。
 - H2以下は日本語の文として自然に読め、一般的な技術用語を不自然に翻訳していないか。
-- status・分類・表header等の固定ラベルは、短時間で比較しやすい表記に統一されているか。
+- status・model・platform用語等の固定語を、一般的な英語表記から不自然に翻訳していないか。
 - 英語が正式名称・識別子・一般的な技術用語ではなく、単なる装飾として混在していないか。
 - 中心手順を同じ粒度で追えるか。
 - 表、list、コードブロックを目的に応じて使い分けているか。
