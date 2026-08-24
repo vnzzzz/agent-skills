@@ -36,7 +36,7 @@ Userやowning Issueが最大サイクル数を定義していない場合でも�
 6. 変更を実施する
 7. 変更に対応するvalidationを行う
 8. Before / after evidenceを比較する
-9. 継続 / 成功 / 阻害 / 停止を判断する
+9. 継続 / 成功 / blocked / 停止を判断する
 
 複数の独立したblockerを一度に直し、どの変更が効いたか分からなくしない。
 
