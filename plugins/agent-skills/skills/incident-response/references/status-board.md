@@ -1,14 +1,14 @@
 # Incident Status Board
 
-Incidentのcurrent stateを、装飾ではなく**構造化・情報の取捨選択・時系列**で把握するための表示形式を定義する。
+Incidentの現在状態を、装飾ではなく**構造化・情報の取捨選択・時系列**で把握するための表示形式を定義する。
 Markdownの見出し、表、箇条書きを使い、Mermaidは使用しない。
 
 ## 原則
 
-- 一画面でcurrent stateと次の判断が分かる程度に絞る。
+- 一画面で現在状態と次の判断が分かる程度に絞る。
 - Raw logや会話履歴を転載しない。
 - 確認済み事実、報告情報、仮説、不明事項、判断を混同しない。
-- Timelineは原因判断や対応判断に効くeventだけを残す。
+- タイムラインは原因判断や対応判断に効くeventだけを残す。
 - 仮説は有力候補を優先し、弱い候補を増やし続けない。
 - Timestampはtimezoneを含める。
 - Active incidentのboardには`最終更新`を含める。
@@ -98,7 +98,7 @@ Mitigationや調査actionを追う必要がある場合に使う。
 | ... | ... | 調査中 | ... |
 ```
 
-## Security incident時の扱い
+## セキュリティインシデント時の扱い
 
 Suspected / confirmed compromiseでは、general boardへforensic evidence、credential、indicator、exploit detail、具体的containment plan等を載せない。
 Need-to-knowのrestricted board / workstreamへ分離し、general boardにはsanitizedなimpact、state、high-level containment status、liaison、next updateだけを載せる。
