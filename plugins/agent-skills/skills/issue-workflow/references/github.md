@@ -3,7 +3,7 @@
 `issue-workflow`をGitHub Issue / Pull Requestで実行するときのprovider固有ルールを定義する。
 GitHubを使うtaskでだけ読み、tracker非依存のlifecycle、planning、implementation、validation、reportingは親Skillを正本とする。
 
-## リポジトリ・Issue・baseを確定する
+## Repository / Issue / baseを確定する
 
 - Userがrepository、Issue、PR、baseを指定している場合はそれを優先する。
 - Issue本文、関連comment / PR、repository-local rulesを確認する。
@@ -17,7 +17,7 @@ GitHubを使うtaskでだけ読み、tracker非依存のlifecycle、planning、i
 新しいbranchが必要な場合は、repository-localのnaming ruleを使い、確認済みbaseから作る。
 Uncommitted workがあるlocal checkoutでは、unrelated changesを取り込まない。
 
-## Commit・push・Pull Request
+## Commit / push / Pull Request
 
 - Commit / push前に、diffへunrelated changesやsecretが含まれていないことを確認する。
 - PRは確認済みの正しいbaseへ作る。
