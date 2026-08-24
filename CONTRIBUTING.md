@@ -28,4 +28,4 @@ Skillの作成・改善方法そのものは公式のSkill Creatorを利用し�
 
 ## Validation
 
-CIはfrontmatter、manifest、H1の存在など壊れにくい構造条件を検証する。Title Caseや語彙選択などのstyleは人間レビューで確認し、validatorを過度に複雑化しない。
+CIは`name` / `description`、manifest、H1の存在など壊れにくい構造条件を検証する。標準optional fieldを理由なく拒否せず、Title Caseや語彙選択などのstyleは人間レビューで確認する。
