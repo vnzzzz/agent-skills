@@ -81,13 +81,13 @@ Userが停止を求めた場合や、継続が安全でないと判断した場�
 
 最終報告では必要に応じて次を区別する。
 
-- 完了
-- 失敗
-- スキップ
+- completed
+- failed
+- skipped
 - blocked
-- 中断 / キャンセル
-- 実行中
-- 未実行
+- interrupted / cancelled
+- still running
+- not run
 
 実行していないcommandやexternal validationを実行済みとして扱わない。長時間commandでは、foreground / backgroundの別、重複実行確認、結果判断に使ったartifactやstatusも必要に応じて示す。
 
