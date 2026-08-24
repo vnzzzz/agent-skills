@@ -18,6 +18,27 @@ EXPECTED_SOURCE = "./plugins/agent-skills"
 EXPECTED_SKILL_FRONTMATTER = {"name", "description"}
 SEMVER = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+TITLE_CONNECTORS = {
+    "a",
+    "an",
+    "and",
+    "as",
+    "at",
+    "but",
+    "by",
+    "for",
+    "from",
+    "in",
+    "of",
+    "on",
+    "or",
+    "per",
+    "the",
+    "to",
+    "via",
+    "with",
+}
+TITLE_SEPARATORS = {"&", "+", "/"}
 MAX_SKILL_NAME_LENGTH = 64
 MAX_SKILL_DESCRIPTION_LENGTH = 1024
 MAX_SKILL_LINES = 500
@@ -38,12 +59,40 @@ def find_plugin(marketplace: dict) -> dict:
     return matches[0]
 
 
+def title_part_is_valid(part: str, *, allow_connector: bool) -> bool:
+    part = part.strip("()[]{}:,.\"")
+    if not part:
+        return False
+    if allow_connector and part in TITLE_CONNECTORS:
+        return True
+
+    letters = "".join(char for char in part if char.isalpha())
+    if not letters or any(ord(char) > 127 for char in letters):
+        return False
+    return letters.isupper() or letters[0].isupper()
+
+
 def validate_english_h1(path: Path, lines: list[str]) -> None:
     body = [line for line in lines if line.strip()]
     if not body or not body[0].startswith("# "):
         fail(f"{path}: document body must start with an H1 title")
-    if any(ord(char) > 127 for char in body[0]):
-        fail(f"{path}: H1 must use the repository English-title convention")
+
+    title = body[0][2:].strip()
+    words = title.split()
+    if not words:
+        fail(f"{path}: H1 title must not be empty")
+
+    for word_index, word in enumerate(words):
+        if word in TITLE_SEPARATORS:
+            if word_index == 0 or word_index == len(words) - 1:
+                fail(f"{path}: H1 separator must appear between title words")
+            continue
+
+        parts = re.split(r"[-/]", word)
+        for part_index, part in enumerate(parts):
+            allow_connector = word_index > 0 or part_index > 0
+            if not title_part_is_valid(part, allow_connector=allow_connector):
+                fail(f"{path}: H1 must use English Title Case: {body[0]!r}")
 
 
 def load_skill_frontmatter(path: Path) -> dict[str, str]:
