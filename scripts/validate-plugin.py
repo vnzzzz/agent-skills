@@ -38,6 +38,14 @@ def find_plugin(marketplace: dict) -> dict:
     return matches[0]
 
 
+def validate_english_h1(path: Path, lines: list[str]) -> None:
+    body = [line for line in lines if line.strip()]
+    if not body or not body[0].startswith("# "):
+        fail(f"{path}: document body must start with an H1 title")
+    if any(ord(char) > 127 for char in body[0]):
+        fail(f"{path}: H1 must use the repository English-title convention")
+
+
 def load_skill_frontmatter(path: Path) -> dict[str, str]:
     lines = path.read_text(encoding="utf-8").splitlines()
     if not lines or lines[0] != "---":
@@ -76,13 +84,20 @@ def load_skill_frontmatter(path: Path) -> dict[str, str]:
             f"{MAX_SKILL_DESCRIPTION_LENGTH} characters"
         )
 
-    body = [line for line in lines[end + 1 :] if line.strip()]
-    if not body or not body[0].startswith("# "):
-        fail(f"{path}: SKILL.md body must start with an H1 title")
-    if any(ord(char) > 127 for char in body[0]):
-        fail(f"{path}: SKILL.md H1 must use the repository English-title convention")
-
+    validate_english_h1(path, lines[end + 1 :])
     return metadata
+
+
+def validate_references(skill_root: Path) -> None:
+    references = skill_root / "references"
+    if not references.is_dir():
+        return
+
+    for path in sorted(references.rglob("*.md")):
+        lines = path.read_text(encoding="utf-8").splitlines()
+        if lines and lines[0] == "---":
+            fail(f"{path}: reference documents must not use Skill frontmatter")
+        validate_english_h1(path, lines)
 
 
 def main() -> int:
@@ -142,6 +157,7 @@ def main() -> int:
         metadata = load_skill_frontmatter(skill_md)
         if metadata["name"] != skill_root.name:
             fail(f"{skill_md}: SKILL.md name must match its directory name")
+        validate_references(skill_root)
 
     print(f"Validated {len(skill_roots)} shared Skill(s) in {EXPECTED_PLUGIN} {codex['version']}.")
     return 0
