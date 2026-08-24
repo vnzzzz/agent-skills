@@ -17,7 +17,7 @@ Python 3.11以上かつExpat 2.7.2以上が必要。converterはXMLをparseす�
 - パッケージをinstallまたはupdateしない。
 - Excel、LibreOffice、COM、xlwings、AppleScript、macro、browser、Kroki、remote rendererを起動しない。
 - 同梱の`scripts/convert.py` entry pointだけを使用する。
-- 入力として`.xlsx`、`.json`、正規`.xml`、`.mmd`/`.mermaid`、`.drawio`だけを受け付ける。
+- 入力として`.xlsx`、`.json`、正規`.xml`、`.mmd` / `.mermaid`、`.drawio`だけを受け付ける。
 - symbolic linkの入力を拒否する。
 - `DOCTYPE` / DTD宣言を含むXMLを拒否し、runtime Expatが2.7.2未満の場合はfail-closedとする。
 - macro-enabled Office file、external relationship、OLE、ActiveX、embedded file、unsafe ZIP path、上限を超えるOOXML packageを拒否する。
@@ -31,13 +31,13 @@ Python 3.11以上かつExpat 2.7.2以上が必要。converterはXMLをparseす�
 
 - Node: 通常のpreset shapeとshape text。
 - Edge: connector、label、endpoint、arrowhead、基本的なline style。
-- Geometry: x/y、width/height、rotation、z-order。
-- Basic style: fill、stroke、line width/dash、font color/size。
+- Geometry: x / y、width / height、rotation、z-order。
+- Basic style: fill、stroke、line width / dash、font color / size。
 - Excelのcell value、formula、comment、table、chart、conditional formattingは無視する。
 
 `draw.io`出力ではnodeとedgeをまたぐstacking順序を保持する。Excel出力ではnode同士、connector同士の順序は保持するが、nodeとconnectorをまたぐstacking順序はnode→connectorへ正規化する。
 
-Picture、SmartArt、WordArt、custom/freeform geometry、grouped shapeはv1では非対応。これらは警告として報告し、代替表現を黙って捏造しない。
+Picture、SmartArt、WordArt、custom / freeform geometry、grouped shapeはv1では非対応。これらは警告として報告し、代替表現を黙って捏造しない。
 
 ## ワークフロー
 
@@ -55,7 +55,7 @@ Picture、SmartArt、WordArt、custom/freeform geometry、grouped shapeはv1で�
    ```
 
 3. 最初に`conversion-report.json`を読む。
-4. input format、output path、page/node/edge count、すべてのwarningを報告する。
+4. input format、output path、page / node / edge count、すべてのwarningを報告する。
 5. `diagram.json`が正規モデルであることを明記する。
 6. Mermaidは論理ビューであることを明記する。厳密なgeometryを復元できるのは、生成された`%% diagram-interchange:` commentが保持されている場合だけである。
 7. DrawingMLまたはdraw.ioの完全互換を主張しない。対応プロファイル内での互換として説明する。
@@ -69,7 +69,7 @@ Picture、SmartArt、WordArt、custom/freeform geometry、grouped shapeはv1で�
 - `diagram.xlsx`: 図形だけを含むOOXML workbook。
 - `conversion-report.json`: fidelityとwarningのreport。
 
-## 参考資料
+## 関連資料
 
 - capability matrixとformatごとの挙動: [references/capabilities.md](references/capabilities.md)
 - 正規モデル: [references/model-schema.md](references/model-schema.md)

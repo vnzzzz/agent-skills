@@ -1,4 +1,4 @@
-# 正規ダイアグラムモデル
+# Canonical Diagram Model
 
 `diagram.json`を正規の内部表現として使用する。
 

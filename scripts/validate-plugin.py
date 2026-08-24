@@ -15,7 +15,7 @@ CLAUDE_MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 EXPECTED_MARKETPLACE = "vnzzzz-agent-skills"
 EXPECTED_PLUGIN = "agent-skills"
 EXPECTED_SOURCE = "./plugins/agent-skills"
-EXPECTED_SKILL_FRONTMATTER = {"name", "description"}
+REQUIRED_SKILL_FRONTMATTER = {"name", "description"}
 SEMVER = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 MAX_SKILL_NAME_LENGTH = 64
@@ -38,6 +38,26 @@ def find_plugin(marketplace: dict) -> dict:
     return matches[0]
 
 
+def validate_english_h1(path: Path, lines: list[str]) -> None:
+    """Validate only structural H1 invariants.
+
+    Exact Title Case, connector rules, and branded casing are authoring-style
+    conventions reviewed by humans. Keeping CI intentionally shallow avoids a
+    brittle English-title parser that rejects valid technical identifiers.
+    """
+    body = [line for line in lines if line.strip()]
+    if not body or not body[0].startswith("# "):
+        fail(f"{path}: document body must start with an H1 title")
+
+    title = body[0][2:].strip()
+    if not title:
+        fail(f"{path}: H1 title must not be empty")
+    if not title.isascii():
+        fail(f"{path}: H1 title must use an English/ASCII identifier")
+    if not any(char.isalpha() for char in title):
+        fail(f"{path}: H1 title must contain an English title word")
+
+
 def load_skill_frontmatter(path: Path) -> dict[str, str]:
     lines = path.read_text(encoding="utf-8").splitlines()
     if not lines or lines[0] != "---":
@@ -52,18 +72,18 @@ def load_skill_frontmatter(path: Path) -> dict[str, str]:
 
     metadata: dict[str, str] = {}
     for line in lines[1:end]:
+        if not line.strip() or line[0].isspace():
+            continue
         key, separator, value = line.partition(":")
         if not separator or not key or key != key.strip():
-            fail(f"{path}: SKILL.md frontmatter must use simple key: value entries")
+            fail(f"{path}: invalid top-level SKILL.md frontmatter entry")
         if key in metadata:
             fail(f"{path}: duplicate SKILL.md frontmatter field {key!r}")
         metadata[key] = value.strip()
 
-    if set(metadata) != EXPECTED_SKILL_FRONTMATTER:
-        fail(
-            f"{path}: SKILL.md frontmatter must contain only "
-            f"{sorted(EXPECTED_SKILL_FRONTMATTER)}"
-        )
+    missing = REQUIRED_SKILL_FRONTMATTER - set(metadata)
+    if missing:
+        fail(f"{path}: missing required SKILL.md frontmatter field(s): {sorted(missing)}")
     if not metadata["name"] or not metadata["description"]:
         fail(f"{path}: SKILL.md name and description must be non-empty")
     if len(metadata["name"]) > MAX_SKILL_NAME_LENGTH:
@@ -75,7 +95,21 @@ def load_skill_frontmatter(path: Path) -> dict[str, str]:
             f"{path}: SKILL.md description must be at most "
             f"{MAX_SKILL_DESCRIPTION_LENGTH} characters"
         )
+
+    validate_english_h1(path, lines[end + 1 :])
     return metadata
+
+
+def validate_references(skill_root: Path) -> None:
+    references = skill_root / "references"
+    if not references.is_dir():
+        return
+
+    for path in sorted(references.rglob("*.md")):
+        lines = path.read_text(encoding="utf-8").splitlines()
+        if lines and lines[0] == "---":
+            fail(f"{path}: reference documents must not use Skill frontmatter")
+        validate_english_h1(path, lines)
 
 
 def main() -> int:
@@ -135,6 +169,7 @@ def main() -> int:
         metadata = load_skill_frontmatter(skill_md)
         if metadata["name"] != skill_root.name:
             fail(f"{skill_md}: SKILL.md name must match its directory name")
+        validate_references(skill_root)
 
     print(f"Validated {len(skill_roots)} shared Skill(s) in {EXPECTED_PLUGIN} {codex['version']}.")
     return 0

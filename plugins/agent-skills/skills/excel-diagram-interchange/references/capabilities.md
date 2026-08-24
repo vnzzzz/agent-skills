@@ -1,4 +1,4 @@
-# 対応機能
+# Capabilities
 
 Excel worksheetをキャンバスのように使って描いた図形中心のダイアグラムを、ローカルだけで相互変換するためのtool。配布される同一のSkill directoryをClaude CodeとCodexの両方で利用できる。
 
@@ -26,7 +26,7 @@ runtimeではExStruct、Excel、LibreOffice、COM、browser、remote API、netwo
 
 ## モデルが非対称である理由
 
-Excel、正規JSON/XML、draw.ioは明示的な座標とsizeを保持できる。一方、標準的なMermaid flowchartはrendererがlayoutを決定するため、一般的な絶対座標モデルを持たない。
+Excel、正規JSON / XML、draw.ioは明示的な座標とsizeを保持できる。一方、標準的なMermaid flowchartはrendererがlayoutを決定するため、一般的な絶対座標モデルを持たない。
 
 そのため、生成するMermaidには次のような無視可能なcommentを含める。
 
@@ -38,24 +38,24 @@ Excel、正規JSON/XML、draw.ioは明示的な座標とsizeを保持できる�
 
 ## 対応機能マトリクス
 
-| 機能 | JSON/XML | draw.io | Excel | Mermaid |
+| 機能 | JSON / XML | draw.io | Excel | Mermaid |
 |---|---:|---:|---:|---:|
-| Node/edge topology | 完全 | 対応プロファイル内で完全 | 対応プロファイル内で完全 | 対応syntax内で完全 |
+| Node / edge topology | 完全 | 対応プロファイル内で完全 | 対応プロファイル内で完全 | 対応syntax内で完全 |
 | 絶対geometry | 完全 | 完全 | 完全 / cell anchorは近似 | metadata commentのみ |
 | Rotation | 完全 | 完全 | 完全 | metadata commentのみ |
-| z-order | 完全 | node/edgeをまたいで保持 | node内・connector内で保持 / cross-typeはnode→connectorへ正規化 | metadata commentのみ |
+| z-order | 完全 | node / edgeをまたいで保持 | node内・connector内で保持 / cross-typeはnode→connectorへ正規化 | metadata commentのみ |
 | Shape text | 完全 | 完全 | 完全 | 完全 |
-| 基本fill/stroke/font | 完全 | おおむね対応 | おおむね対応 | 基本的なnode style |
-| Connector label/arrow | 完全 | おおむね対応 | おおむね対応 | 基本対応 |
-| 複数page/sheet | 完全 | 完全 | 完全 | 最初のpageのみ |
-| Cell value/formula | モデル化しない | N/A | 意図的に無視 | N/A |
-| Image/SmartArt/chart | 非対応 | 非対応 | 警告して無視 | 非対応 |
+| 基本fill / stroke / font | 完全 | おおむね対応 | おおむね対応 | 基本的なnode style |
+| Connector label / arrow | 完全 | おおむね対応 | おおむね対応 | 基本対応 |
+| 複数page / sheet | 完全 | 完全 | 完全 | 最初のpageのみ |
+| Cell value / formula | モデル化しない | N/A | 意図的に無視 | N/A |
+| Image / SmartArt / chart | 非対応 | 非対応 | 警告して無視 | 非対応 |
 | Grouped shape | モデル化しない | inputがすでにflatな場合のみ | v1では警告して無視 | 非対応 |
-| Custom/freeform geometry | 正規化 | 正規化 | 正規化 / 無視 | 正規化 |
+| Custom / freeform geometry | 正規化 | 正規化 | 正規化 / 無視 | 正規化 |
 
 ## 対応プロファイル
 
-### Node
+### ノード
 
 - rectangle / rounded rectangle
 - ellipse
@@ -63,16 +63,16 @@ Excel、正規JSON/XML、draw.ioは明示的な座標とsizeを保持できる�
 - cylinder (`can`)
 - cloud、hexagon、triangle、parallelogram、trapezoid、pentagon、octagonなどの基本preset shape
 - shape text
-- x/y、width/height、rotation、z-order
-- fill、stroke、line width/dash、font color/size
+- x / y、width / height、rotation、z-order
+- fill、stroke、line width / dash、font color / size
 
-### Edge
+### エッジ
 
 - source / target node ID
 - connector label
 - 任意のpoint
-- line width/dash
-- start/end arrowhead
+- line width / dash
+- start / end arrowhead
 - native `xdr:cxnSp` connector
 - 一般的なworkbook writerが通常の`xdr:sp` shapeとしてserializeしたconnector preset。この場合、endpointはgeometryから推定する。
 
@@ -84,12 +84,12 @@ Excel、正規JSON/XML、draw.ioは明示的な座標とsizeを保持できる�
 - picture、external icon download
 - chart、SmartArt、WordArt
 - 任意のMermaid directive、callback、hyperlink、JavaScript
-- DrawingMLの完全なstyle/effect
+- DrawingMLの完全なstyle / effect
 
-## Round-tripの期待値
+## ラウンドトリップの期待値
 
 - JSON ↔ 正規XML: 構造的に等価であることを意図する。
-- JSON ↔ draw.io: 対応プロファイル内でgeometry、topology、node/edgeをまたぐstacking順序を保持する。
+- JSON ↔ draw.io: 対応プロファイル内でgeometry、topology、node / edgeをまたぐstacking順序を保持する。
 - JSON ↔ Excel: 対応するDrawingML profile内でgeometryとtopologyを保持する。cell-based anchorはoutput時にabsolute anchorへ正規化される場合があり、nodeとconnectorをまたぐstacking順序はnode→connectorへ正規化する。
 - JSON ↔ 生成Mermaid: topologyとprofile geometry commentを保持する。
 - 任意のMermaid ↔ その他format: topologyを保持し、layoutは生成する。

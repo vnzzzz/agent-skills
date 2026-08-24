@@ -26,18 +26,18 @@ Active incidentを、自teamのcodeだけに限定せず、SaaS、cloud、networ
 
 ### 指揮モード（明示依頼時のみ）
 
-ユーザーが「ICして」「Incident Commanderとして進めて」「障害対応を指揮して」「ICを補佐して」「進行管理して」等、command / coordinationを明示的に依頼した場合だけ [references/incident-command.md](references/incident-command.md) を読む。
+ユーザーが「ICして」「Incident Commanderとして進めて」「障害対応を指揮して」「ICを補佐して」「進行管理して」等、command / coordinationを明示的に依頼した場合だけ[references/incident-command.md](references/incident-command.md)を読む。
 
 依頼が曖昧なら調査モードを維持する。Incidentの重大度や関係team数だけを理由に指揮モードへ切り替えない。
 
 ## 原則
 
-1. **Harm containmentとservice recoveryをroot cause解明より優先する。** Security compromise、data loss / corruption、safety impactが確認された場合はcontainmentをavailability回復より優先する。
+1. **被害抑制とサービス復旧を根本原因解明より優先する。** Security compromise、data loss / corruption、safety impactが確認された場合はcontainmentをavailability回復より優先する。
 2. **事実と推定を混同しない。** 確認済み事実、報告情報、仮説、不明事項、判断 / 対応を区別する。
 3. **重要な未確認事項を先に確認する。** 成立すると対応方針が変わるsecurity、data integrity、irreversible side effect等を優先する。
 4. **原因を自teamのcodeへ限定しない。** External dependencyや他team管理componentも同じfailure domain候補として扱う。
 5. **不足情報を推測で事実化しない。** 必要なら「何の判断に必要か」と合わせてoperator / ownerへ確認する。
-6. **Recoveryはend-to-endで確認する。** 一componentの回復ではなく、user-facing symptom、service-level signal、backlog、data integrityまで見る。
+6. **復旧はend-to-endで確認する。** 一componentの回復ではなく、user-facing symptom、service-level signal、backlog、data integrityまで見る。
 
 ## 1. 影響と重要な未確認事項を確認する
 
@@ -64,7 +64,7 @@ Timestampはtimezoneを含める。時刻不明の事象を推測で並べず、
 
 ## 3. 原因仮説を作る
 
-単なるcomponent名ではなく、`事象 → failure mechanism → symptom` がつながる形で仮説を書く。
+単なるcomponent名ではなく、`事象 → failure mechanism → symptom`がつながる形で仮説を書く。
 
 | 順位 | 仮説 | 根拠 | 反証・未確認事項 | 確度 |
 |---:|---|---|---|---|
@@ -72,9 +72,9 @@ Timestampはtimezoneを含める。時刻不明の事象を推測で並べず、
 
 数値確率は根拠がある場合だけ使う。新しい事実が入ったら順位と確度を更新する。
 
-## 4. Failure boundaryを狭める
+## 4. 障害境界を狭める
 
-SaaS、vendor、network、他team等を含むcross-boundary調査では [references/investigation.md](references/investigation.md) を読む。
+SaaS、vendor、network、他team等を含むcross-boundary調査では[references/investigation.md](references/investigation.md)を読む。
 
 有効な確認を優先する。
 
@@ -96,7 +96,7 @@ Status pageや直前deploymentとの時間的一致だけでcauseを確定しな
 
 既に十分な仮説が立つ場合、質問だけして原因推定を先送りしない。
 
-## 6. Mitigationとevidence preservationを考える
+## 6. 影響緩和と証拠保全を考える
 
 Impactやharmが継続している場合は、原因確定前でも安全なcontainment / mitigationを検討する。
 
@@ -104,7 +104,7 @@ Restart、rollback、failover、queue reset、instance replacement等でvolatile
 
 重大な被害が継続している場合、証拠保全のために緊急containmentを不必要に遅らせない。
 
-## 7. Recoveryを確認する
+## 7. 復旧を確認する
 
 Mitigation / fix後は必要に応じて確認する。
 
@@ -127,7 +127,7 @@ Vendorの`resolved`通知だけで自serviceのrecovery確認を代替しない�
 4. **次に確認すること** — 情報利得が高い順
 5. **影響緩和 / 復旧** — 必要な場合だけ
 
-一覧性が必要なら [references/status-board.md](references/status-board.md) を使う。
+一覧性が必要なら[references/status-board.md](references/status-board.md)を使う。
 Markdownの見出し、表、箇条書きを優先し、Mermaidは使用しない。装飾より、情報の選別、関係、時系列が一読で分かることを優先する。
 
 Suspected / confirmed security compromiseでは、sensitive evidenceやcontainment detailをgeneralな出力へ無条件に載せず、organization-localのsecurity processとneed-to-know境界を優先する。

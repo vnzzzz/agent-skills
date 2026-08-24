@@ -18,7 +18,7 @@ description: 長時間・破壊的・状態変更を伴うコマンドを安全�
 
 production等へ変更を加える操作は、userの明示的な依頼、または事前に委任されたscopeであることを確認してから実行する。確認できない場合は、preflight、影響確認、実行手順の提示までに留める。
 
-同一目的のjob/processがすでに進行中なら、原則として重複起動しない。既存processやartifactを観測し、継続・停止・再実行のどれが妥当か判断する。
+同一目的のjob / processがすでに進行中なら、原則として重複起動しない。既存processやartifactを観測し、継続・停止・再実行のどれが妥当か判断する。
 
 ## Foregroundを原則とする
 
@@ -37,11 +37,11 @@ setsid ...
 
 一方、dev serverを起動したまま別commandを実行するなど、task上concurrent executionが必要な場合はbackground実行を禁止しない。その場合は、processやjobを継続して観測でき、終了時に確実に停止・回収できるmanagedなsession、job handle、task機能等を使用する。
 
-scheduled/background taskを将来継続させる場合は、利用可能な明示的なtask機能を使い、unmanaged processを残さない。
+scheduled / background taskを将来継続させる場合は、利用可能な明示的なtask機能を使い、unmanaged processを残さない。
 
 ## 状態判定
 
-Sparse stdout、途中までのlog、長い無出力時間だけでsuccess/failureを推測しない。
+Sparse stdout、途中までのlog、長い無出力時間だけでsuccess / failureを推測しない。
 
 可能な限り次を組み合わせて判断する。
 
@@ -75,7 +75,7 @@ Userが停止を求めた場合や、継続が安全でないと判断した場�
 - stale process / lock
 - application bug
 
-を区別し、再実行で改善する根拠がある場合だけretryする。原因特定が必要な場合は `debugging` を使う。
+を区別し、再実行で改善する根拠がある場合だけretryする。原因特定が必要な場合は`debugging`を使う。
 
 ## 報告
 
@@ -89,13 +89,13 @@ Userが停止を求めた場合や、継続が安全でないと判断した場�
 - still running
 - not run
 
-実行していないcommandやexternal validationを実行済みとして扱わない。長時間commandでは、foreground/backgroundの別、重複実行確認、結果判断に使ったartifactやstatusも必要に応じて示す。
+実行していないcommandやexternal validationを実行済みとして扱わない。長時間commandでは、foreground / backgroundの別、重複実行確認、結果判断に使ったartifactやstatusも必要に応じて示す。
 
-報告の構造やevidenceの表現は `evidence-reporting` を利用する。
+報告の構造やevidenceの表現は`evidence-reporting`を利用する。
 
 ## 他Skillとの関係
 
-- 実装前の変更計画は `change-planning`。
-- 原因不明の失敗解析は `debugging`。
-- test strategyは `testing`。
-- 実行・検証結果の報告スタイルは `evidence-reporting`。
+- `change-planning`: 実装前の変更計画を作る。
+- `debugging`: 原因不明の失敗を解析する。
+- `testing`: テスト方針を決める。
+- `evidence-reporting`: 実行・検証結果を報告する。

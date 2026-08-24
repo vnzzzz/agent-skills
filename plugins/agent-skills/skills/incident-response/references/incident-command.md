@@ -17,7 +17,7 @@ Incident commandでは次を維持する。
 
 規模に応じて必要なroleだけ使う。
 
-| Role | 主な責務 |
+| 役割 | 主な責務 |
 |---|---|
 | Incident Commander | current state / priority / decisionを統括し、resolverにならない |
 | Operations / Resolver Lead | technical mitigation / investigationをまとめる |
@@ -29,41 +29,41 @@ Incident commandでは次を維持する。
 小規模incidentではroleを兼務してよい。
 AgentがICを支援しても、production change権限や組織上のauthorityを自動的に取得したとは扱わない。
 
-## Command postとlive state
+## 指揮拠点と現在状態
 
-Primary incident channel / bridge等、coordinationの正本を一つ決める。Chatやcallの全履歴ではなく、[status-board.md](status-board.md) のようなcompactなcurrent stateを維持する。
+Primary incident channel / bridge等、coordinationの正本を一つ決める。Chatやcallの全履歴ではなく、[status-board.md](status-board.md)のようなcompactなcurrent stateを維持する。
 
 少なくとも次を追えるようにする。
 
-- impact / severity
-- active mitigation
+- 影響 / severity
+- 実施中の影響緩和
 - 重要な確認済み事実 / 未確認事項
-- workstreams / owners
-- pending decisions / timers
-- next update
+- workstream / 担当
+- 保留中の判断 / timer
+- 次回更新
 
 Security incidentではsingle source of truthと全情報公開を同一視しない。Forensic evidence、credential、indicator、具体的containment plan等はneed-to-knowのrestricted workstream / boardへ分離し、general channelにはsanitized stateだけを載せる。
 
 ## 判断サイクル
 
-1. **Size-up** — impact、scope、重要な未確認事項を把握する
-2. **Stabilize** — containment / mitigation候補とriskを比較する
-3. **Assign** — specific ownerへtaskを割り当てる
-4. **Update** — current stateを共有する
-5. **Verify** — action結果を確認する
-6. 必要ならSize-upへ戻る
+1. **状況把握（Size-up）** — 影響、scope、重要な未確認事項を把握する
+2. **安定化（Stabilize）** — containment / mitigation候補とriskを比較する
+3. **割当（Assign）** — specific ownerへtaskを割り当てる
+4. **更新（Update）** — current stateを共有する
+5. **確認（Verify）** — action結果を確認する
+6. 必要なら状況把握へ戻る
 
 Root cause確定を待たずcycleを回す。
 
-## Taskの割当
+## タスクの割当
 
 「誰か確認して」ではなく、次を明確にする。
 
-- owner
-- specific question / action
-- expected result
-- next check-in / time-box
-- acknowledgement
+- 担当
+- 具体的な質問 / 対応
+- 期待結果
+- 次回確認 / time-box
+- 受領確認
 
 例:
 
@@ -78,26 +78,26 @@ Time-boxは強制deadlineではなく、incidentを停滞させないcheck-in po
 
 Expert inputを集めるが、全員一致を待って停止しない。重要decisionでは必要に応じて次を確認する。
 
-- expected effect
+- 期待効果
 - operational / data / security risk
-- reversibility
+- 可逆性
 - fallback
-- success / failureの観測方法
+- 成功 / 失敗の観測方法
 
 重大な見落としを拾うため、必要ならstrong objectionを求める。新しいevidenceが出ればplanを更新する。
 
-## Communication
+## コミュニケーション
 
 Timelinessとclarityを両立する。Confirmed impactや利用者が取るべきactionが分かったら、root causeやscopeの完全確定を待たずinitial updateを出す。未確定事項は`不明` / `調査中`と明示する。
 
-Regular updateは必要な範囲で次を含める。
+定期更新は必要な範囲で次を含める。
 
-- impact / severity
-- what changed
-- current mitigation
+- 影響 / severity
+- 変化したこと
+- 現在の影響緩和
 - 重要な未確認事項
-- outstanding action / owner
-- next update
+- 未完了の対応 / 担当
+- 次回更新
 
 Security / privacy上sensitiveな内容はgeneral / external updateへそのまま載せない。
 
@@ -126,23 +126,23 @@ Vendorや他社が関係しても「回答待ち」で停止しない。
 
 自社ICがvendorや他組織へのcommand authorityを持つとは扱わない。複数組織に権限が分かれる場合は、各組織のauthority boundaryを保ったままdecision pointとliaisonを明確にする。
 
-## Commandの引継ぎ
+## 指揮の引継ぎ
 
 Fatigue、長時間化、timezone change、complexity変化等ではhandoffする。
 
 最低限渡す。
 
-- current impact / severity
-- active mitigation
+- 現在の影響 / severity
+- 実施中の影響緩和
 - 重要な確認済み事実 / 未確認事項
-- active workstreams / owners
-- pending decisions / timers
-- external escalations
-- next communication timing
+- 稼働中のworkstream / 担当
+- 保留中の判断 / timer
+- external escalation
+- 次回communication時刻
 
 Outgoing / incoming双方がtransferを明示し、incident channelでも新しいcommand ownerを共有する。Seniorityだけで自動的にcommandを移さない。
 
-## Active commandの終了
+## 指揮対応の終了
 
 次を確認してからactive commandを終了する。
 

@@ -1,6 +1,6 @@
 # Cross-Boundary Investigation
 
-`incident-response` でSaaS、cloud、network、shared platform、他team、vendor等を含むfailure domainを狭めるための調査方法を定義する。
+`incident-response`でSaaS、cloud、network、shared platform、他team、vendor等を含むfailure domainを狭めるための調査方法を定義する。
 
 ## 情報の扱い
 
@@ -16,7 +16,7 @@
 
 情報不足を事実として補完しない。一方、原因推定を求められた場合は、現在のevidenceから仮説を作り、確度と確認方法を示す。
 
-## 1. Looseな事象をtimelineへ正規化する
+## 1. 断片的な事象をタイムラインへ整理する
 
 ユーザーから断片的に共有された事象を、原因判断に効く順序へ整理する。
 
@@ -29,18 +29,18 @@
 - 同時刻でも因果とは限らない
 - first known bad / last known goodが分かれば残す
 
-## 2. Service boundaryを並べる
+## 2. サービス境界を並べる
 
 User request / business transactionが通る主要boundaryを実際の構成に基づいて並べる。
 
-| 境界 | 入力側の観測 | 出力側の観測 | 障害系 / 正常系の差分 | Owner |
+| 境界 | 入力側の観測 | 出力側の観測 | 障害系 / 正常系の差分 | 担当 |
 |---|---|---|---|---|
 | Client → DNS | ... | ... | ... | ... |
 | Application → External API | ... | ... | ... | ... |
 
 各boundaryで「どこから異常が始まるか」を見る。Component dashboardがhealthyでも、specific transactionが正常とは限らない。
 
-## 3. Affected / unaffectedを比較する
+## 3. 障害系と正常系を比較する
 
 Bad caseだけでなくgood caseとの差分を探す。
 
@@ -69,7 +69,7 @@ Bad caseだけでなくgood caseとの差分を探す。
 
 複数候補がある場合は、根拠、反証、不足情報、確度を並べる。数値確率は根拠がある場合だけ使う。
 
-## 5. Evidenceの直接性を優先する
+## 5. 証拠の直接性を優先する
 
 一般に次の順で、incidentとの直接性が高いevidenceを優先する。
 
@@ -83,7 +83,7 @@ Bad caseだけでなくgood caseとの差分を探す。
 
 直前deploymentやvendor incidentとの時間的一致はhypothesis priorityを上げる材料にはなるが、単独でcauseを確定しない。
 
-## 6. External dependencyを確認する
+## 6. 外部依存を確認する
 
 SaaS / cloud / external APIが疑わしい場合は必要に応じて確認する。
 
@@ -99,7 +99,7 @@ SaaS / cloud / external APIが疑わしい場合は必要に応じて確認す�
 
 Vendorがincidentを認めていなくても、自systemのevidenceがexternal boundaryを示すなら調査依頼を出す。
 
-## 7. Escalation packageを作る
+## 7. エスカレーション情報を作る
 
 他team / vendorへは、相手がすぐ調査開始できる最小情報を渡す。
 
@@ -130,7 +130,7 @@ Root cause候補を広げる前に、対応方針を変える可能性を確認�
 
 Worst-caseを事実認定せず、重要な未確認事項として扱う。
 
-## 9. Local debuggingへ切り替える
+## 9. ローカル実装の調査へ切り替える
 
 Failure domainがlocal implementationへ十分に絞れたら`debugging`を使う。
 
@@ -144,7 +144,7 @@ Failure domainがlocal implementationへ十分に絞れたら`debugging`を使�
 
 Incident全体のimpactやexternal dependencyは引き続き`incident-response`で扱う。
 
-## 10. Recoveryを独立に確認する
+## 10. 復旧を独立に確認する
 
 External dependencyが`resolved`になっても、自serviceで確認する。
 
