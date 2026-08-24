@@ -15,7 +15,7 @@ CLAUDE_MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 EXPECTED_MARKETPLACE = "vnzzzz-agent-skills"
 EXPECTED_PLUGIN = "agent-skills"
 EXPECTED_SOURCE = "./plugins/agent-skills"
-EXPECTED_SKILL_FRONTMATTER = {"name", "description"}
+REQUIRED_SKILL_FRONTMATTER = {"name", "description"}
 SEMVER = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 SKILL_NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 MAX_SKILL_NAME_LENGTH = 64
@@ -72,18 +72,18 @@ def load_skill_frontmatter(path: Path) -> dict[str, str]:
 
     metadata: dict[str, str] = {}
     for line in lines[1:end]:
+        if not line.strip() or line[0].isspace():
+            continue
         key, separator, value = line.partition(":")
         if not separator or not key or key != key.strip():
-            fail(f"{path}: SKILL.md frontmatter must use simple key: value entries")
+            fail(f"{path}: invalid top-level SKILL.md frontmatter entry")
         if key in metadata:
             fail(f"{path}: duplicate SKILL.md frontmatter field {key!r}")
         metadata[key] = value.strip()
 
-    if set(metadata) != EXPECTED_SKILL_FRONTMATTER:
-        fail(
-            f"{path}: SKILL.md frontmatter must contain only "
-            f"{sorted(EXPECTED_SKILL_FRONTMATTER)}"
-        )
+    missing = REQUIRED_SKILL_FRONTMATTER - set(metadata)
+    if missing:
+        fail(f"{path}: missing required SKILL.md frontmatter field(s): {sorted(missing)}")
     if not metadata["name"] or not metadata["description"]:
         fail(f"{path}: SKILL.md name and description must be non-empty")
     if len(metadata["name"]) > MAX_SKILL_NAME_LENGTH:
