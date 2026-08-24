@@ -29,10 +29,10 @@ Python 3.11以上かつExpat 2.7.2以上が必要。converterはXMLをparseす�
 
 このSkillは、意図的に限定した**図形キャンバスプロファイル**を実装する。
 
-- **ノード**: 通常のpreset shapeとshape text。
-- **エッジ**: connector、label、endpoint、arrowhead、基本的なline style。
-- **ジオメトリ**: x / y、width / height、rotation、z-order。
-- **基本スタイル**: fill、stroke、line width / dash、font color / size。
+- Node: 通常のpreset shapeとshape text。
+- Edge: connector、label、endpoint、arrowhead、基本的なline style。
+- Geometry: x / y、width / height、rotation、z-order。
+- Basic style: fill、stroke、line width / dash、font color / size。
 - Excelのcell value、formula、comment、table、chart、conditional formattingは無視する。
 
 `draw.io`出力ではnodeとedgeをまたぐstacking順序を保持する。Excel出力ではnode同士、connector同士の順序は保持するが、nodeとconnectorをまたぐstacking順序はnode→connectorへ正規化する。
