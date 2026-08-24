@@ -3,7 +3,7 @@
 `issue-workflow`をGitHub Issue / Pull Requestで実行するときのprovider固有ルールを定義する。
 GitHubを使うtaskでだけ読み、tracker非依存のlifecycle、planning、implementation、validation、reportingは親Skillを正本とする。
 
-## Repository・Issue・baseを確定する
+## リポジトリ・Issue・baseを確定する
 
 - Userがrepository、Issue、PR、baseを指定している場合はそれを優先する。
 - Issue本文、関連comment / PR、repository-local rulesを確認する。
@@ -56,7 +56,7 @@ PR本文には、review判断に必要な次の情報を必要十分にまとめ
 - Suggestionやout-of-scope requestは、必要性を判断して別taskへ分離できる。
 - CI successをactual runtimeやexternal environmentの確認と同一視しない。
 
-## Toolの選択
+## ツールの選択
 
 利用可能ならGitHub connector / APIを、Issue・PR・review・comment・check等のstructured GitHub dataに使う。
 Local checkoutが必要な操作では`git`を使い、`gh`はcurrent-branch PR discoveryやActions log等、connectorで不足する操作に限定する。
