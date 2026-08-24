@@ -75,6 +75,13 @@ def load_skill_frontmatter(path: Path) -> dict[str, str]:
             f"{path}: SKILL.md description must be at most "
             f"{MAX_SKILL_DESCRIPTION_LENGTH} characters"
         )
+
+    body = [line for line in lines[end + 1 :] if line.strip()]
+    if not body or not body[0].startswith("# "):
+        fail(f"{path}: SKILL.md body must start with an H1 title")
+    if any(ord(char) > 127 for char in body[0]):
+        fail(f"{path}: SKILL.md H1 must use the repository English-title convention")
+
     return metadata
 
 
