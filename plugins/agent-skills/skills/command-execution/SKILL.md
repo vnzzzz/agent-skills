@@ -20,7 +20,7 @@ production等へ変更を加える操作は、userの明示的な依頼、また
 
 同一目的のjob / processがすでに進行中なら、原則として重複起動しない。既存processやartifactを観測し、継続・停止・再実行のどれが妥当か判断する。
 
-## フォアグラウンド実行を原則とする
+## Foregroundを原則とする
 
 Agentが完了状態を回収できる作業はforegroundで実行する。
 
