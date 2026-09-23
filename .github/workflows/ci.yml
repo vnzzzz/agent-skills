@@ -20,6 +20,24 @@ jobs:
         run: python3 scripts/validate-plugin.py
       - name: Check README Skill list
         run: python3 scripts/update-readme-skills.py --check
+      - name: Check documentation translation sync
+        if: github.event_name == 'pull_request'
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -Eeuo pipefail
+          changed="$(git diff --name-only "$BASE_SHA"...HEAD)"
+          require_mirror() {
+            local source="$1"
+            local mirror="$2"
+            if grep -Fxq "$source" <<<"$changed" && ! grep -Fxq "$mirror" <<<"$changed"; then
+              echo "::error::$source changed without updating $mirror"
+              return 1
+            fi
+          }
+          require_mirror README.md README.ja.md
+          require_mirror CONTRIBUTING.md CONTRIBUTING.ja.md
       - name: Require Plugin version bump
         if: github.event_name == 'pull_request'
         shell: bash
