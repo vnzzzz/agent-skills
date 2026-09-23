@@ -1,31 +1,41 @@
 # Contributing
 
-Skillの作成・改善方法そのものは公式のSkill Creatorを利用し、この文書では`agent-skills`固有の規約だけを定義する。
+[日本語](CONTRIBUTING.ja.md)
 
-## Skill構成
+Use the official Skill Creator for general guidance on creating and improving Skills. This document defines only the conventions specific to `agent-skills`.
 
-- 1つのSkillは、独立して発火する1つのcoherentなcapability / workflowを扱う。同じworkflowのvariantは必要に応じて`references/`へ分離する。
-- `SKILL.md`には常に必要な判断と手順を置き、条件付き詳細は`references/`へ分離する。
-- 同じ規則を複数箇所へ重複させない。
-- `SKILL.md`のfrontmatterでは`name`と`description`を必須とし、`name`はdirectory名と一致させる。その他の標準fieldは、Codex / Claude Code双方で必要性と互換性を確認した場合だけ使用する。
-- `description`には「何をするか」と発火に必要なtrigger / contextを必要十分に含める。短さのためにtrigger情報を削らない。
+## Skill structure
 
-## 記法
+- One Skill should cover one coherent capability or workflow that triggers independently. Split variants of the same workflow into `references/` when appropriate.
+- Keep decisions and procedures that are always required in `SKILL.md`, and move conditional detail into `references/`.
+- Do not duplicate the same rule in multiple places.
+- Require `name` and `description` in `SKILL.md` frontmatter, and keep `name` identical to the directory name. Use other standard fields only after confirming that they are needed and compatible with both Codex and Claude Code.
+- Include both what the Skill does and the trigger or context needed to invoke it in `description`. Do not remove trigger information merely to make the description shorter.
 
-- H1はSkill / referenceの識別名として英語Title Caseを使う。
-- 本文は日本語を基本とするが、一般的なtechnical termを無理に翻訳しない。
-- `foreground`、`retry`、`root cause`、`completed` / `blocked`、`Node` / `Edge`、`Repository` / `Issue` / `Pull Request`など、一般的・識別的・Skill間contractとなる語は原語を優先する。
-- H2以下は日本語として自然に読めることを優先する。
-- 主要な逐次workflowは`## 1. ...`形式で直接追える構造にする。
-- 他Skillとの責務境界は`## 他Skillとの関係`に記載する。
+## Style
 
-## Referenceと出典
+- Use an English Title Case H1 as the identifier for a Skill or reference.
+- Skill bodies are primarily written in Japanese, but do not force common technical terms into Japanese.
+- Prefer established terms such as `foreground`, `retry`, `root cause`, `completed` / `blocked`, `Node` / `Edge`, and `Repository` / `Issue` / `Pull Request` when they are common, identifying, or part of a cross-Skill contract.
+- Prefer natural Japanese for H2 and lower headings in Skill runtime documents.
+- Make the main sequential workflow directly traceable with `## 1. ...` headings.
+- Describe responsibility boundaries with other Skills under `## 他Skillとの関係`.
 
-- referenceにはfrontmatterを付けず、H1は英語Title Caseとする。
-- `SKILL.md`側でreferenceを読む条件を明示する。
-- 内部referenceの索引は`## 関連資料`、外部出典は`## 参考資料`を使う。
-- code blockには内容に合うlanguage tagを付ける。
+## References and sources
+
+- Do not add frontmatter to references, and use an English Title Case H1.
+- State in `SKILL.md` when a reference should be read.
+- Use `## 関連資料` for indexes of internal references and `## 参考資料` for external sources.
+- Add an appropriate language tag to code blocks.
+
+## Documentation localization
+
+- English repository documentation is canonical. A Japanese translation mirror uses the corresponding `*.ja.md` path.
+- A pull request that changes a canonical document must update its Japanese mirror in the same pull request.
+- Japanese-only wording corrections may be made without changing the canonical document.
+- Runtime Skill files under `plugins/agent-skills/skills/` are not localization mirrors and remain governed by the Skill authoring rules above.
+- Generated content, including the README Skill list, must be updated from its generator rather than maintained independently per language.
 
 ## Validation
 
-CIは`name` / `description`、manifest、H1の存在など壊れにくい構造条件を検証する。標準optional fieldを理由なく拒否せず、Title Caseや語彙選択などのstyleは人間レビューで確認する。
+CI validates durable structural requirements such as `name` / `description`, the manifest, and the presence of an H1. It does not reject standard optional fields without reason. Style choices such as Title Case and terminology are reviewed by humans.

@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-README = ROOT / "README.md"
+READMES = (ROOT / "README.md", ROOT / "README.ja.md")
 SKILLS_DIR = ROOT / "plugins" / "agent-skills" / "skills"
 START = "<!-- BEGIN GENERATED SKILLS -->"
 END = "<!-- END GENERATED SKILLS -->"
@@ -24,9 +24,11 @@ def render_skill_list() -> str:
     return "\n".join(lines)
 
 
-def update_readme(text: str) -> str:
+def update_readme(text: str, path: Path) -> str:
     if text.count(START) != 1 or text.count(END) != 1:
-        raise SystemExit("README must contain exactly one generated Skills marker pair")
+        raise SystemExit(
+            f"{path.name} must contain exactly one generated Skills marker pair"
+        )
 
     start = text.index(START)
     end = text.index(END, start) + len(END)
@@ -34,25 +36,34 @@ def update_readme(text: str) -> str:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Update the generated Skill links in README.md")
+    parser = argparse.ArgumentParser(
+        description="Update the generated Skill links in README files"
+    )
     parser.add_argument(
         "--check",
         action="store_true",
-        help="fail instead of updating README.md when the generated list is stale",
+        help="fail instead of updating README files when a generated list is stale",
     )
     args = parser.parse_args()
 
-    current = README.read_text(encoding="utf-8")
-    expected = update_readme(current)
+    stale: list[Path] = []
+    for readme in READMES:
+        current = readme.read_text(encoding="utf-8")
+        expected = update_readme(current, readme)
+        if current == expected:
+            continue
+        if args.check:
+            stale.append(readme)
+        else:
+            readme.write_text(expected, encoding="utf-8")
 
-    if args.check:
-        if current != expected:
-            print("README Skill list is out of date. Run scripts/update-readme-skills.py")
-            return 1
-        return 0
-
-    if current != expected:
-        README.write_text(expected, encoding="utf-8")
+    if stale:
+        for readme in stale:
+            print(
+                f"{readme.name} Skill list is out of date. "
+                "Run scripts/update-readme-skills.py"
+            )
+        return 1
     return 0
 
 
