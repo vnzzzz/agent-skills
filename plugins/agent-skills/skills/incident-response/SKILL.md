@@ -1,6 +1,6 @@
 ---
 name: incident-response
-description: 本番障害、service degradation、SaaS / cloud / external API障害、network / platform障害、他team・他社をまたぐincidentについて、事象整理、原因仮説、cross-boundary切り分け、mitigation、recovery確認を行うときに使用する。既定は原因推定・調査支援であり、Incident Commanderやcommand補佐は明示的に依頼された場合だけ行う。isolated local bugやtest failureだけならdebuggingを優先する。
+description: 本番障害・service degradationやSaaS/cloud/network/他teamをまたぐincidentの影響、原因仮説、境界の切り分け、緩和・復旧を調べるときに使用する。既定は調査支援。Incident Commanderとしての指揮・進行管理は明示依頼時のみ。局所bugやtest failureはdebuggingを優先する。
 ---
 
 # Incident Response
