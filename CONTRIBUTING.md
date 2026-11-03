@@ -39,3 +39,20 @@ Use the official Skill Creator for general guidance on creating and improving Sk
 ## Validation
 
 CI validates durable structural requirements such as `name` / `description`, the manifest, and the presence of an H1. It does not reject standard optional fields without reason. Style choices such as Title Case and terminology are reviewed by humans.
+
+## Skill activation evals (manual)
+
+The six boundary cases in `plugins/agent-skills/evals/` check whether Claude Code invokes the intended Skill and avoids a neighboring Skill. They use Anthropic's [plugin eval format](https://code.claude.com/docs/en/plugin-evals) with deterministic `tool_used: Skill` graders. Prompts do not explicitly name the Skills. Each case allows only the Skill tool and operates in an isolated empty workspace.
+
+From the plugin root, with an authenticated **Claude Code v2.1.269+**:
+
+```bash
+cd plugins/agent-skills
+claude plugin eval . --runs 1 --ablation none --no-publish --max-cost-usd 2
+# Once cases work, repeat for a less noisy measurement:
+claude plugin eval . --runs 3 --ablation none --no-publish --max-cost-usd 10
+```
+
+Each run consumes model usage, and cost ceilings can leave partial results. The CLI may report that plugin eval is unavailable for your account. Results are written to ignored `evals/results/`. Record the model, Claude Code version, plugin commit, per-case pass rate, and any failures. Never report a one-run smoke check or a partial result as demonstrated trigger reliability. Isolated plugin results do not establish behavior with user/project instructions and other plugins loaded.
+
+For **Codex**, reuse the *prompt bodies* (excluding YAML frontmatter) in a clean session with this plugin installed. Inspect the execution trace for actual Skill activation or reading of the relevant `SKILL.md`; a plausible final answer is not proof of activation. Record the Codex version/model, plugin commit, expected/observed Skill, and any unexpected activation for each case. Codex evaluation is **manual** here; these Claude Code graders do not execute in Codex.

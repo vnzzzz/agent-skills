@@ -39,3 +39,20 @@ Skillの作成・改善方法そのものは公式のSkill Creatorを利用し�
 ## Validation
 
 CIは`name` / `description`、manifest、H1の存在など壊れにくい構造条件を検証する。標準optional fieldを理由なく拒否せず、Title Caseや語彙選択などのstyleは人間レビューで確認する。
+
+## Skillの暗黙発火評価（手動実行）
+
+`plugins/agent-skills/evals/` の6ケースは、Claude Codeが狙ったSkillを発火し、隣接する別Skillを誤発火しないか測定する。Anthropic公式の[plugin eval形式](https://code.claude.com/docs/en/plugin-evals)と、`tool_used: Skill`による機械判定を使う。PromptでSkill名を直接指定せず、空の隔離workspaceでSkill toolだけを許可する。
+
+Plugin rootで、認証済みの**Claude Code v2.1.269以降**を使う。
+
+```bash
+cd plugins/agent-skills
+claude plugin eval . --runs 1 --ablation none --no-publish --max-cost-usd 2
+# ケースの動作を確認できたら、試行回数を増やす：
+claude plugin eval . --runs 3 --ablation none --no-publish --max-cost-usd 10
+```
+
+各試行はモデルの利用枠・API料金を消費する。費用上限に達するとpartial resultになり得る。利用アカウントによってplugin eval自体が使用不可の場合もある。結果はGit管理対象外の`evals/results/`に保存される。model、Claude Codeのversion、plugin commit、ケース別発火率、失敗内容を記録する。1回だけのsmoke testやpartial resultを発火の信頼性が証明されたものと扱わない。隔離環境の結果は、実際のproject instructionや他Pluginとの併用時の結果を保証しない。
+
+**Codex**では同じ`prompt.md`の本文（YAML frontmatterを除く）を、Pluginを導入したclean sessionで入力する。実行traceにおけるSkill発火または対応する`SKILL.md`の読取を確認する。最終回答がもっともらしいだけでは発火の証拠にならない。Codex version/model、plugin commit、ケース別の期待/実際のSkill、誤発火を記録する。ここでのCodex評価は**手動**であり、Claude CodeのgraderはCodex上では動かない。
