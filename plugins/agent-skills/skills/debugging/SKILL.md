@@ -1,300 +1,94 @@
 ---
 name: debugging
-description: Bug、regression、unexpected behavior、test failure、performance degradation等の原因を、再現・観測・仮説・切り分け・root cause確認・最小fix・再検証の順で証拠に基づいて特定するときに使用する。
+description: Bug・regression・test failure・局所的なunexpected behaviorやperformance degradationのroot causeを、再現・仮説検証・切り分け・修正前後の検証で特定するときに使用する。稼働中の本番障害や他team・vendorを含むincident全体の対応はincident-responseを優先する。
 ---
 
 # Debugging
 
-症状を消すのではなく、なぜ問題が発生したかを十分な確度で理解し、根本原因へ直接作用する最小の修正で正しい挙動を回復する。
+症状を隠すpatchではなく、観測した事実から原因を説明し、原因へ作用する修正を検証する。原因が明白な局所bugは軽量に扱い、調査手順を儀式化しない。
 
-randomなpatch、過剰なretry、fallback、guard、例外握り潰しで問題を見えなくしない。
+稼働中の本番障害や複数system・teamをまたぐincidentは`incident-response`を優先する。局所実装にfailure domainが絞れた場合はこのSkillでroot causeを調べる。
 
-単純なtypoや明白な局所bugのように、原因と修正が直接対応する場合はこのprocessを軽量に適用する。debugging ceremonyを目的にしない。
+## 1. 症状・影響・権限を確認する
 
-## 1. 影響と緩和策を先に判断する
+可能な範囲で次を整理する。
 
-production incident等で利用者影響、data corruption、security impact、resource exhaustion等が継続している場合は、根本原因の調査より先に被害拡大を止める必要がある。
+- expected / actual behavior、exact error、status、output
+- affected / unaffected input、environment、version、発生頻度
+- first known bad / last known good、関連する変更
+- user impact、data integrity、security、resource exhaustion
 
-可能な範囲で以下を確認する。
+観測していないことを事実にしない。Production等で被害が続く場合は影響緩和を先に検討する。実環境へ変更する操作は、userが依頼した範囲または委任された権限内だけで実行し、それ以外は提案・preflightに留める。
 
-- severity
-- affected users / systems
-- failure scope
-- data integrityへの影響
-- ongoingか収束済みか
+Rollbackやrestartで失われ得るlog、trace、metric、process state等は、復旧を不必要に遅らせない範囲で保全する。Mitigationによる症状消失をroot causeの確定と混同しない。
 
-実環境へ変更を加える影響緩和は、明示的なoperator承認または事前に委任されたincident authorityがある場合だけ実行する。
-それ以外は、緩和策の提案・影響評価・実行手順の準備までに留める。
+## 2. 再現と実装を調べる
 
-承認された範囲で必要ならrollback、traffic isolation、feature disable、capacity追加等を行う。
+安全かつ費用対効果が合う場合、input、dependency、configuration、concurrency等を固定・縮小し、症状が保たれる最小の再現条件を探す。Productionで危険な再現実験は行わない。
 
-ただし、影響緩和と根本修正を区別する。
+関連entry pointから症状までのcode / data flowを読み、必要に応じて次を追う。
 
-変更前後でも安全な範囲で次の証拠を保全する。
+- caller / callee、external boundary、persistence、cache
+- resource lifecycle、concurrency、ordering、state transition
+- relevant tests、最近の変更、commentやdocsのconstraint / invariant
 
-- error / stack trace
-- log / trace / metric
-- input
-- version / deployment state
-- relevant configuration
-- process / resource state
-- first known bad / last known good
+再現できない場合はその事実を明示し、観測済みlogやaffected / unaffected比較から進める。実在を確認していないcomponentを原因として断定しない。
 
-サービスが復旧しただけで原因解明済みと扱わない。
+## 3. 仮説を立て、情報利得の高い切り分けをする
 
-## 2. 症状を観測可能な形で定義する
+各仮説を反証可能にする。正しければ何が観測され、何が否定材料となるかを決め、安全でcostの低い確認から選ぶ。
 
-原因を推測する前にproblem statementを作る。
+有効な手段:
 
-可能な範囲で以下を整理する。
+- known-good / known-bad input・version・configurationの比較
+- component境界の入出力、request単位のtrace
+- failure条件を保ったdata / feature / dependencyの縮小
+- resourceの所有権、release path、concurrencyの観測
+- 回帰を導入したcommitの探索（必要なら`git bisect`）
 
-- expected behavior
-- actual behavior
-- exact error / status / output
-- 発生条件
-- 発生しない条件
-- version / environment
-- first known bad / last known good
-- frequency / intermittency
-- affected / unaffected inputs
+同時に複数の仮説を修正して効果が不明になる実験は避ける。Negative resultも候補を減らす証拠として残す。
 
-「動かない」「遅い」「たまに失敗する」のような曖昧な表現だけで原因候補を決めない。
+## 4. 直接原因と根本原因を分ける
 
-観測していない内容は事実として書かない。
+Errorを発生させた直接原因と、それを許した根本原因を区別する。例えば`nil dereference`と上流validation欠落、timeoutとconnection leakは別の層の原因になり得る。
 
-## 3. 再現条件を作る
+Deploymentやdependency update直後という時間的相関だけで因果関係を確定しない。Rollbackで症状が消えた場合も、何が変わったのか確認する。複数条件が重なったbugの可能性も考える。
 
-安全かつ費用対効果が合う場合、問題を再現できる最小条件を作る。
+根本原因は、症状へ至るfailure mechanismと観測・実験の対応から説明する。完全な歴史説明より、正しい修正を判断できる確度を優先する。
 
-- 不要なcomponentを外す
-- inputを縮小する
-- option / featureを減らす
-- concurrencyを制御する
-- dependencyやconfigurationを固定する
-- 同じ症状が維持される範囲でsystemを単純化する
+## 5. 根本原因へ作用する修正を選ぶ
 
-productionで危険な再現実験を無理に行わない。
+修正前に、(1)原因、(2)修正の作用点、(3)変わるcontractやriskを説明できるか確認する。
 
-再現できない場合は、再現できないこと自体を事実として扱い、観測済み事実と不足情報を分けて進める。
+Configurationだけで直るなら不要なcodeを変えない。無関係なrefactorを混ぜない。原因不明のretry・fallback・timeout延長・catch・guard追加で症状を隠すだけの変更は恒久修正として扱わない。
 
-再現環境の作成が大規模作業になる場合は、原因特定への情報価値を考えて実施する。
+一時的なmitigationが必要なら原因未解決と終了条件を明示する。単純化のために必要なvalidation、error handling、resource safetyを省略しない。
 
-## 4. 対象システムを理解する
+## 6. 同条件で修正を検証する
 
-仮説を立てる前に、症状に関係する実装とsystem boundaryを確認する。
+可能なら修正前に失敗した条件で再実行する。変更riskに応じてrelated tests、integration boundary、known-good behavior、performance / resource状態も確認する。
 
-少なくとも必要に応じて以下を見る。
+Regression testは再発時に実害のあるbehavior / contractを安定して守れる場合に追加する。Bug修正ごとに専用testを機械的に増やさない。Testの期待値をbuggy behaviorへ合わせない。
 
-- entry point
-- symptomまでのcode path
-- major data / control flow
-- caller / callee boundary
-- external dependency
-- configuration
-- persistence / cache
-- resource ownership / lifecycle
-- concurrency / ordering
-- relevant tests
-- recent code / dependency / configuration changes
-- commentやdocsに残されたconstraint / invariant / rationale
+症状だけが消えて、error / log抑制、retryの増加、fallbackの誤結果、cacheのstale data、monitoring threshold変更でfailureを見えなくしていないか確認する。
 
-存在を確認していないcomponentやpathを推測で原因候補にしない。
+## 7. 止め時と報告を決める
 
-外部componentの仕様やversion依存挙動が重要なら`technical-research`を利用する。
-変更範囲や既存責務の把握が必要なら`change-planning`を利用する。
+原因と修正の因果が証拠で説明でき、必要なvalidationを終えたら調査を止める。実験が仮説と矛盾したら、修正へ進まず仮説を更新する。
 
-## 5. 事実と仮説を分ける
+原因が確定しない場合は`未特定`と記し、確認済み事実、除外した候補、最も有効な次の確認を示す。未実施の検証をpassと書かない。
 
-観測済み事実から、短い仮説リストを作る。
+非自明な調査結果は必要な項目だけ簡潔に残す。
 
-各仮説は反証可能な形にする。
-
-- 仮説が正しければ何が観測されるはずか
-- 何が観測されれば否定できるか
-- 最小で安全な確認方法は何か
-
-例:
-
-- 事実: connection数が上限に張り付いている
-- 仮説: connectionが正常にreleaseされていない
-- 確認: request完了後のpool stateとclose pathを確認する
-
-仮説を事実として書かない。
-
-一度に複数の仮説へ対応する変更を入れない。結果から何が分かったか判別できる実験を優先する。
-
-negative resultは失敗ではない。原因候補を減らした証拠として残す。
-
-## 6. 情報利得の高い切り分けを優先する
-
-randomなpatchより、探索空間を大きく狭める確認を選ぶ。
-
-有効な方法の例:
-
-- component境界のinput / output比較
-- known-good / known-bad比較
-- version差分比較
-- configuration差分比較
-- featureのenable / disable比較
-- dependency境界の切り分け
-- data setの縮小
-- request単位のtrace
-- resource lifecycleの追跡
-- regressionの`git bisect`
-
-問題を導入したcommitがgood / badで判定可能なら、`git bisect`等のbinary searchを検討する。
-
-ただし、候補を半分にできるという理由だけで危険なproduction experimentを行わない。
-
-## 7. 相関と因果を分ける
-
-時間的に近い変化を自動的に原因とみなさない。
-
-避ける例:
-
-- deployment直後だからdeploymentが原因と断定する
-- dependency updateと同時期だからdependencyが原因と断定する
-- 過去に同じerrorだったため同じ根本原因と決めつける
-- rollbackで症状が消えたため、rollback対象のすべてを原因とみなす
-
-rollbackや設定変更で症状が消えた場合も、必要に応じて「何が変わったことで問題が消えたか」を確認する。
-
-単一原因を前提にしない。複数条件の組合せでのみ発生するbugもある。
-
-## 8. 直接原因と根本原因を分ける
-
-表面で直接failureを発生させた事象と、その状態を生み出した原因を区別する。
-
-例:
-
-- 直接原因: nil dereferenceでprocessが停止した
-- 根本原因: upstream validation欠落によりinvalid stateが流入した
-
-別の例:
-
-- 直接原因: request timeout
-- 根本原因: connection leakによりpoolが枯渇した
-
-error発生箇所だけを修正して、壊れたinvariantやstate transitionを残さない。
-
-根本原因は、確認済み事実と実験結果で説明できる程度まで特定する。
-完全な歴史説明を作ることが目的ではない。正しい修正を選ぶために必要な因果関係を理解する。
-
-## 9. 根本原因へ直接作用する最小修正を選ぶ
-
-原因を特定した後、`development-guidelines`に従って最小の修正を行う。
-
-- unrelated refactorを混ぜない
-- 原因不明のretry / fallbackを追加しない
-- errorをcatchして隠すだけにしない
-- timeoutを伸ばすだけでresource problemを隠さない
-- guardを追加するだけでinvalid stateの発生源を残さない
-- configurationだけで直せるなら不要なcode変更をしない
-- compatibility layerを「念のため」追加しない
-
-修正について、次を説明できる状態にする。
-
-1. 根本原因は何か
-2. 修正のどの部分が根本原因へ作用するか
-3. なぜより広い変更が不要か
-
-## 10. 回帰を検証する
-
-修正前に問題を再現できる場合は、修正後に同じ条件で症状が消えることを確認する。
-
-加えて必要に応じて以下を行う。
-
-- related tests
-- repository standard tests
-- affected integration boundaryの確認
-- known-bad inputの再実行
-- known-good behaviorの非回帰確認
-- performance / resource behaviorの再測定
-
-regression testの追加は自動的な義務ではない。
-
-`testing`に従い、以下を満たす場合に追加を検討する。
-
-- 再発時の影響が重要
-- behavior / contractとして安定して検証できる
-- implementation detailへ過剰に結合しない
-- 将来そのtestが落ちたとき、本当に重要なregressionだと言える
-
-bugを修正したという理由だけで専用testを増やさない。
-
-## 11. 修正が問題を隠していないか確認する
-
-症状が見えなくなっただけでは不十分である。
-
-確認例:
-
-- log / errorを抑制しただけではないか
-- retryがload amplificationを起こさないか
-- timeout延長がresource leakを隠していないか
-- fallbackがincorrect resultやdata lossを隠していないか
-- validation緩和がinvalid stateを受け入れていないか
-- cacheがstale dataを見えにくくしていないか
-- monitoring threshold変更がfailure detectionを遅らせていないか
-
-影響緩和として意図的に症状を隠す場合は、それをtemporary mitigationとして明示する。
-
-## 12. 調査を止める条件を持つ
-
-非自明なdebuggingは、次を満たしたら追加調査より修正・検証を優先する。
-
-- symptomと再現条件を必要十分に理解した
-- 根本原因を証拠で説明できる
-- 修正が根本原因へどう作用するか説明できる
-- relevant validationができる
-- 残る重要な未確認事項 / riskが明示されている
-
-「もっと原因があるかもしれない」という理由だけで調査を無制限に広げない。
-
-一方、実験結果が仮説と矛盾した場合は、修正へ進まず仮説を更新する。
-
-## 調査結果の整理
-
-非自明なdebuggingでは、必要に応じて次を簡潔に残す。
-
-1. 症状
-2. 再現条件 / 発生条件
-3. 確認済み事実
-4. 棄却した仮説
-5. 根本原因
-6. 修正と因果関係
-7. 検証
-8. 残存リスク / 未確認事項
-
-長い時系列logや調査日誌そのものを成果にしない。
-
-原因の理解や将来の保守に必要なconstraint / invariantをcode commentへ残す場合は`code-comments`を利用する。
-User-facing docs、runbook、運用手順、public contractを更新する必要がある場合は`technical-writing`を利用する。
-
-## アンチパターン
-
-次を避ける。
-
-- stack traceの最後の行だけ見てpatchする
-- 原因不明のままtry/catchでerrorを握り潰す
-- とりあえずretry回数を増やす
-- とりあえずtimeoutを伸ばす
-- 複数箇所を同時に変更して何が効いたか分からなくする
-- testを通すためにexpected resultをbuggy behaviorへ合わせる
-- 過去の類似障害へanchoringする
-- 時間的相関を因果関係として断定する
-- 再現可能なのに推測だけで修正する
-- 根本原因を特定せず症状ごとにguardを増やす
-- bug fixに無関係なcleanupやarchitecture rewriteを混ぜる
-- 影響緩和を恒久修正と呼ぶ
-- source code上の偶然の挙動を外部仕様とみなす
+- 症状と再現条件
+- 根拠、棄却した仮説、root cause（または未特定）
+- 修正が原因へ作用する理由
+- 実施した検証、未実施、残るrisk
 
 ## 他Skillとの関係
 
-- `technical-research`: external specification、version、support contract、dependency behaviorを確認する。
-- `change-planning`: system変更前に既存code path、責務境界、変更範囲を把握する。
-- `development-guidelines`: 修正を最小に保ち、不要なretry、fallback、abstraction、compatibility workを避ける。
-- `testing`: regression testの価値と検証levelを判断する。
-- `code-comments`: 根本原因から得た非自明なconstraintやinvariantを実装近傍へ残す。
-- `technical-writing`: user-facing documentation、運用手順、architecture-level behavior、public contractを更新する。
+- 外部仕様やversion依存挙動は必要に応じて`technical-research`で確認する。
+- 複数責務へ広がる変更では`change-planning`、複雑さの比較には`development-guidelines`を使う。
+- 独立したtest設計や文書化が必要なら`testing`、`technical-writing`、`code-comments`を使う。
 
-Debuggingは**実際に何が壊れ、なぜ壊れたか**を特定する。実装系Skillは、**不要な複雑さを増やさずどう修正するか**を決める。
+他Skillを全件読むことを前提にしない。
