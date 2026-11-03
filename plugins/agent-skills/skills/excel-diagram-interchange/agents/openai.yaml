@@ -1,6 +1,0 @@
-interface:
-  display_name: "Excel図形ダイアグラム変換"
-  short_description: "Excel、JSON/XML、draw.io、Mermaid間で図形ダイアグラムを変換する。"
-  default_prompt: "明示的に指定されたダイアグラムを同梱のローカルconverterで変換し、すべての警告を報告する。"
-policy:
-  allow_implicit_invocation: false
