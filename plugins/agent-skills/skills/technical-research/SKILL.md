@@ -1,237 +1,71 @@
 ---
 name: technical-research
-description: 技術仕様・挙動・制約・support範囲を調査するときに、対象versionと時点を固定し、一次資料を中心に確認済み事実・推論・提案・未確認事項を分離して実装判断に使える根拠を得るために使用する。Repository内の実装を読むだけで答えられる事実確認には使用しない。
+description: 外部の技術仕様、API・SDK・CLIのversion差、互換性・support範囲、releaseやCVE修正状況を一次資料で調べ、実装判断の根拠を整理するときに使用する。Repository内のコード参照だけで答えられる質問や、bugの再現・修正作業そのものには使用しない。
 ---
 
 # Technical Research
 
-技術調査の目的は、資料を多く集めることではなく、実装や運用上の意思決定に必要な問いへ十分な確度で答えることである。
+外部技術の仕様とsupport範囲を、実装・運用の意思決定に使える根拠へ変える。資料数や調査時間ではなく、問いに答えられるかを基準にする。
 
-library、framework、SDK、CLI、API、cloud service、protocol等の仕様は変化するため、内部知識や検索結果だけで補完せず、対象version・時点・support範囲を確認する。
+## 1. 問いと対象を固定する
 
-## まず判断する問いを定義する
+- 最初に「何を判断する調査か」を一文で定める。例: 「このSDK versionでAPI field Xを利用できるか」。
+- 対象のproduct・component・interface（REST / SDK / CLI / console）、version、release channel、edition、region、調査時点を、結論に影響する範囲で特定する。
+- 互換性は片方のcomponentだけでなく、**組合せ**を確認する。
+- `latest` / `current` / `supported`を仮定せず、実際のrelease情報とsupport policyを確認する。
+- Rolling docsを過去versionへ適用しない。追加・変更・deprecated・removedを論じる場合はversioned docs、release notes、migration guideを照合する。
+- Release date、tag date、document update、effective versionを混同しない。
+- Repository内の実装を読むだけで答えられる場合は、不要な外部調査を行わない。
 
-検索を始める前に、何を判断するための調査かを一文で表せるようにする。
+## 2. 問いに合う一次資料を選ぶ
 
-例:
+根拠の種類と強さを区別する。
 
-- 対象versionでこのAPIを利用できるか
-- optionが導入・deprecated・removedされたversionはどこか
-- component A/Bの組合せはsupport対象か
-- error conditionは仕様上どのように扱われるか
-- 候補A/Bのどちらが現在の制約を満たすか
+| 問い | 主な一次資料 | 注意点 |
+|---|---|---|
+| 規範要件・公開API契約 | Standards bodyのspec、公式API reference、versioned docs | Tutorialやexampleを必須要件・support保証とみなさない |
+| Vendorのsupport・互換性 | 公式support policy、compatibility matrix | 動いたという報告とsupport contractを分ける |
+| 導入・廃止・修正version | Release notes、changelog、migration guide、advisory | Product・SDK・CLIそれぞれのversionを区別する |
+| 現在の実装挙動・bug | Upstream source、tests、issue / PR、maintainer discussion | 実装上の挙動を公開保証へ昇格しない |
 
-広いtopicを漫然と調べない。
-問いが複数ある場合は、意思決定へ影響する単位へ分解する。
+- 重要な主張は、それに直接答える一次資料へ結び付ける。Blog、Q&A、forum、検索snippetは発見の手掛かりとして使えるが、一次資料で確認可能な仕様の最終根拠にしない。
+- 一次資料を順位通りに機械的に選ばない。Protocolの規範要件はspec、特定versionの実装bugはupstream sourceやissueが適切な場合がある。
+- 別interfaceの仕様から未確認のfield、option、default、limit、support範囲を補完しない。
 
-既存codebaseだけで確認できる事項に、不要な外部調査を持ち込まない。
+## 3. 重要な事実を照合する
 
-## 対象versionと時点を固定する
+- 判断を左右する主張は、必要なら補完関係にある資料を照合する。例: API reference＋release notes、support policy＋versioned docs、docs＋source/tests。
+- 一次資料同士が食い違う場合は、対象version・component・時点、normative ruleとexample、support contractとobserved behaviorの差を確認する。
+- 矛盾が残るときは解消したふりをせず、**何を決められないか**を明示する。
+- 同じ結論を繰り返す資料を集めるだけなら検索を止める。
 
-調査対象を曖昧な「現在仕様」のまま扱わない。
+## 4. 安全に観測を補う
 
-最低限、必要に応じて次を確認する。
+- 文書だけで不明であり、許可範囲内で安全に確認できる場合に限り、CLI `--version` / `--help`、package metadata、最小再現、isolated sample、API response、tests等を調べる。
+- 観測結果にはversionとenvironmentを添え、その条件での挙動として記録する。単発の成功を全versionの仕様やvendorのsupport保証としない。
+- Production dataの変更、破壊的操作、security boundaryを越える検証は、調査だけを理由に無断実施しない。
 
-- product / library / runtime / API version
-- release channelやedition
-- managed serviceのregionや提供形態
-- 関係するcomponentのversion組合せ
-- 調査時点
-- support / maintenance window
+## 5. 判断できる形で回答する
 
-version指定がない場合も、その回答がversion依存かを判断する。
+必要な項目だけを短く示す。
 
-`latest`、`current`、`supported`を扱う場合は、実際のrelease情報やsupport policyを確認する。
-current documentationがrolling docsの場合、過去versionへそのまま適用しない。
+1. **結論** — 元の問いへの回答。結論が出ない場合はその理由。
+2. **対象** — version、interface、edition / region、時点など判断に効く条件。
+3. **根拠** — 確認済み事実と、それを支える一次資料。出典と主張の対応を明示。
+4. **解釈** — 事実からの推論と、projectの制約を踏まえた提案を分ける。
+5. **残る不確実性** — 未確認、矛盾、実測不足、追加検証が必要な事項。
 
-導入・変更・deprecated・removedの時点が判断へ影響する場合は、version-specific documentation、release notes、migration guide等で確認する。
+- 「Vendor推奨」と記すのは公式にそう明示されている場合だけにする。
+- 根拠のないAPI名・option・limit・数値・修正versionを推測で埋めない。
+- Specやsupport policyの要約で終えず、採用可否・制約・代替策・migration時期等、**この判断に何が変わるか**を伝える。
 
-複数component間のcompatibilityは、各component単体ではなく組合せとして確認する。
+## 調査の終了条件
 
-## 一次資料を優先する
-
-根拠は、問いに最も直接答える一次資料から探す。
-
-一般的な優先候補:
-
-1. 公式のnormative specification / API reference / product documentation
-2. 公式のsupport policy / compatibility policy
-3. 公式release notes / changelog / migration guide
-4. standards bodyの仕様やregistry
-5. upstream source code / tests
-6. upstream issue / PR / maintainer discussion
-7. vendor / maintainerによる公式engineering article
-8. 信頼できるsecondary source
-
-この順序は絶対ではない。
-例えばprotocolの規範要件ならstandards bodyのspecificationが最も強く、実装bugの有無ならupstream issueやsourceが有用な場合がある。
-
-blog、Q&A、forum、検索snippetは発見の手掛かりには使えるが、一次資料で確認可能な仕様の最終根拠にはしない。
-
-## 根拠の種類を区別する
-
-資料に書かれているという理由だけで、同じ強さの根拠として扱わない。
-
-区別する例:
-
-- normative specification: 準拠条件やprotocol上の要求
-- API reference: 公開interfaceと契約
-- support policy: vendor / projectがsupportすると明示する範囲
-- release notes / changelog: version間の変更履歴
-- migration guide: 移行時に必要な変更
-- tutorial / quickstart: 代表的な利用方法
-- example: 動作例でありsupport範囲そのものではない
-- source / test: 現在の実装挙動の根拠
-- issue / PR: bug、変更意図、未解決事項等の一次情報
-
-source codeで動くことと、public contractとしてsupportされることを同一視しない。
-exampleに登場する構成を、明示されたsupport contractとみなさない。
-
-releaseとtag、publish dateとeffective version等、似ているが意味の異なる時点も区別する。
-
-## 重要な事実は必要に応じて突き合わせる
-
-実装判断へ大きく影響する事実は、単一ページだけで不十分なら補完関係にある一次資料を確認する。
-
-例:
-
-- API reference + release notes
-- support policy + version-specific docs
-- deprecation policy + migration guide
-- docs + upstream source / tests
-- specification + implementation notes
-
-同じ事実を多数のsourceで反復確認すること自体を目的にしない。
-追加sourceが新しい確度や観点を与えないなら止める。
-
-## 一次資料同士の不一致を隠さない
-
-資料が食い違う場合、都合のよい方を選ばない。
-
-確認するもの:
-
-- 対象versionが同じか
-- rolling docsとversioned docsの違いがないか
-- documentの更新日時
-- normative ruleとtutorial/exampleの違い
-- product本体とSDK / CLI等、対象componentが同じか
-- support contractと実装上の挙動を混同していないか
-
-解消できない場合は不一致を残し、どの判断が未確定かを明示する。
-
-## SDK・CLI・REST API等を分ける
-
-同じproduct名でもinterfaceごとに仕様が異なることがある。
-
-- REST APIに存在するfieldがSDKで未対応の場合がある
-- CLI optionはCLI versionに依存する
-- console UIの制約とAPIの制約が異なる場合がある
-- client libraryが独自のdefaultやvalidationを持つ場合がある
-
-対象interfaceを固定し、別interfaceの仕様をそのまま流用しない。
-
-## 安全に実環境で確認する
-
-文書だけで判断しにくく、安全かつ現実的に確認できる場合は実測する。
-
-例:
-
-- CLIのversion / `--help`
-- package metadata
-- minimal reproduction
-- API response
-- repository内のtests
-- small isolated sample
-
-観測結果は「そのversion・environmentで確認した事実」として扱う。
-一度動いたことを、support保証や全versionの仕様へ一般化しない。
-
-production dataの変更、破壊的operation、security boundaryを越える検証等は、調査のためだけに無断で実行しない。
-
-## 事実・推論・提案・未知を分離する
-
-調査結果では、少なくとも次を混同しない。
-
-### 確認済み事実
-
-公式資料や直接観測で確認できた内容。
-対象versionや条件も必要に応じて添える。
-
-### 推論
-
-複数の確認済み事実から導いた判断。
-公式仕様そのものではないことが分かるようにする。
-
-### 提案
-
-制約、trade-off、project contextを踏まえた実装・運用上の提案。
-「vendor推奨」と書くのは、vendorが実際にそう明示している場合だけにする。
-
-### 未確認事項
-
-確認できなかった点、資料が矛盾している点、追加検証が必要な点。
-
-API名、option、limit、support範囲等が確認できない場合、もっともらしい値を補完しない。
-
-## 実装への意味まで整理する
-
-調査はsourceの要約で終わらせない。
-
-確認した仕様が現在の判断へ何を意味するかを整理する。
-
-例:
-
-- このversionでは利用不可なので別手段が必要
-- support対象だが特定version組合せに制約がある
-- deprecatedだが即時削除ではないためmigration時期を分けられる
-- 実装上は動くがsupport contract外なので採用しない
-- 仕様では決まらず、project側のtrade-off判断が必要
-
-調査結果は、後続の変更判断で使えるように前提・制約・不確実性を明確にして渡す。
-
-## 調査を止める条件
-
-次を満たしたら、追加検索より結論整理を優先する。
-
-- 判断対象の問いへ答えられる
-- 主要な結論に一次資料の根拠がある
-- version / 時点 / support範囲が十分に明確である
-- 重要な不確実性が明示されている
-- 追加sourceが意思決定を変える可能性が低い
-
-「まだ資料があるかもしれない」だけを理由に調査を続けない。
-
-## 調査結果の最小構成
-
-必要に応じて次を簡潔に示す。
-
-1. **結論** — 問いへの回答
-2. **対象** — version / 時点 / environment / 前提
-3. **確認済み事実** — 判断を支える確認済み事実
-4. **意味** — 実装・運用上の意味
-5. **不確実性** — 未確認事項や残る不確実性
-6. **一次資料** — 主要な根拠と、それが何を支えるか
-
-sourceの羅列ではなく、sourceと判断の対応が分かるようにする。
-
-## 避けること
-
-- 検索snippetだけで仕様を断定する
-- 個人blogやQ&Aだけを現在仕様の根拠にする
-- versionを確認せずcurrent docsを過去環境へ適用する
-- staleな内部知識からoptionやlimitを補完する
-- SDK / CLI / REST API / consoleの仕様を混同する
-- source codeに存在するinternal behaviorをsupported contractとみなす
-- tutorialやexampleをnormative requirementとして扱う
-- release date、tag date、versionの意味を混同する
-- source数や調査時間を品質指標にする
-- recommendationを「公式best practice」と誤表示する
-- 不確実性を埋めるために存在しない名前や値を作る
+問いへの回答に必要な一次根拠・version条件が揃い、判断を変えうる不確実性を明示できたら終了する。重要な事実が未確認なら、その限界と次の確認方法を示して止める。
 
 ## 責務境界
 
-このSkillは、技術仕様・version・support範囲・実装挙動に関する外部事実を調べ、意思決定に使える根拠として整理するところまでを扱う。
-
-変更の必要性やuser valueの判断、codebase上の変更範囲設計、実装そのもの、testing methodology、documentation style、障害の仮説検証processはそれぞれ別の責務として扱い、この調査の中で混同しない。
-
-このSkillは、project management、学術的systematic review、特定vendor固有の調査手順を定義しない。
+- `debugging`: code pathの原因仮説、再現、修正と回帰検証。
+- `incident-response`: active service incidentの影響、復旧、cross-boundary切り分け。
+- `technical-writing`: 確認済み技術情報を仕様書・手順書として執筆する。
+- このSkillは外部事実の確認と意思決定への意味を扱う。実装、project管理、学術的systematic reviewには拡張しない。
