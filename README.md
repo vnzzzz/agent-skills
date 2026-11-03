@@ -1,10 +1,10 @@
 # agent-skills
 
-[日本語](README.ja.md)
+[![CI](https://github.com/vnzzzz/agent-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/vnzzzz/agent-skills/actions/workflows/ci.yml) · [日本語](README.ja.md)
 
-Agent Skills for development workflows, shared by Codex and Claude Code.
+Reusable development workflows for Codex and Claude Code — plan changes, debug problems, test behavior, and write clear documentation with one shared Plugin.
 
-## Installation
+## Install
 
 ### Codex
 
@@ -20,6 +20,8 @@ claude plugin marketplace add https://github.com/vnzzzz/agent-skills.git --scope
 claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 ```
 
+Then ask your agent to use a Skill, for example: "Use `debugging` to identify why this test fails."
+
 ## Skills
 
 <!-- BEGIN GENERATED SKILLS -->
@@ -33,22 +35,10 @@ claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 - [issue-workflow](plugins/agent-skills/skills/issue-workflow/SKILL.md)
 - [iterative-improvement](plugins/agent-skills/skills/iterative-improvement/SKILL.md)
 - [product-thinking](plugins/agent-skills/skills/product-thinking/SKILL.md)
+- [readme-writing](plugins/agent-skills/skills/readme-writing/SKILL.md)
 - [technical-research](plugins/agent-skills/skills/technical-research/SKILL.md)
 - [technical-writing](plugins/agent-skills/skills/technical-writing/SKILL.md)
 - [testing](plugins/agent-skills/skills/testing/SKILL.md)
 <!-- END GENERATED SKILLS -->
 
-Follow [CONTRIBUTING.md](CONTRIBUTING.md) when adding or updating Skills.
-
-## Repository structure
-
-```text
-plugins/agent-skills/
-├── .codex-plugin/plugin.json
-├── .claude-plugin/plugin.json
-└── skills/
-    └── <skill-name>/
-        └── SKILL.md
-```
-
-`plugins/agent-skills/skills/` is the canonical Skill source. Codex and Claude Code use the same Plugin.
+Skills are maintained in [`plugins/agent-skills/skills/`](plugins/agent-skills/skills/). See [Contributing](CONTRIBUTING.md) to add or improve one.

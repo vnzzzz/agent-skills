@@ -1,8 +1,8 @@
 # agent-skills
 
-[English](README.md)
+[![CI](https://github.com/vnzzzz/agent-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/vnzzzz/agent-skills/actions/workflows/ci.yml) · [English](README.md)
 
-Codex / Claude Codeで共通利用する、開発ワークフロー向けAgent Skillsを管理・配布します。
+CodexとClaude Codeで共通利用する開発ワークフロー向けSkill集。変更計画、デバッグ、テスト、技術文書の作成を1つのPluginで支援します。
 
 ## インストール
 
@@ -20,6 +20,8 @@ claude plugin marketplace add https://github.com/vnzzzz/agent-skills.git --scope
 claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 ```
 
+インストール後は、例えば「`debugging`を使ってこのテストが失敗する原因を調べて」と依頼できます。
+
 ## Skills
 
 <!-- BEGIN GENERATED SKILLS -->
@@ -33,22 +35,10 @@ claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 - [issue-workflow](plugins/agent-skills/skills/issue-workflow/SKILL.md)
 - [iterative-improvement](plugins/agent-skills/skills/iterative-improvement/SKILL.md)
 - [product-thinking](plugins/agent-skills/skills/product-thinking/SKILL.md)
+- [readme-writing](plugins/agent-skills/skills/readme-writing/SKILL.md)
 - [technical-research](plugins/agent-skills/skills/technical-research/SKILL.md)
 - [technical-writing](plugins/agent-skills/skills/technical-writing/SKILL.md)
 - [testing](plugins/agent-skills/skills/testing/SKILL.md)
 <!-- END GENERATED SKILLS -->
 
-Skillの追加・更新時は [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md) に従います。
-
-## ディレクトリ構成
-
-```text
-plugins/agent-skills/
-├── .codex-plugin/plugin.json
-├── .claude-plugin/plugin.json
-└── skills/
-    └── <skill-name>/
-        └── SKILL.md
-```
-
-`plugins/agent-skills/skills/`がSkillの正本です。Codex / Claude Codeは同じPluginを参照します。
+Skillの正本は[`plugins/agent-skills/skills/`](plugins/agent-skills/skills/)です。追加・改善方法は[CONTRIBUTING.ja.md](CONTRIBUTING.ja.md)を参照してください。
