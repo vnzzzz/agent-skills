@@ -1,8 +1,18 @@
 # agent-skills
 
-[![CI](https://github.com/vnzzzz/agent-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/vnzzzz/agent-skills/actions/workflows/ci.yml) · [日本語](README.ja.md)
+**One set of engineering practices. Two coding agents.**
 
-Reusable development workflows for Codex and Claude Code — plan changes, debug problems, test behavior, and write clear documentation with one shared Plugin.
+Focused Skills for investigating bugs, planning changes, testing behavior, and reporting evidence. The same instructions work in both Codex and Claude Code.
+
+[Get started](#install) · [Explore Skills](#skills) · [日本語](README.ja.md)
+
+## Ask for the outcome
+
+- “Why is this test flaky? Find the cause and verify the fix.”
+- “Plan this refactor in safe, reviewable steps.”
+- “Check this technical claim against primary sources.”
+
+Your agent can select relevant Skills, or you can request one by name.
 
 ## Install
 
@@ -20,9 +30,9 @@ claude plugin marketplace add https://github.com/vnzzzz/agent-skills.git --scope
 claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 ```
 
-Then ask your agent to use a Skill, for example: "Use `debugging` to identify why this test fails."
-
 ## Skills
+
+Each Skill covers one focused workflow. Browse the source below.
 
 <!-- BEGIN GENERATED SKILLS -->
 - [change-planning](plugins/agent-skills/skills/change-planning/SKILL.md)
@@ -41,4 +51,4 @@ Then ask your agent to use a Skill, for example: "Use `debugging` to identify wh
 - [testing](plugins/agent-skills/skills/testing/SKILL.md)
 <!-- END GENERATED SKILLS -->
 
-Skills are maintained in [`plugins/agent-skills/skills/`](plugins/agent-skills/skills/). See [Contributing](CONTRIBUTING.md) to add or improve one.
+Want to add or improve a Skill? See [Contributing](CONTRIBUTING.md).

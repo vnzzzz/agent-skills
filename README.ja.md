@@ -1,8 +1,18 @@
 # agent-skills
 
-[![CI](https://github.com/vnzzzz/agent-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/vnzzzz/agent-skills/actions/workflows/ci.yml) · [English](README.md)
+**同じ開発の作法を、CodexでもClaude Codeでも。**
 
-CodexとClaude Codeで共通利用する開発ワークフロー向けSkill集。変更計画、デバッグ、テスト、技術文書の作成を1つのPluginで支援します。
+バグ調査、変更計画、テスト、根拠のある報告を支える、小さく独立したSkill集。両方のPluginから同じ指示を利用できます。
+
+[インストール](#インストール) · [Skill一覧](#skills) · [English](README.md)
+
+## やりたいことを依頼する
+
+- 「このテストが不安定な原因を調べて、修正を検証して」
+- 「このリファクタリングを安全でレビューしやすい手順に分けて」
+- 「この技術的な主張を一次情報で裏付けて」
+
+内容に応じてSkillを使えます。Skill名を指定することもできます。
 
 ## インストール
 
@@ -20,9 +30,9 @@ claude plugin marketplace add https://github.com/vnzzzz/agent-skills.git --scope
 claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 ```
 
-インストール後は、例えば「`debugging`を使ってこのテストが失敗する原因を調べて」と依頼できます。
-
 ## Skills
+
+Skillはそれぞれ独立したワークフローです。以下から内容を確認できます。
 
 <!-- BEGIN GENERATED SKILLS -->
 - [change-planning](plugins/agent-skills/skills/change-planning/SKILL.md)
@@ -41,4 +51,4 @@ claude plugin install agent-skills@vnzzzz-agent-skills --scope user
 - [testing](plugins/agent-skills/skills/testing/SKILL.md)
 <!-- END GENERATED SKILLS -->
 
-Skillの正本は[`plugins/agent-skills/skills/`](plugins/agent-skills/skills/)です。追加・改善方法は[CONTRIBUTING.ja.md](CONTRIBUTING.ja.md)を参照してください。
+Skillの追加・改善は[貢献ガイド](CONTRIBUTING.ja.md)を参照してください。
